@@ -49,7 +49,7 @@ def collate(samples, pad_idx, eos_idx):
 
     w_resize_ratios = torch.stack([s["w_resize_ratio"] for s in samples], dim=0)
     h_resize_ratios = torch.stack([s["h_resize_ratio"] for s in samples], dim=0)
-    region_coords = torch.stack([s['region_coord'] for s in samples], dim=0)
+    boxes_targets = [s['boxes_target'] for s in samples]
 
     prev_output_tokens = None
     target = None
@@ -77,13 +77,13 @@ def collate(samples, pad_idx, eos_idx):
         "target": target,
         "w_resize_ratios": w_resize_ratios,
         "h_resize_ratios": h_resize_ratios,
-        "region_coords": region_coords
+        "boxes_targets": boxes_targets
     }
 
     return batch
 
 
-class RefcocoDataset(OFADataset):
+class DetectionDataset(OFADataset):
     def __init__(
         self,
         split,
@@ -112,25 +112,20 @@ class RefcocoDataset(OFADataset):
             std = [0.5, 0.5, 0.5]
 
         # for positioning
-        self.positioning_transform = T.Compose([
-            T.RandomResize([patch_image_size], max_size=patch_image_size),
-            T.ToTensor(),
-            T.Normalize(mean=mean, std=std, max_image_size=max_image_size)
-        ])
+        # self.positioning_transform = T.Compose([
+        #     T.RandomResize([patch_image_size], max_size=patch_image_size),
+        #     T.ToTensor(),
+        #     T.Normalize(mean=mean, std=std, max_image_size=max_image_size)
+        # ])
         self.detection_transform = T.Compose([
             T.RandomHorizontalFlip(),
-            T.LargeScaleJitter(output_size=self.code_image_size*2, aug_scale_min=1.0, aug_scale_max=1.5),
+            T.LargeScaleJitter(output_size=patch_image_size, aug_scale_min=1.0, aug_scale_max=1.5),
             T.ToTensor(),
             T.Normalize(mean=mean, std=std, max_image_size=max_image_size)
         ])
 
-        if type(bpe).__name__ == 'GPT2BPE':
-            self.prompt = ' which region does the text " {} " describe?'
-        elif type(bpe).__name__ == 'BertBPE':
-            self.prompt = '这段文字" {} "描述的是哪个区域？'
-    
-    def process_detection(self, index):
-        image_id, image, label = self.detection_dataset[index]
+    def __getitem__(self, index):
+        image_id, image, label = self.dataset[index]
         image = Image.open(BytesIO(base64.urlsafe_b64decode(image))).convert("RGB")
 
         w, h = image.size
@@ -146,7 +141,7 @@ class RefcocoDataset(OFADataset):
         boxes_target["area"] = torch.tensor(boxes_target["area"])
 
         patch_image, boxes_target = self.detection_transform(image, boxes_target)
-        resize_h, resize_w = patch_image.shape[0], patch_image.shape[1]
+        resize_h, resize_w = boxes_target['size'][0], boxes_target['size'][1]
         patch_mask = torch.tensor([True])
         code_mask = torch.tensor([False])
         conf = torch.tensor([2.0])
@@ -170,48 +165,10 @@ class RefcocoDataset(OFADataset):
             "code_mask": code_mask,
             "target": target_item,
             "prev_output_tokens": prev_output_item,
-            "conf": conf,
-        }
-        return example
-
-    def __getitem__(self, index):
-        uniq_id, base64_str, text, region_coord = self.dataset[index]
-
-        image = Image.open(BytesIO(base64.urlsafe_b64decode(base64_str))).convert("RGB")
-        w, h = image.size
-        boxes_target = {"boxes": [], "labels": [], "area": [], "size": torch.tensor([h, w])}
-        x0, y0, x1, y1 = region_coord.strip().split(',')
-        region = torch.tensor([float(x0), float(y0), float(x1), float(y1)])
-        boxes_target["boxes"] = torch.tensor([[float(x0), float(y0), float(x1), float(y1)]])
-        boxes_target["labels"] = np.array([0])
-        boxes_target["area"] = torch.tensor([(float(x1) - float(x0)) * (float(y1) - float(y0))])
-
-        patch_image, patch_boxes = self.positioning_transform(image, boxes_target)
-        resize_h, resize_w = patch_boxes["size"][0], patch_boxes["size"][1]
-        patch_mask = torch.tensor([True])
-        quant_x0 = "<bin_{}>".format(int((patch_boxes["boxes"][0][0] * (self.num_bins - 1)).round()))
-        quant_y0 = "<bin_{}>".format(int((patch_boxes["boxes"][0][1] * (self.num_bins - 1)).round()))
-        quant_x1 = "<bin_{}>".format(int((patch_boxes["boxes"][0][2] * (self.num_bins - 1)).round()))
-        quant_y1 = "<bin_{}>".format(int((patch_boxes["boxes"][0][3] * (self.num_bins - 1)).round()))
-        region_coord = "{} {} {} {}".format(quant_x0, quant_y0, quant_x1, quant_y1)
-        src_caption = self.pre_caption(text, self.max_src_length)
-        src_item = self.encode_text(self.prompt.format(src_caption))
-        tgt_item = self.encode_text(region_coord, use_bpe=False)
-
-        src_item = torch.cat([self.bos_item, src_item, self.eos_item])
-        target_item = torch.cat([tgt_item, self.eos_item])
-        prev_output_item = torch.cat([self.bos_item, tgt_item])
-
-        example = {
-            "id": uniq_id,
-            "source": src_item,
-            "patch_image": patch_image,
-            "patch_mask": patch_mask,
-            "target": target_item,
-            "prev_output_tokens": prev_output_item,
             "w_resize_ratio": resize_w / w,
             "h_resize_ratio": resize_h / h,
-            "region_coord": region
+            "boxes_target": boxes_target,
+            "conf": conf,
         }
         return example
 
