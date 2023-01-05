@@ -129,16 +129,18 @@ class DetectionDataset(OFADataset):
         image = Image.open(BytesIO(base64.urlsafe_b64decode(image))).convert("RGB")
 
         w, h = image.size
-        boxes_target = {"boxes": [], "labels": [], "area": [], "size": torch.tensor([h, w])}
+        boxes_target = {"boxes": [], "labels": [], "area": [], "size": torch.tensor([h, w]), 'cat_ids': []}
         label_list = label.strip().split('&&')
         for label in label_list:
             x0, y0, x1, y1, cat_id, cat = label.strip().split(',', 5)
             boxes_target["boxes"].append([float(x0), float(y0), float(x1), float(y1)])
             boxes_target["labels"].append(cat)
             boxes_target["area"].append((float(x1) - float(x0)) * (float(y1) - float(y0)))
+            boxes_target['cat_ids'].append(int(cat_id))
         boxes_target["boxes"] = torch.tensor(boxes_target["boxes"])
         boxes_target["labels"] = np.array(boxes_target["labels"])
         boxes_target["area"] = torch.tensor(boxes_target["area"])
+        boxes_target["cat_ids"] = torch.tensor(boxes_target["cat_ids"])
 
         patch_image, boxes_target = self.detection_transform(image, boxes_target)
         resize_h, resize_w = boxes_target['size'][0], boxes_target['size'][1]

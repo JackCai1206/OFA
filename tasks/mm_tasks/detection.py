@@ -3,6 +3,7 @@
 # This source code is licensed under the Apache 2.0 license 
 # found in the LICENSE file in the root directory.
 
+import code
 from dataclasses import dataclass, field
 import json
 import logging
@@ -13,6 +14,8 @@ from pycocotools import cocoeval
 import torch
 from fairseq import metrics
 from fairseq.tasks import register_task
+from utils.bounding_box import BBFormat, BoundingBox, CoordinatesType
+from utils.coco_evaluator import get_coco_metrics
 
 from tasks.ofa_task import OFATask, OFAConfig
 from data.mm_data.detection_dataset import DetectionDataset
@@ -114,18 +117,32 @@ class DetectionTask(OFATask):
         model.eval()
         if self.cfg.eval_acc:
             hyps, refs = self._inference(self.sequence_generator, sample, model)
-            print(hyps, refs)
-            hyps['boxes'] = hyps['boxes'] / (self.cfg.num_bins - 1) * self.cfg.max_image_size
-            refs['boxes'] = refs['boxes'] / (self.cfg.num_bins - 1) * self.cfg.max_image_size
-            hyps[:, ::2] /= sample['w_resize_ratios'].unsqueeze(1)
-            hyps[:, 1::2] /= sample['h_resize_ratios'].unsqueeze(1)
-            refs[:, ::2] /= sample['w_resize_ratios'].unsqueeze(1)
-            refs[:, 1::2] /= sample['h_resize_ratios'].unsqueeze(1)
+            gt, dt = [], []
+            for i in range(len(hyps['boxes'])): # for each image in the batch
+                hyps['boxes'][i] = hyps['boxes'][i] / (self.cfg.num_bins - 1) * self.cfg.max_image_size
+                hyps['boxes'][i][:, ::2] /= sample['w_resize_ratios'][i]
+                hyps['boxes'][i][:, 1::2] /= sample['h_resize_ratios'][i]
+                boxes = hyps['boxes'][i]
+                cats = hyps['cats'][i]
+                for j in range(len(boxes)):
+                    dt.append(BoundingBox(sample['id'][i], cats[j], boxes[j], format=BBFormat.XYX2Y2))
+
+            for i in range(len(refs['boxes'])): # for each image in the batch
+                refs['boxes'][i] = refs['boxes'][i] / (self.cfg.num_bins - 1) * self.cfg.max_image_size
+                refs['boxes'][i][:, ::2] /= sample['w_resize_ratios'][i]
+                refs['boxes'][i][:, 1::2] /= sample['h_resize_ratios'][i]
+                boxes = refs['boxes'][i]
+                cats = refs['cats'][i]
+                for j in range(len(boxes)):
+                    gt.append(BoundingBox(sample['id'][i], cats[j], boxes[j], format=BBFormat.XYX2Y2))
+
+            print(gt, dt)
+            print(get_coco_metrics(gt, dt))
 
             # scores = self._calculate_ap_score(hyps, refs)
-            scores = [self._calculate_ap_score(hyps, box_target['boxes'].float()) for box_target in sample['boxes_targets']]
-            logging_output["_score_sum"] = scores.sum().item()
-            logging_output["_score_cnt"] = scores.size(0)
+            # scores = [self._calculate_ap_score(hyps, box_target['boxes'].float()) for box_target in sample['boxes_targets']]
+            # logging_output["_score_sum"] = scores.sum().item()
+            # logging_output["_score_cnt"] = scores.size(0)
 
         return loss, sample_size, logging_output
 
@@ -159,9 +176,9 @@ class DetectionTask(OFATask):
             out_str = out_str[:len(out_str)-1 - (len(out_str)-1) % 5]
             box_locs = torch.arange(1, len(out_str) + 1) % 5 != 0
             boxes_flat = out_str[box_locs] - len(self.src_dict) + self.cfg.num_bins
-            boxes = torch.tensor(boxes_flat).reshape(-1, 4)
-            hyps['cats'].append(out_str[4:-1:5]) # select the 5th token of every groups of 5
-            hyps['boxes'].append(torch.tensor(boxes))
+            boxes = boxes_flat.reshape(-1, 4)
+            hyps['cats'].append(out_str[4::5]) # select the 5th token of every groups of 5
+            hyps['boxes'].append(boxes.clone())
         if self.cfg.eval_print_samples:
             logger.info("example hypothesis: ", hyps)
             logger.info("example reference: ", refs)

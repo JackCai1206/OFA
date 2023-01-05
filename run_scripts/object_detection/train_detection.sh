@@ -84,7 +84,6 @@ for max_epoch in 10; do
           --save-interval-updates=500 --validate-interval-updates=500 \
           --eval-acc \
           --eval-args='{"beam":5,"max_len_a":0,"max_len_b":200}' \
-          --eval-print-samples \
           --best-checkpoint-metric=score --maximize-best-checkpoint-metric \
           --max-src-length=${max_src_length} \
           --max-tgt-length=${max_tgt_length} \
