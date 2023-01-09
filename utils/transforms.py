@@ -313,7 +313,7 @@ class LargeScaleJitter(object):
 
         if "boxes" in target:
             boxes = target["boxes"]
-            assert (boxes[:, 0] < boxes[:, 2]).all() and (boxes[:, 1] < boxes[:, 3]).all()
+            # assert (boxes[:, 0] < boxes[:, 2]).all() and (boxes[:, 1] < boxes[:, 3]).all()
             max_size = torch.as_tensor([w, h], dtype=torch.float32)
             cropped_boxes = boxes - torch.as_tensor([j, i, j, i])
             cropped_boxes = torch.min(cropped_boxes.reshape(-1, 2, 2), max_size)

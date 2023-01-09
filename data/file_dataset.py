@@ -3,6 +3,7 @@
 # This source code is licensed under the Apache 2.0 license 
 # found in the LICENSE file in the root directory.
 
+import code
 import os
 import torch
 import pickle
@@ -56,10 +57,10 @@ class FileDataset:
             self.total_row_count = 0
             offset = 0
             self.lineid_to_offset = []
-            for line in fp:
+            for i, line in enumerate(fp):
                 self.lineid_to_offset.append(offset)
                 self.total_row_count += 1
-                offset += len(line.encode('utf-8'))
+                offset += len(line)
         self._compute_start_pos_and_row_count()
         print("local datafile {} slice_id {} finished initializing row_count and line_idx-to-offset mapping".format(
             self.file_path, self.slice_id))
@@ -101,7 +102,9 @@ class FileDataset:
             print("reach the end of datafile, start a new reader")
             self.data_cnt = 0
             self._reader = self._get_reader()
+        print(f"getitem called {self.slice_id}")
         column_l = self._reader.readline().rstrip("\n").split(self.separator)
+        assert(len(column_l) == 3), column_l[0]
         self.data_cnt += 1
         column_l = [dtype(column_l[col_id]) for col_id, dtype in zip(self.selected_col_ids, self.dtypes)]
         return column_l

@@ -204,7 +204,13 @@ class DetectionTask(OFATask):
                 "class": class_id,
                 **_compute_ap_recall(ev["scores"], ev["matched"], ev["NP"])
             }
-        print(res)
+
+        # AP50 = np.mean([x['AP'] for x in full[0.50] if x['AP'] is not None])
+        # AP75 = np.mean([x['AP'] for x in full[0.75] if x['AP'] is not None])
+        # AP = np.mean([x['AP'] for k in full for x in full[k] if x['AP'] is not None])
+        AP = np.mean([res[cls]['AP'] for cls in res if res[cls]['AP'] is not None])
+        metrics.log_scalar('AP', AP)
+        self._evals = defaultdict(lambda: {"scores": [], "matched": [], "NP": []})
 
     def _inference(self, generator, sample, model):
         gen_out = self.inference_step(generator, [model], sample)

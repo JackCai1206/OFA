@@ -19,7 +19,7 @@ for split in ['train', 'val']:
     coco_anno = coco.COCO(f'{DATA_DIR}/annotations/instances_{split}2017.json')
     with open(f"{STORE_DIR}/{split}.tsv", 'w') as f:
         wtr = writer(f, delimiter='\t')
-        for img_id in tqdm(coco_anno.getImgIds()[0:1000]):
+        for img_id in tqdm(coco_anno.getImgIds()[0:]):
             ann_ids = coco_anno.getAnnIds(img_id)
             if len(ann_ids) == 0:
                 skipped += 1
@@ -35,7 +35,10 @@ for split in ['train', 'val']:
             with open(f"{DATA_DIR}/images/{split}2017/{coco_anno.loadImgs([img_id])[0]['file_name']}", 'rb') as image:
                 # image_id, image, label_list(x0, y0, x1, y1, cat_id, cat && ...)
                 img_str = base64.urlsafe_b64encode(image.read()).decode('utf-8')
-                wtr.writerow([img_id, img_str, label_list])
+                if len(img_str) > 0:
+                    wtr.writerow([img_id, img_str, label_list])
+                else:
+                    skipped += 1
     print(f'skipped: {skipped}')
 
     
