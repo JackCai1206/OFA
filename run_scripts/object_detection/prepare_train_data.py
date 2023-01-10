@@ -7,9 +7,13 @@ from PIL import Image
 from tqdm import tqdm
 
 DATA_DIR = '/data/hulab/zcai75/coco'
-STORE_DIR = '/data/hulab/zcai75/OFA_data'
+STORE_DIR = '/data/hulab/zcai75/OFA_data/detection'
+toy = True
+if toy:
+    tag = '-toy'
+    max_img_cnt = 1000
 
-makedirs(f'{STORE_DIR}/coco_data', exist_ok=True)
+makedirs(f'{STORE_DIR}', exist_ok=True)
 
 def xywh2xyxy(box):
     return [box[0], box[1], box[0] + box[2], box[1] + box[3]]
@@ -17,9 +21,9 @@ def xywh2xyxy(box):
 for split in ['train', 'val']:
     skipped = 0
     coco_anno = coco.COCO(f'{DATA_DIR}/annotations/instances_{split}2017.json')
-    with open(f"{STORE_DIR}/{split}.tsv", 'w') as f:
+    with open(f"{STORE_DIR}/{split}{tag}.tsv", 'w') as f:
         wtr = writer(f, delimiter='\t')
-        for img_id in tqdm(coco_anno.getImgIds()[0:]):
+        for img_id in tqdm(coco_anno.getImgIds()[0:max_img_cnt]):
             ann_ids = coco_anno.getAnnIds(img_id)
             if len(ann_ids) == 0:
                 skipped += 1

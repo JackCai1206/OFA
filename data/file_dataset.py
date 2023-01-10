@@ -51,7 +51,7 @@ class FileDataset:
                 self.file_path, self.slice_id))
         else:
             # make an iteration over the file to get row_count and line_idx-to-offset mapping
-            fp = open(self.file_path, "r")
+            fp = open(self.file_path, "rb")
             print("local datafile {} slice_id {} begin to initialize row_count and line_idx-to-offset mapping".format(
                 self.file_path, self.slice_id))
             self.total_row_count = 0
@@ -102,9 +102,9 @@ class FileDataset:
             print("reach the end of datafile, start a new reader")
             self.data_cnt = 0
             self._reader = self._get_reader()
-        print(f"getitem called {self.slice_id}")
-        column_l = self._reader.readline().rstrip("\n").split(self.separator)
-        assert(len(column_l) == 3), column_l[0]
+        # len(self._reader.readline().rstrip("\n").split(self.separator))
+        line = self._reader.readline()
+        column_l = line.rstrip("\n").split(self.separator)
         self.data_cnt += 1
         column_l = [dtype(column_l[col_id]) for col_id, dtype in zip(self.selected_col_ids, self.dtypes)]
         return column_l

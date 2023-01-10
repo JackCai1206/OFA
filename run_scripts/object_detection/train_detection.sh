@@ -13,11 +13,12 @@ mkdir -p $log_dir $save_dir
 bpe_dir=../../utils/BPE
 user_dir=../../ofa_module
 
-data_dir=../../dataset/OFA_data
+data_dir=../../dataset/OFA_data/detection
 data=${data_dir}/train.tsv,${data_dir}/val.tsv
 restore_file=../../checkpoints/ofa_base.pt
 selected_cols=0,1,2
 
+tag=
 task=detection
 arch=ofa_base
 criterion=adjust_label_smoothed_cross_entropy
@@ -44,11 +45,12 @@ for max_epoch in 10; do
     for patch_image_size in 512; do
       echo "patch_image_size "${patch_image_size}
 
-      log_file=${log_dir}/${max_epoch}"_"${lr}"_"${patch_image_size}".log"
-      save_path=${save_dir}/${max_epoch}"_"${lr}"_"${patch_image_size}
+      log_file=${log_dir}/${tag}_${max_epoch}"_"${lr}"_"${patch_image_size}".log"
+      save_path=${save_dir}/${tag}_${max_epoch}"_"${lr}"_"${patch_image_size}
+      tensorboard_logdir=./tensorboard/${tag}_${max_epoch}"_"${lr}"_"${patch_image_size}
       mkdir -p $save_path
 
-      CUDA_VISIBLE_DEVICES=0,1,2,3 python3 -m torch.distributed.launch --nproc_per_node=1 --master_port=${MASTER_PORT} ../../train.py \
+      CUDA_VISIBLE_DEVICES=0,1 python3 -m torch.distributed.launch --nproc_per_node=2 --master_port=${MASTER_PORT} ../../train.py \
           $data \
           --selected-cols=${selected_cols} \
           --bpe-dir=${bpe_dir} \
@@ -78,12 +80,13 @@ for max_epoch in 10; do
           --lr-scheduler=polynomial_decay --lr=${lr} \
           --max-epoch=${max_epoch} --warmup-ratio=${warmup_ratio} \
           --log-format=simple --log-interval=10 \
+          --tensorboard-logdir=${tensorboard_logdir} \
           --fixed-validation-seed=7 \
           --no-epoch-checkpoints --keep-best-checkpoints=1 \
           --save-interval=1 --validate-interval=1 \
-          --save-interval-updates=500 --validate-interval-updates=500 \
           --eval-acc \
           --eval-args='{"beam":5,"max_len_a":0,"max_len_b":200}' \
+          --eval-print-samples \
           --best-checkpoint-metric=AP --maximize-best-checkpoint-metric \
           --max-src-length=${max_src_length} \
           --max-tgt-length=${max_tgt_length} \

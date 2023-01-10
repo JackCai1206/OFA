@@ -8,7 +8,9 @@ from collections import defaultdict
 from dataclasses import dataclass, field
 import json
 import logging
-from typing import Optional
+from operator import xor
+import os
+from typing import Callable, List, Optional
 from argparse import Namespace
 import numpy as np
 from pycocotools import cocoeval
@@ -16,6 +18,7 @@ from pycocotools import cocoeval
 import torch
 from fairseq import metrics
 from fairseq.tasks import register_task
+from utils.eval_utils import decode_fn
 from utils.bounding_box import BBFormat, BoundingBox, CoordinatesType
 from utils.coco_evaluator import get_coco_metrics, _group_detections, _compute_ious, _evaluate_image, _compute_ap_recall
 
@@ -25,9 +28,31 @@ from data.file_dataset import FileDataset
 
 logger = logging.getLogger(__name__)
 
+try:
+    from tensorboardX import SummaryWriter
+except ImportError:
+    logger.info("Please install tensorboardX: pip install tensorboardX")
+    SummaryWriter = None
+
+COCO_CLS = ['person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
+'train', 'truck', 'boat', 'traffic light', 'fire hydrant',
+'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog',
+'horse', 'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe',
+'backpack', 'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee',
+'skis', 'snowboard', 'sports ball', 'kite', 'baseball bat',
+'baseball glove', 'skateboard', 'surfboard', 'tennis racket',
+'bottle', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl',
+'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot',
+'hot dog', 'pizza', 'donut', 'cake', 'chair', 'couch',
+'potted plant', 'bed', 'dining table', 'toilet', 'tv', 'laptop',
+'mouse', 'remote', 'keyboard', 'cell phone', 'microwave',
+'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock',
+'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush']
 
 @dataclass
 class DetectionConfig(OFAConfig):
+    tensorboard_logdir: Optional[str] = field(default=None)
+
     eval_acc: bool = field(
         default=False, metadata={"help": "evaluation with accuracy"}
     )
@@ -61,6 +86,15 @@ class DetectionTask(OFATask):
         super().__init__(cfg, src_dict, tgt_dict)
         # accumulate evaluations on a per-class basis
         self._evals = defaultdict(lambda: {"scores": [], "matched": [], "NP": []})
+        self.coco_cls_tokens = [self.target_dictionary.index(COCO_CLS[i]) for i in range(len(COCO_CLS))]
+        self.allowed_tokens = self.coco_cls_tokens.extend(range(len(self.src_dict) - self.cfg.num_bins, len(self.src_dict)))
+        self.eval_scalar_keys = ['AP', 'total positives', 'TP', 'FP']
+        self.ref_strs = []
+        self.hyp_strs = []
+        self.tensorboard_writer = None
+        self.tensorboard_dir = None
+        if self.cfg.tensorboard_logdir and SummaryWriter is not None:
+            self.tensorboard_dir = os.path.join(self.cfg.tensorboard_logdir, "valid_extra")
 
     def load_dataset(self, split, epoch=1, combine=False, **kwargs):
         paths = self.cfg.data.split(',')
@@ -87,11 +121,14 @@ class DetectionTask(OFATask):
         )
 
     def build_model(self, cfg):
+        def prefix_allowed_tokens(batch_id, token_ids):
+            return self.allowed_tokens
+
         model = super().build_model(cfg)
         if self.cfg.eval_acc:
             gen_args = json.loads(self.cfg.eval_args)
             self.sequence_generator = self.build_generator(
-                [model], Namespace(**gen_args)
+                [model], Namespace(**gen_args), prefix_allowed_tokens_fn=prefix_allowed_tokens
             )
         if self.cfg.scst:
             scst_args = json.loads(self.cfg.scst_args)
@@ -185,9 +222,8 @@ class DetectionTask(OFATask):
         
         if logging_outputs[0].get('NP', None) != None:
             res = _compute_ap_recall(cat_logs("scores"), cat_logs("matched"), sum_logs("NP"))
-            for key in res:
-                if np.isscalar(res[key]):
-                    metrics.log_scalar(key, res[key])
+            for key in self.eval_scalar_keys:
+                metrics.log_scalar(key, res[key])
 
     def post_validate(self, model, stats, agg):
         # now reduce accumulations
@@ -208,9 +244,14 @@ class DetectionTask(OFATask):
         # AP50 = np.mean([x['AP'] for x in full[0.50] if x['AP'] is not None])
         # AP75 = np.mean([x['AP'] for x in full[0.75] if x['AP'] is not None])
         # AP = np.mean([x['AP'] for k in full for x in full[k] if x['AP'] is not None])
-        AP = np.mean([res[cls]['AP'] for cls in res if res[cls]['AP'] is not None])
-        metrics.log_scalar('AP', AP)
+        for key in self.eval_scalar_keys:
+            val = np.mean([res[cls][key] for cls in res if res[cls][key] is not None]) # average across classes
+            metrics.log_scalar(key, val)
+        
         self._evals = defaultdict(lambda: {"scores": [], "matched": [], "NP": []})
+
+        if self.tensorboard_dir:
+            self.log_tensorboard(self.hyp_strs, self.ref_strs, stats['num_updates'])
 
     def _inference(self, generator, sample, model):
         gen_out = self.inference_step(generator, [model], sample)
@@ -229,7 +270,21 @@ class DetectionTask(OFATask):
             hyps['boxes'].append(boxes.clone())
             hyps['confs'].append(confs.reshape(-1, 5).mean(dim=1).clone())
         if self.cfg.eval_print_samples:
-            logger.info("example hypothesis: ", hyps)
-            logger.info("example reference: ", refs)
+            ref_str = self.bpe.decode(self.target_dictionary.string(sample['target'][0].int().cpu()))
+            hyp_str = self.bpe.decode(self.target_dictionary.string(gen_out[i][0]["tokens"].int().cpu()))
+            # logger.info(f"example hypothesis: {hyp_str}")
+            # logger.info(f"example reference: {ref_str}")
+            self.ref_strs.append(ref_str)
+            self.hyp_strs.append(hyp_str)
 
         return hyps, refs
+
+    def log_tensorboard(self, ref_strs, hyp_strs, num_updates, is_na_model=False):
+        if self.tensorboard_writer is None:
+            self.tensorboard_writer = SummaryWriter(self.tensorboard_dir)
+        tb_writer = self.tensorboard_writer
+
+        for hyp_str in hyp_strs:
+            tb_writer.add_text('Example hypothesis', hyp_str, num_updates)
+        for ref_str in ref_strs:
+            tb_writer.add_text('Example reference', ref_str, num_updates)
