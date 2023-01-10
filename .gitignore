@@ -2,3 +2,5 @@
 .DS_Store
 .vscode
 __pycache__
+tensorboard
+detection_logs
