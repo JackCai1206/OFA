@@ -14,4 +14,4 @@ editdistance
 librosa
 python-Levenshtein
 zhconv
-h5py
+pypinyin==0.47.1
