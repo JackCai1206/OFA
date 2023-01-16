@@ -96,6 +96,11 @@ class DetectionTask(OFATask):
         if self.cfg.tensorboard_logdir and SummaryWriter is not None:
             self.tensorboard_dir = os.path.join(self.cfg.tensorboard_logdir, "valid_extra")
 
+    # Override the default behavior because we have list log outputs
+    @staticmethod
+    def logging_outputs_can_be_summed(criterion):
+        return False
+
     def load_dataset(self, split, epoch=1, combine=False, **kwargs):
         paths = self.cfg.data.split(',')
         assert len(paths) > 0
@@ -161,7 +166,7 @@ class DetectionTask(OFATask):
             scores.extend(ev["scores"])
             matched.extend(ev["matched"])
             NP += ev['NP']
-        return scores, matched, NP
+        return np.array(scores), np.array(matched, dtype=bool), NP
 
 
     def valid_step(self, sample, model, criterion):
@@ -175,9 +180,9 @@ class DetectionTask(OFATask):
                 hyps['boxes'][i] = hyps['boxes'][i] / (self.cfg.num_bins - 1) * self.cfg.max_image_size
                 hyps['boxes'][i][:, ::2] /= sample['w_resize_ratios'][i]
                 hyps['boxes'][i][:, 1::2] /= sample['h_resize_ratios'][i]
-                boxes = hyps['boxes'][i]
+                boxes = hyps['boxes'][i].cpu()
                 cats = hyps['cats'][i]
-                confs = hyps['confs'][i]
+                confs = hyps['confs'][i].cpu()
                 for j in range(len(boxes)):
                     dt.append(BoundingBox(sample['id'][i], cats[j], boxes[j], confidence=confs[j], format=BBFormat.XYX2Y2))
 
@@ -185,15 +190,13 @@ class DetectionTask(OFATask):
                 refs['boxes'][i] = refs['boxes'][i] / (self.cfg.num_bins - 1) * self.cfg.max_image_size
                 refs['boxes'][i][:, ::2] /= sample['w_resize_ratios'][i]
                 refs['boxes'][i][:, 1::2] /= sample['h_resize_ratios'][i]
-                boxes = refs['boxes'][i]
+                boxes = refs['boxes'][i].cpu()
                 cats = refs['cats'][i]
                 for j in range(len(boxes)):
                     gt.append(BoundingBox(sample['id'][i], cats[j], boxes[j], format=BBFormat.XYX2Y2))
 
-            scores, matched, NP = self._calculate_scores(dt, gt)
-            logging_output['scores'] = scores
-            logging_output['matched'] = matched
-            logging_output['NP'] = NP
+            logging_output['dt'] = dt
+            logging_output['gt'] = gt
 
         return loss, sample_size, logging_output
 
@@ -209,21 +212,27 @@ class DetectionTask(OFATask):
         
         def cat_logs(key):
             import torch
-            # len(logging_outputs[0].get('scores'))
-            result = np.concatenate([log.get(key, 0) for log in logging_outputs])
+            result = np.concatenate([log.get(key, []) for log in logging_outputs])
             if torch.is_tensor(result):
                 result = result.cpu()
             return result
+        
+        def del_logs(key):
+            for log in logging_outputs:
+                del log[key]
 
         def compute_score(meters):
             score = meters["_score_sum"].sum / meters["_score_cnt"].sum
             score = score if isinstance(score, float) else score.item()
             return round(score, 4)
         
-        if logging_outputs[0].get('NP', None) != None:
-            res = _compute_ap_recall(cat_logs("scores"), cat_logs("matched"), sum_logs("NP"))
+        if logging_outputs[0].get('gt', None) != None:
+            scores, matched, NP = self._calculate_scores(cat_logs('dt'), cat_logs('gt'))
+            res = _compute_ap_recall(scores, matched, NP)
             for key in self.eval_scalar_keys:
                 metrics.log_scalar(key, res[key])
+            del_logs('dt')
+            del_logs('gt')
 
     def post_validate(self, model, stats, agg):
         # now reduce accumulations
@@ -271,7 +280,7 @@ class DetectionTask(OFATask):
             hyps['confs'].append(confs.reshape(-1, 5).mean(dim=1).clone())
         if self.cfg.eval_print_samples:
             ref_str = self.bpe.decode(self.target_dictionary.string(sample['target'][0].int().cpu()))
-            hyp_str = self.bpe.decode(self.target_dictionary.string(gen_out[i][0]["tokens"].int().cpu()))
+            hyp_str = self.bpe.decode(self.target_dictionary.string(gen_out[0][0]["tokens"].int().cpu()))
             # logger.info(f"example hypothesis: {hyp_str}")
             # logger.info(f"example reference: {ref_str}")
             self.ref_strs.append(ref_str)

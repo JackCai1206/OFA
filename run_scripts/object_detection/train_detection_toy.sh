@@ -14,11 +14,11 @@ bpe_dir=../../utils/BPE
 user_dir=../../ofa_module
 
 data_dir=../../dataset/OFA_data/detection
-data=${data_dir}/train.tsv,${data_dir}/val.tsv
-restore_file=../../checkpoints/ofa_base.pt
+data=${data_dir}/train-toy.tsv,${data_dir}/val-toy.tsv
+restore_file=../../checkpoints/OFA/ofa_base.pt
 selected_cols=0,1,2
 
-tag=
+tag=toy
 task=detection
 arch=ofa_base
 criterion=adjust_label_smoothed_cross_entropy
@@ -84,8 +84,6 @@ for max_epoch in 10; do
           --fixed-validation-seed=7 \
           --no-epoch-checkpoints --keep-best-checkpoints=1 \
           --save-interval=1 --validate-interval=1 \
-          --all-gather-list-size=2097152 \
-          --validate-interval-updates=1 \
           --eval-acc \
           --eval-args='{"beam":5,"max_len_a":0,"max_len_b":200}' \
           --eval-print-samples \

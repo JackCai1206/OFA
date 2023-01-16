@@ -11,7 +11,7 @@ STORE_DIR = '/data/hulab/zcai75/OFA_data/detection'
 toy = True
 if toy:
     tag = '-toy'
-    max_img_cnt = 1000
+    max_img_cnt = 100
 
 makedirs(f'{STORE_DIR}', exist_ok=True)
 
