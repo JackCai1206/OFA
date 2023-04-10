@@ -18,7 +18,7 @@ from pycocotools import cocoeval
 import torch
 from fairseq import metrics
 from fairseq.tasks import register_task
-from utils.eval_utils import decode_fn
+# from utils.eval_utils import decode_fn
 from utils.bounding_box import BBFormat, BoundingBox, CoordinatesType
 from utils.coco_evaluator import get_coco_metrics, _group_detections, _compute_ious, _evaluate_image, _compute_ap_recall
 

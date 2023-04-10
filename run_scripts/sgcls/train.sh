@@ -4,7 +4,7 @@
 # you need to specify different port numbers.
 export MASTER_PORT=6061
 # export NCCL_DEBUG=INFO
-export NCCL_SOCKET_IFNAME=eno1
+# export NCCL_SOCKET_IFNAME=eno1
 
 log_dir=./sgcls_logs
 save_dir=../../checkpoints/OFA/sgcls_checkpoints
@@ -14,28 +14,27 @@ bpe_dir=../../utils/BPE
 user_dir=../../ofa_module
 
 data_dir=../../dataset/OFA_data/sgcls
-data=${data_dir}/train.tsv,${data_dir}/val.tsv
-restore_file=../../checkpoints/ofa_large.pt
-selected_cols=0,1,2
+data=${data_dir}/vg_train_full.tsv,${data_dir}/vg_val_full.tsv
+restore_file=../../checkpoints/ofa_base.pt
 
 tag=
 task=sgcls
-arch=ofa_large
+arch=ofa_base
 criterion=adjust_label_smoothed_cross_entropy
 label_smoothing=0.1
 lr=3e-5
-max_epoch=10
+max_epoch=12
 warmup_ratio=0.06
-batch_size=4
+batch_size=6
 update_freq=8
 resnet_drop_path_rate=0.0
 encoder_drop_path_rate=0.1
 decoder_drop_path_rate=0.1
 dropout=0.1
 attention_dropout=0.0
-max_src_length=80
-max_tgt_length=20
-num_bins=1000
+max_src_length=100
+max_tgt_length=100
+num_bins=480
 patch_image_size=512
 
 log_file=${log_dir}/${tag}_${max_epoch}"_"${lr}"_"${patch_image_size}".log"
@@ -43,7 +42,7 @@ save_path=${save_dir}/${tag}_${max_epoch}"_"${lr}"_"${patch_image_size}
 tensorboard_logdir=./tensorboard/${tag}_${max_epoch}"_"${lr}"_"${patch_image_size}
 mkdir -p $save_path
 
-CUDA_VISIBLE_DEVICES=0,1 python3 -m torch.distributed.launch --nproc_per_node=2 --master_port=${MASTER_PORT} ../../train.py \
+CUDA_VISIBLE_DEVICES=0,3 python3 -m torch.distributed.launch --nproc_per_node=2 --master_port=${MASTER_PORT} ../../train.py \
     $data \
     --bpe-dir=${bpe_dir} \
     --user-dir=${user_dir} \
@@ -73,15 +72,13 @@ CUDA_VISIBLE_DEVICES=0,1 python3 -m torch.distributed.launch --nproc_per_node=2 
     --max-epoch=${max_epoch} --warmup-ratio=${warmup_ratio} \
     --log-format=simple --log-interval=10 \
     --tensorboard-logdir=${tensorboard_logdir} \
+    --wandb-project=OFA-VG \
     --fixed-validation-seed=7 \
     --no-epoch-checkpoints --keep-best-checkpoints=1 \
-    --save-interval=1 --validate-interval=1 \
+    --save-interval=4 --validate-interval=4 \
     --all-gather-list-size=2097152 \
-    --validate-interval-updates=1 \
-    --eval-acc \
     --eval-args='{"beam":5,"max_len_a":0,"max_len_b":200}' \
-    --eval-print-samples \
-    --best-checkpoint-metric=AP --maximize-best-checkpoint-metric \
+    --best-checkpoint-metric=loss --maximize-best-checkpoint-metric \
     --max-src-length=${max_src_length} \
     --max-tgt-length=${max_tgt_length} \
     --find-unused-parameters \

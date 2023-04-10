@@ -373,6 +373,64 @@ def eval_asr(task, generator, models, sample, **kwargs):
     scores = _calculate_error_rate(hyps, refs)
     return results, scores
 
+def eval_sgcls(task, generator, models, sample, **kwargs):
+    def decode(toks):
+        s = task.tgt_dict.string(toks.int().cpu())
+        return s
+
+    gen_out = task.inference_step(generator, models, sample)
+    hyps, refs = [], []
+    img_ids = []
+    # transtab = str.maketrans({key: None for key in string.punctuation})
+    for i in range(len(gen_out)):
+        hyps.append(decode(gen_out[i][0]["tokens"]))
+        refs.append(decode(utils.strip_pad(sample["target"][i], task.tgt_dict.pad())))
+        img_ids.append(sample["id"][i])
+
+    models[0].eval()
+    hyp_triplets = toks2triplets(hyps[0].split(), task)
+    ref_triplets = toks2triplets(refs[0].split(), task)
+
+    print('IMG:', '\"/data/hulab/zcai75/visual_genome/VG_100K/' + img_ids[0] + '.jpg\"')
+    print('HYP:', hyp_triplets)
+    print('REF:', ref_triplets)
+
+    return {}, []
+
+def toks2triplets(toks, task):
+    triplets = []
+    curr_sub = ''
+    curr_obj = ''
+    curr_pred = ''
+    state = None
+    toks.append('<sub>')
+    for i, tok in enumerate(toks):
+        # print(tok, '|'.join([curr_sub, curr_obj, curr_pred]), triplets)
+        if tok == '<sub>':
+            state = 'sub'
+            if len(curr_obj) > 0: 
+                triplets[-1].append(task.bpe.decode(curr_obj))
+                curr_obj = ''
+        elif tok == '<pred>':
+            state = 'pred'
+            if len(curr_obj) > 0: 
+                triplets[-1].append(task.bpe.decode(curr_obj))
+                curr_obj = ''
+            triplets.append([curr_sub])
+            curr_sub = ''
+        elif tok == '<obj>':
+            state = 'obj'
+            triplets[-1].append(task.bpe.decode(curr_pred))
+            curr_pred = ''
+        else:
+            if state == 'sub':
+                curr_sub += tok + ' '
+            elif state == 'obj':
+                curr_obj += tok + ' '
+            elif state == 'pred':
+                curr_pred += tok + ' '
+    return triplets
+
 def eval_step(task, generator, models, sample, **kwargs):
     if task.cfg._name == 'caption':
         return eval_caption(task, generator, models, sample, **kwargs)
@@ -396,6 +454,8 @@ def eval_step(task, generator, models, sample, **kwargs):
         return eval_image_classify(task, generator, models, sample, **kwargs)
     elif task.cfg._name == 'unify_speech_text_task' or task.cfg._name == 'speech_unify_cn_big_fbank':
         return eval_asr(task, generator, models, sample, **kwargs)
+    elif task.cfg._name == 'sgcls':
+        return eval_sgcls(task, generator, models, sample, **kwargs)
     else:
         raise NotImplementedError
 

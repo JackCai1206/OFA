@@ -29,6 +29,13 @@ warnings.filterwarnings("ignore", "(Possibly )?corrupt EXIF data", UserWarning)
 IMAGENET_DEFAULT_MEAN = (0.485, 0.456, 0.406)
 IMAGENET_DEFAULT_STD = (0.229, 0.224, 0.225)
 
+def coord2bin(coord_list, box_size, num_bins):
+	bin_list = []
+	bin_list += ["<bin_{}>".format(int(round(coord_list[0] / box_size * (num_bins - 1))))]
+	bin_list += ["<bin_{}>".format(int(round(coord_list[1] / box_size * (num_bins - 1))))]
+	bin_list += ["<bin_{}>".format(int(round(coord_list[2] / box_size * (num_bins - 1))))]
+	bin_list += ["<bin_{}>".format(int(round(coord_list[3] / box_size * (num_bins - 1))))]
+	return ' '.join(bin_list)
 
 def collate(samples, pad_idx, eos_idx):
     if len(samples) == 0:
@@ -88,14 +95,14 @@ class SGCLSDataset(OFADataset):
         max_src_length=128,
         max_tgt_length=30,
         patch_image_size=224,
+        num_bins=480,
         imagenet_default_mean_and_std=False
     ):
         super().__init__(split, dataset, bpe, src_dict, tgt_dict)
         self.max_src_length = max_src_length
         self.max_tgt_length = max_tgt_length
         self.patch_image_size = patch_image_size
-
-        self.transtab = str.maketrans({key: None for key in string.punctuation})
+        self.num_bins = num_bins
 
         if imagenet_default_mean_and_std:
             mean = IMAGENET_DEFAULT_MEAN
@@ -124,12 +131,17 @@ class SGCLSDataset(OFADataset):
         patch_mask = torch.tensor([True])
 
         dic = {}
-        for i, rel in enumerate(img_rels):
-            b1 = box_label[rel[0] - box_range[0]]
-            b2 = box_label[rel[1] - box_range[0]]
-            pred = pred_label[i]
+        lower = int(box_range.split(',')[0])
+        box_label = box_label.split(',')
+        pred_label = pred_label.split(',')
+        # print(self.dataset[index][:-1])
+        for i, rel in enumerate(img_rels.split(',')):
+            rel = rel.split()
+            b1 = self.bpe.encode(' {}'.format(box_label[int(rel[0]) - lower]))
+            b2 = self.bpe.encode(' {}'.format(box_label[int(rel[1]) - lower]))
+            pred = self.bpe.encode(' {}'.format(pred_label[i]))
             if b1 not in dic:
-                dic[b1] = {}
+                dic[b1] = {b2: pred}
             else:
                 dic[b1][b2] = pred
         
@@ -139,15 +151,32 @@ class SGCLSDataset(OFADataset):
             for b2 in dic[b1]:
                 caption += "<pred> {} <obj> {} ".format(dic[b1][b2], b2)
 
-        caption = caption.translate(self.transtab).strip()
+        # print(caption)
+
         caption_token_list = caption.strip().split()
         tgt_caption = ' '.join(caption_token_list[:self.max_tgt_length])
-        src_item = self.encode_text(self.prompt)
-        tgt_item = self.encode_text(" {}".format(tgt_caption))
+
+        # w_resize_ratio = self.patch_image_size / image.width
+        # h_resize_ratio = self.patch_image_size / image.height
+        boxes = [coord2bin(list(map(int, box.split())), 1024, self.num_bins) for box in boxes.split(',')]
+        boxes_str = ' , '.join(boxes)
+        
+        src_item = self.encode_text(boxes_str, use_bpe=False)
+        tgt_item = self.encode_text(tgt_caption, use_bpe=False)
+        # print(tgt_item)
+        # def decode(toks):
+        #     s = self.tgt_dict.string(
+        #         toks.int().cpu()
+        #     )
+        #     if self.bpe:
+        #         s = self.bpe.decode(s)
+        #     return s
+        # print(decode(tgt_item))
 
         src_item = torch.cat([self.bos_item, src_item, self.eos_item])
         target_item = torch.cat([tgt_item, self.eos_item])
         prev_output_item = torch.cat([self.bos_item, tgt_item])
+        # print(len(src_item), len(target_item), len(prev_output_item))
 
         example = {
             "id": uniq_id,
