@@ -416,7 +416,7 @@ def toks2triplets(toks, task):
             if len(curr_obj) > 0: 
                 triplets[-1].append(task.bpe.decode(curr_obj))
                 curr_obj = ''
-            triplets.append([curr_sub])
+            triplets.append([task.bpe.decode(curr_sub)])
             curr_sub = ''
         elif tok == '<obj>':
             state = 'obj'
@@ -424,11 +424,11 @@ def toks2triplets(toks, task):
             curr_pred = ''
         else:
             if state == 'sub':
-                curr_sub += tok + ' '
+                curr_sub += ' ' + tok
             elif state == 'obj':
-                curr_obj += tok + ' '
+                curr_obj += ' ' + tok
             elif state == 'pred':
-                curr_pred += tok + ' '
+                curr_pred += ' ' + tok
     return triplets
 
 def eval_step(task, generator, models, sample, **kwargs):
