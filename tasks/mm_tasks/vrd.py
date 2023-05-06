@@ -1,3 +1,4 @@
+
 # Copyright 2022 The OFA-Sys Team. 
 # All rights reserved.
 # This source code is licensed under the Apache 2.0 license 
@@ -19,6 +20,7 @@ import string
 from fairseq import metrics, utils
 from fairseq.tasks import register_task
 from data.mm_data.sg_cls_dataset import SGCLSDataset
+from data.mm_data.vrd_dataset import VRDDataset
 
 from tasks.ofa_task import OFATask, OFAConfig
 from data.mm_data.caption_dataset import CaptionDataset
@@ -31,7 +33,7 @@ logger = logging.getLogger(__name__)
 
 
 @dataclass
-class SGClsConfig(OFAConfig):
+class VRDConfig(OFAConfig):
     eval_args: Optional[str] = field(
         default='{}',
         metadata={
@@ -46,9 +48,9 @@ class SGClsConfig(OFAConfig):
     )
 
 
-@register_task("sgcls", dataclass=SGClsConfig)
-class SGClsTask(OFATask):
-    def __init__(self, cfg: SGClsConfig, src_dict, tgt_dict):
+@register_task("vrd", dataclass=VRDConfig)
+class VRDTask(OFATask):
+    def __init__(self, cfg: VRDConfig, src_dict, tgt_dict):
         super().__init__(cfg, src_dict, tgt_dict)
         self.valid_count = 0
 
@@ -79,8 +81,8 @@ class SGClsTask(OFATask):
             src_dict.add_symbol("<bin_{}>".format(i))
             tgt_dict.add_symbol("<bin_{}>".format(i))
 
-        logger.info("sgcls setup: source dictionary: {} types".format(len(src_dict)))
-        logger.info("sgcls setup: target dictionary: {} types".format(len(tgt_dict)))
+        logger.info("vrd setup: source dictionary: {} types".format(len(src_dict)))
+        logger.info("vrd setup: target dictionary: {} types".format(len(tgt_dict)))
         return cls(cfg, src_dict, tgt_dict)
 
 
@@ -94,7 +96,7 @@ class SGClsTask(OFATask):
             file_path = paths[-1]
         dataset = FileDataset(file_path, self.cfg.selected_cols)
 
-        self.datasets[split] = SGCLSDataset(
+        self.datasets[split] = VRDDataset(
             split,
             dataset,
             self.bpe,
@@ -117,13 +119,12 @@ class SGClsTask(OFATask):
         return model
 
     def valid_step(self, sample, model, criterion):
-        loss, sample_size, logging_output = criterion(model, sample)
-
-        model.eval()
-        hyps, refs = self._inference(self.sequence_generator, sample, model)
-        img_ids = sample['id'].tolist()
-        
         if self.valid_count % 50 == 0:
+            loss, sample_size, logging_output = criterion(model, sample)
+
+            model.eval()
+            hyps, refs = self._inference(self.sequence_generator, sample, model)
+            img_ids = sample['id'].tolist()
             print(img_ids[0], hyps[0], refs[0])
 
         self.valid_count += 1

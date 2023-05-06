@@ -388,14 +388,46 @@ def eval_sgcls(task, generator, models, sample, **kwargs):
         img_ids.append(sample["id"][i])
 
     models[0].eval()
-    hyp_triplets = toks2triplets(hyps[0].split(), task)
-    ref_triplets = toks2triplets(refs[0].split(), task)
+    hyp_triplets = [toks2triplets(hyps[i].split(), task) for i in range(len(gen_out))]
+    ref_triplets = [toks2triplets(refs[i].split(), task) for i in range(len(gen_out))]
 
-    print('IMG:', '\"/data/hulab/zcai75/visual_genome/VG_100K/' + img_ids[0] + '.jpg\"')
-    print('HYP:', hyp_triplets)
-    print('REF:', ref_triplets)
+    # print('IMG:', '\"/data/hulab/zcai75/visual_genome/VG_100K/' + img_ids[0] + '.jpg\"')
+    # print('HYP:', hyp_triplets[0])
+    # print('REF:', ref_triplets[0])
+    obj_list = task.vg_json['object_count'].keys()
+    pred_list = task.vg_json['predicate_to_idx'].keys()
 
-    return {}, []
+    results = []
+    # calculate triplet recall
+    scores = []
+    for img_id, hyp, ref in zip(img_ids, hyp_triplets, ref_triplets):
+        res = {"img_id": img_id, "hyp": hyp, "ref": ref}
+        pred_count = dict(zip(pred_list, [[0, 0] for _ in range(len(pred_list))]))
+        match_count, rel_count = calculate_recall(hyp, ref, pred_count) # per image
+        scores.append(match_count / rel_count)
+        res['pred_count'] = pred_count
+        res['match_count'] = match_count
+        results.append(res)
+
+    return results, scores
+
+def calculate_recall(hyp, ref, pred_count):
+    matches = []
+    for h in hyp:
+        for r in ref:
+            if len(h) != 3 or len(r) != 3:
+                print(h, r)
+                continue
+            if h[0] == r[0] and h[1] == r[1] and h[2] == r[2]:
+                matches.append(h)
+    for match in matches:
+        pred_count[match[1]][0] += 1 if match[1] in pred_count else 0
+    for r in ref:
+        if r[1] in pred_count:
+            pred_count[r[1]][1] += 1
+        if r[1] not in pred_count:
+            print(r)
+    return len(matches), len(ref)
 
 def toks2triplets(toks, task):
     triplets = []
@@ -408,20 +440,21 @@ def toks2triplets(toks, task):
         # print(tok, '|'.join([curr_sub, curr_obj, curr_pred]), triplets)
         if tok == '<sub>':
             state = 'sub'
-            if len(curr_obj) > 0: 
-                triplets[-1].append(task.bpe.decode(curr_obj))
-                curr_obj = ''
+            curr_sub = ''
+            if len(curr_obj) > 0 and len(triplets[-1]) == 2:
+                triplets[-1].append(task.bpe.decode(curr_obj).strip())
+
         elif tok == '<pred>':
             state = 'pred'
-            if len(curr_obj) > 0: 
-                triplets[-1].append(task.bpe.decode(curr_obj))
-                curr_obj = ''
-            triplets.append([task.bpe.decode(curr_sub)])
-            curr_sub = ''
+            if len(curr_obj) > 0 and len(triplets[-1]) == 2: 
+                triplets[-1].append(task.bpe.decode(curr_obj).strip())
+            triplets.append([task.bpe.decode(curr_sub).strip()])
+            curr_pred = ''
         elif tok == '<obj>':
             state = 'obj'
-            triplets[-1].append(task.bpe.decode(curr_pred))
-            curr_pred = ''
+            triplets[-1].append(task.bpe.decode(curr_pred).strip())
+            curr_obj = ''
+            
         else:
             if state == 'sub':
                 curr_sub += ' ' + tok
@@ -429,6 +462,13 @@ def toks2triplets(toks, task):
                 curr_obj += ' ' + tok
             elif state == 'pred':
                 curr_pred += ' ' + tok
+
+    if len(triplets[-1]) < 3:
+        del triplets[-1]
+    for trip in triplets:
+        if len(trip) > 3:
+            print(trip)
+            trip = trip[:3]
     return triplets
 
 def eval_step(task, generator, models, sample, **kwargs):
@@ -469,6 +509,44 @@ def merge_results(task, cfg, logger, score_cnt, score_sum, results):
             logger.info("score_sum: {}, score_cnt: {}, score: {}".format(
                 score_sum, score_cnt, round(score_sum.item() / score_cnt.item(), 4)
             ))
+    elif task.cfg._name == 'sgcls':
+        gather_results = None
+        if cfg.distributed_training.distributed_world_size > 1:
+            gather_results = [None for _ in range(dist.get_world_size())]
+            dist.all_gather_object(gather_results, results)
+            dist.all_reduce(score_sum.data)
+            dist.all_reduce(score_cnt.data)
+
+        gather_results = list(chain(*gather_results)) if gather_results is not None else results
+        match_count = 0
+        pred_list = task.vg_json['predicate_to_idx'].keys()
+        pred_count = dict(zip(pred_list, [[0, 0] for _ in range(len(pred_list))]))
+        total_ref = 0
+        total_hyp = 0
+        for res in gather_results:
+            match_count += res['match_count']
+            for pred in res['pred_count']:
+                pred_count[pred][0] += res['pred_count'][pred][0]
+                pred_count[pred][1] += res['pred_count'][pred][1]
+            total_ref += len(res['ref'])
+            total_hyp += len(res['hyp'])
+        
+        # print(pred_count)
+        mean_recall = sum([pred_count[pred][0] / pred_count[pred][1] for pred in pred_count if pred_count[pred][1] != 0]) / len(pred_count)
+        if score_cnt.item() > 0:
+            logger.info("recall_by_image: {} / {} = {}, recall: {} / {} = {}, mean recall: {}, mean hyp n_rel: {}, mean ref n_rel {}".format(
+                round(score_sum.item(), 4), score_cnt.item(), round(score_sum.item() / score_cnt.item(), 4),
+                match_count, total_ref, round(match_count / total_ref, 4),
+                mean_recall, round( total_hyp / score_cnt.item(), 4), round(total_ref / score_cnt.item(), 4)
+            ))
+        
+        if cfg.distributed_training.distributed_world_size == 1 or dist.get_rank() == 0:
+            os.makedirs(cfg.common_eval.results_path, exist_ok=True)
+            output_path = os.path.join(cfg.common_eval.results_path, "{}_predict.json".format(cfg.dataset.gen_subset))
+            gather_results = list(chain(*gather_results)) if gather_results is not None else results
+            with open(output_path, 'w') as fw:
+                json.dump(gather_results, fw)
+
     else:
         gather_results = None
         if cfg.distributed_training.distributed_world_size > 1:

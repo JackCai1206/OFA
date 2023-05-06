@@ -6,25 +6,24 @@ export MASTER_PORT=6061
 # export NCCL_DEBUG=INFO
 # export NCCL_SOCKET_IFNAME=eno1
 
-log_dir=./sgcls_logs
-save_dir=../../checkpoints/OFA/sgcls_checkpoints
+log_dir=./vrd_logs
+save_dir=../../checkpoints/OFA/vrd_checkpoints
 mkdir -p $log_dir $save_dir
 
 bpe_dir=../../utils/BPE
 user_dir=../../ofa_module
 
-data_dir=../../dataset/OFA_data/sgcls
+data_dir=../../dataset/OFA_data/vrd
 data=${data_dir}/vg_train_full.tsv,${data_dir}/vg_val_full.tsv
-restore_file=../../checkpoints/ofa_large.pt
-# restore_file=../../checkpoints/OFA/sgcls_checkpoints/_20_3e-5_512/tmp/checkpoint8.pt
+restore_file=../../checkpoints/ofa_base.pt
 
 tag=
-task=sgcls
-arch=ofa_large
+task=vrd
+arch=ofa_base
 criterion=adjust_label_smoothed_cross_entropy
 label_smoothing=0.1
 lr=3e-5
-max_epoch=30
+max_epoch=20
 warmup_ratio=0.06
 batch_size=6
 update_freq=8
@@ -43,7 +42,7 @@ save_path=${save_dir}/${tag}_${max_epoch}"_"${lr}"_"${patch_image_size}/tmp
 tensorboard_logdir=./tensorboard/${tag}_${max_epoch}"_"${lr}"_"${patch_image_size}
 mkdir -p $save_path
 
-CUDA_VISIBLE_DEVICES=0,1 python3 -m torch.distributed.launch --nproc_per_node=2 --master_port=${MASTER_PORT} ../../train.py \
+CUDA_VISIBLE_DEVICES=1,2 python3 -m torch.distributed.launch --nproc_per_node=2 --master_port=${MASTER_PORT} ../../train.py \
     $data \
     --bpe-dir=${bpe_dir} \
     --user-dir=${user_dir} \

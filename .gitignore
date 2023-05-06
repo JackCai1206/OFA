@@ -5,3 +5,5 @@ __pycache__
 tensorboard
 detection_logs
 wandb
+results
+results/sgcls/test_predict.json

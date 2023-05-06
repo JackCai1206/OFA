@@ -6,6 +6,7 @@
 from io import BytesIO
 
 import logging
+import os
 import warnings
 import string
 
@@ -84,7 +85,7 @@ def collate(samples, pad_idx, eos_idx):
     return batch
 
 
-class SGCLSDataset(OFADataset):
+class VRDDataset(OFADataset):
     def __init__(
         self,
         split,
@@ -124,59 +125,13 @@ class SGCLSDataset(OFADataset):
             self.prompt = "图片描述了什么内容?"
 
     def __getitem__(self, index):
-        uniq_id, pred_ids, box_ids, box_range, img_rels, boxes, pred_label, box_label, img_str = self.dataset[index]
+        uniq_id, pred_ids, box_ids, box_range, img_rels, boxes, pred_label, box_label, sub, objs, preds = self.dataset[index]
 
-        image = Image.open(BytesIO(base64.urlsafe_b64decode(img_str)))
+        # TODO: harcoded for now
+        image_dir = '/data/hulab/zcai75/visual_genome/VG_100K'
+        image = Image.open(os.path.join(image_dir, f'{uniq_id}.jpg'), 'r')
         patch_image = self.patch_resize_transform(image)
         patch_mask = torch.tensor([True])
-
-        dic = {}
-        lower = int(box_range.split(',')[0])
-        box_label = box_label.split(',')
-        pred_label = pred_label.split(',')
-        # print(self.dataset[index][:-1])
-        for i, rel in enumerate(img_rels.split(',')):
-            rel = rel.split()
-            pred = self.bpe.encode(' {}'.format(pred_label[i]))
-            if rel[0] not in dic:
-                dic[rel[0]] = {rel[1]: pred}
-            else:
-                dic[rel[0]][rel[1]] = pred
-        
-        caption = ""
-        for r1 in dic:
-            l1 = self.bpe.encode(' {}'.format(box_label[int(r1) - lower]))
-            caption += "<sub> {} ".format(l1)
-            for r2 in dic[r1]:
-                l2 = self.bpe.encode(' {}'.format(box_label[int(r2) - lower]))
-                caption += "<pred> {} <obj> {} ".format(dic[r1][r2], l2)
-
-        # print(caption)
-
-        caption_token_list = caption.strip().split()
-        tgt_caption = ' '.join(caption_token_list[:self.max_tgt_length])
-
-        # w_resize_ratio = self.patch_image_size / image.width
-        # h_resize_ratio = self.patch_image_size / image.height
-        boxes = [self.bpe.encode(' {}'.format(box_label[i])) + coord2bin(list(map(int, box.split())), 1024, self.num_bins) for i, box in enumerate(boxes.split(','))]
-        boxes_str = ' , '.join(boxes)
-        
-        src_item = self.encode_text(boxes_str, use_bpe=False)
-        tgt_item = self.encode_text(tgt_caption, use_bpe=False)
-        # print(tgt_item)
-        # def decode(toks):
-        #     s = self.tgt_dict.string(
-        #         toks.int().cpu()
-        #     )
-        #     if self.bpe:
-        #         s = self.bpe.decode(s)
-        #     return s
-        # print(decode(tgt_item))
-
-        src_item = torch.cat([self.bos_item, src_item, self.eos_item])
-        target_item = torch.cat([tgt_item, self.eos_item])
-        prev_output_item = torch.cat([self.bos_item, tgt_item])
-        # print(len(src_item), len(target_item), len(prev_output_item))
 
         example = {
             "id": uniq_id,
