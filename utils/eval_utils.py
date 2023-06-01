@@ -378,6 +378,7 @@ def eval_sgcls(task, generator, models, sample, **kwargs):
         s = task.tgt_dict.string(toks.int().cpu())
         return s
 
+    models[0].eval()
     gen_out = task.inference_step(generator, models, sample)
     hyps, refs = [], []
     img_ids = []
@@ -387,13 +388,82 @@ def eval_sgcls(task, generator, models, sample, **kwargs):
         refs.append(decode(utils.strip_pad(sample["target"][i], task.tgt_dict.pad())))
         img_ids.append(sample["id"][i])
 
-    models[0].eval()
     hyp_triplets = [toks2triplets(hyps[i].split(), task) for i in range(len(gen_out))]
     ref_triplets = [toks2triplets(refs[i].split(), task) for i in range(len(gen_out))]
 
     # print('IMG:', '\"/data/hulab/zcai75/visual_genome/VG_100K/' + img_ids[0] + '.jpg\"')
     # print('HYP:', hyp_triplets[0])
     # print('REF:', ref_triplets[0])
+    obj_list = task.vg_json['object_count'].keys()
+    pred_list = task.vg_json['predicate_to_idx'].keys()
+
+    results = []
+    # calculate triplet recall
+    scores = []
+    for img_id, hyp, ref in zip(img_ids, hyp_triplets, ref_triplets):
+        res = {"img_id": img_id, "hyp": hyp, "ref": ref}
+        pred_count = dict(zip(pred_list, [[0, 0] for _ in range(len(pred_list))]))
+        match_count, rel_count = calculate_recall(hyp, ref, pred_count) # per image
+        scores.append(match_count / rel_count)
+        res['pred_count'] = pred_count
+        res['match_count'] = match_count
+        results.append(res)
+
+    return results, scores
+
+def eval_vrd(task, generator, models, sample, **kwargs):
+    def decode(toks):
+        s = task.tgt_dict.string(toks.int().cpu())
+        return s
+
+    hyps, refs = [], []
+    hyp_triplets, ref_triplets = [], []
+    obj_counts = []
+    img_ids = []
+    dataset = task.datasets['test']
+    models[0].eval()
+    examples = []
+    for i in range(len(sample["id"])):
+        image_id = sample["id"][i]
+        img_ids.append(image_id)
+        boxes = torch.split(utils.strip_pad(sample['net_input']['src_tokens'][i], task.tgt_dict.pad())[1:-1], 5)
+        last = obj_counts[-1][1] if len(obj_counts) > 0 else 0
+        obj_counts.append((last, last + len(boxes)))
+        for j, box in enumerate(boxes):
+            if (len(box) == 5):
+                assert decode(box[4:]) == '<unk>'
+                box = box[:4]
+            # print(decode(box))
+            src_item = torch.cat([dataset.bos_item.cuda(), box, dataset.eos_item.cuda()])
+            example = {
+                "id": image_id + '-' + str(j),
+                "source": src_item,
+                "patch_image": sample['net_input']['patch_images'][i],
+                "patch_mask": sample['net_input']['patch_masks'][i:i+1],
+                "target": torch.Tensor([]), # not used
+                "prev_output_tokens": torch.Tensor([]) # not used
+            }
+            examples.append(example)
+    if len(examples) > 90: 
+        print('warning: skipped', len(examples) - 90, 'examples')
+        examples = examples[:90]
+
+    batched_examples = dataset.collater(examples)
+    gen_out = task.inference_step(generator, models, batched_examples)
+    for i, (first, last) in enumerate(obj_counts):
+        hyp_trip = []
+        hyp = ""
+        for out in gen_out[first:last]:
+            sent = decode(out[0]["tokens"])
+            hyp += sent + ' '
+            trips = toks2triplets(sent.split(), task)
+            hyp_trip.extend(trips)
+        # print(hyp_trip)
+        hyp_triplets.append(hyp_trip)
+        hyps.append(hyp)
+        refs.append(decode(utils.strip_pad(sample["target"][i], task.tgt_dict.pad())))
+        ref_triplets.append(toks2triplets(refs[i].split(), task))
+
     obj_list = task.vg_json['object_count'].keys()
     pred_list = task.vg_json['predicate_to_idx'].keys()
 
@@ -429,7 +499,7 @@ def calculate_recall(hyp, ref, pred_count):
             print(r)
     return len(matches), len(ref)
 
-def toks2triplets(toks, task):
+def toks2triplets(toks, task, reverse_pred_obj=False):
     triplets = []
     curr_sub = ''
     curr_obj = ''
@@ -469,6 +539,8 @@ def toks2triplets(toks, task):
         if len(trip) > 3:
             print(trip)
             trip = trip[:3]
+        if reverse_pred_obj:
+            trip[1], trip[2] = trip[2], trip[1]
     return triplets
 
 def eval_step(task, generator, models, sample, **kwargs):
@@ -496,6 +568,8 @@ def eval_step(task, generator, models, sample, **kwargs):
         return eval_asr(task, generator, models, sample, **kwargs)
     elif task.cfg._name == 'sgcls':
         return eval_sgcls(task, generator, models, sample, **kwargs)
+    elif task.cfg._name == 'vrd':
+        return eval_vrd(task, generator, models, sample, **kwargs)
     else:
         raise NotImplementedError
 
@@ -509,7 +583,7 @@ def merge_results(task, cfg, logger, score_cnt, score_sum, results):
             logger.info("score_sum: {}, score_cnt: {}, score: {}".format(
                 score_sum, score_cnt, round(score_sum.item() / score_cnt.item(), 4)
             ))
-    elif task.cfg._name == 'sgcls':
+    elif task.cfg._name == 'sgcls' or task.cfg._name == 'vrd':
         gather_results = None
         if cfg.distributed_training.distributed_world_size > 1:
             gather_results = [None for _ in range(dist.get_world_size())]
@@ -543,8 +617,10 @@ def merge_results(task, cfg, logger, score_cnt, score_sum, results):
         if cfg.distributed_training.distributed_world_size == 1 or dist.get_rank() == 0:
             os.makedirs(cfg.common_eval.results_path, exist_ok=True)
             output_path = os.path.join(cfg.common_eval.results_path, "{}_predict.json".format(cfg.dataset.gen_subset))
-            gather_results = list(chain(*gather_results)) if gather_results is not None else results
             with open(output_path, 'w') as fw:
+                # for res in gather_results:
+                #     del res['pred_count']
+                #     del res['match_count']
                 json.dump(gather_results, fw)
 
     else:

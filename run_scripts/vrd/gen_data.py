@@ -8,10 +8,10 @@ import json
 from PIL import Image
 import numpy as np
 
-data_dir = 'dataset/OFA_data/vrd'
+data_dir = '../../dataset/OFA_data/vrd'
 vg_dir = '/data/hulab/zcai75/visual_genome'
 image_dir = os.path.join(vg_dir, 'VG_100K')
-toy = True
+toy = False
 version = 'toy' if toy else 'full'
 toy_count = 1000
 
@@ -54,18 +54,18 @@ with h5py.File(os.path.join(vg_dir, 'VG-SGG-with-attri.h5'), 'r') as f, \
 						skip_count += 1
 						continue
 
-					pred_ids = f['predicates'][first_rel : last_rel+1].squeeze().tolist()
+					pred_labels = f['predicates'][first_rel : last_rel+1].squeeze().tolist()
 					boxes = f['boxes_1024'][first_box : last_box+1].squeeze().tolist()
-					box_ids = f['labels'][first_box : last_box+1].squeeze().tolist()
-					pred_label = [d['idx_to_predicate'][str(i)] for i in pred_ids]
-					box_label = [d['idx_to_label'][str(i)] for i in box_ids]
+					box_labels = f['labels'][first_box : last_box+1].squeeze().tolist()
+					pred_slabels = [d['idx_to_predicate'][str(j)] for j in pred_labels]
+					box_slabels = [d['idx_to_label'][str(j)] for j in box_labels]
 					box_range = [first_box, last_box]
 
 					dic = {}
 					lower = int(box_range[0])
 					# print(self.dataset[index][:-1])
-					for i, rel in enumerate(img_rels):
-						pred = pred_ids[i]
+					for j, rel in enumerate(img_rels):
+						pred = pred_labels[j]
 						if rel[0] not in dic:
 							dic[rel[0]] = {rel[1]: pred}
 						else:
@@ -74,18 +74,23 @@ with h5py.File(os.path.join(vg_dir, 'VG-SGG-with-attri.h5'), 'r') as f, \
 					# write one data point for each object in the image and the relationships it participates in
 					for sub in dic:
 						objs = dic[sub].keys()
-						preds = dic[sub].values()
+						pred_labels = dic[sub].values()
+						obj_boxes = [boxes[i-lower] for i in objs]
+						obj_labels = [box_labels[i-lower] for i in objs]
+						pred_slabels = [d['idx_to_predicate'][str(i)] for i in pred_labels]
+						obj_slabels = [d['idx_to_label'][str(i)] for i in obj_labels]
+						sub_label = box_labels[sub-lower]
+						sub_slabel = d['idx_to_label'][str(sub_label)]
+						sub_box = boxes[sub-lower]
 
 						row = [image_id,
-	     					','.join(map(str, pred_ids)),
-							','.join(map(str, box_ids)),
-							','.join(map(str, box_range)),
-							','.join([' '.join(map(str, rel)) for rel in img_rels]),
-							','.join([' '.join(map(str, box)) for box in boxes]),
-							','.join(pred_label),
-							','.join(box_label),
-							sub, ','.join(map(str, objs)), ','.join(map(str, preds))]
-						# print(row[:-1])
+	     					','.join(map(str, pred_labels)),
+							','.join(map(str, objs)),
+							','.join([' '.join(map(str, box)) for box in obj_boxes]),
+							','.join(pred_slabels),
+							','.join(obj_slabels),
+							sub, sub_slabel, ' '.join(map(str, sub_box))]
+						# print(row)
 						if split == 0:
 							if toy and train_count > toy_count:
 								continue

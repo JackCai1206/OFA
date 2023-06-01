@@ -125,16 +125,46 @@ class VRDDataset(OFADataset):
             self.prompt = "图片描述了什么内容?"
 
     def __getitem__(self, index):
-        uniq_id, pred_ids, box_ids, box_range, img_rels, boxes, pred_label, box_label, sub, objs, preds = self.dataset[index]
+        image_id, pred_labels, objs, obj_boxes, pred_slabels, obj_slabels, sub, sub_slabel, sub_box = self.dataset[index]
+        # print(self.dataset[index])
+        pred_labels = pred_labels.split(',')
+        objs = objs.split(',')
+        obj_boxes = [box.split() for box in obj_boxes.split(',')]
+        pred_slabels = pred_slabels.split(',')
+        obj_slabels = obj_slabels.split(',')
+        sub_box = sub_box.split()
 
         # TODO: harcoded for now
         image_dir = '/data/hulab/zcai75/visual_genome/VG_100K'
-        image = Image.open(os.path.join(image_dir, f'{uniq_id}.jpg'), 'r')
+        image = Image.open(os.path.join(image_dir, f'{image_id}.jpg'), 'r')
         patch_image = self.patch_resize_transform(image)
         patch_mask = torch.tensor([True])
 
+        sub_box = [coord2bin(list(map(int, sub_box)), 1024, self.num_bins)]
+        sub_box_str = ' '.join(sub_box)
+        src_item = self.encode_text(sub_box_str, use_bpe=False)
+        # print(len(src_item))
+        src_item = torch.cat([self.bos_item, src_item, self.eos_item])
+
+        sub_slabel = self.bpe.encode(f' {sub_slabel}')
+        obj_slabels = [self.bpe.encode(f' {obj_slabel}') for obj_slabel in obj_slabels]
+        pred_slabels = [self.bpe.encode(f' {pred_slabel}') for pred_slabel in pred_slabels]
+        caption = "<sub> {} ".format(sub_slabel)
+        for obj_slabel, pred_slabel, pred_label in zip(obj_slabels, pred_slabels, pred_labels):
+            if pred_label > 9:
+                caption += "<pred> <rare> {} <obj> {} ".format(pred_slabel, obj_slabel)
+                print("rare predicate: {} in image {}".format(pred_label, image_id))
+            else:
+                caption += "<pred> {} <obj> {} ".format(pred_slabel, obj_slabel)
+
+        caption_token_list = caption.strip().split()
+        tgt_caption = ' '.join(caption_token_list[:self.max_tgt_length])
+        tgt_item = self.encode_text(tgt_caption, use_bpe=False)
+        target_item = torch.cat([tgt_item, self.eos_item])
+        prev_output_item = torch.cat([self.bos_item, tgt_item])
+
         example = {
-            "id": uniq_id,
+            "id": image_id + '-' + str(sub),
             "source": src_item,
             "patch_image": patch_image,
             "patch_mask": patch_mask,

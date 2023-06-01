@@ -158,7 +158,8 @@ class SGCLSDataset(OFADataset):
 
         # w_resize_ratio = self.patch_image_size / image.width
         # h_resize_ratio = self.patch_image_size / image.height
-        boxes = [self.bpe.encode(' {}'.format(box_label[i])) + coord2bin(list(map(int, box.split())), 1024, self.num_bins) for i, box in enumerate(boxes.split(','))]
+        # boxes = [self.bpe.encode(' {}'.format(box_label[i])) + coord2bin(list(map(int, box.split())), 1024, self.num_bins) for i, box in enumerate(boxes.split(','))]
+        boxes = [coord2bin(list(map(int, box.split())), 1024, self.num_bins) for i, box in enumerate(boxes.split(','))]
         boxes_str = ' , '.join(boxes)
         
         src_item = self.encode_text(boxes_str, use_bpe=False)
@@ -174,6 +175,7 @@ class SGCLSDataset(OFADataset):
         # print(decode(tgt_item))
 
         src_item = torch.cat([self.bos_item, src_item, self.eos_item])
+        # src_item = torch.cat([self.bos_item, self.eos_item])
         target_item = torch.cat([tgt_item, self.eos_item])
         prev_output_item = torch.cat([self.bos_item, tgt_item])
         # print(len(src_item), len(target_item), len(prev_output_item))

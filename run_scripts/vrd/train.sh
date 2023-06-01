@@ -2,19 +2,19 @@
 
 # The port for communication. Note that if you want to run multiple tasks on the same machine,
 # you need to specify different port numbers.
-export MASTER_PORT=6061
+export MASTER_PORT=6062
 # export NCCL_DEBUG=INFO
 # export NCCL_SOCKET_IFNAME=eno1
 
 log_dir=./vrd_logs
-save_dir=../../checkpoints/OFA/vrd_checkpoints
+save_dir=../../checkpoints/OFA/vrd_checkpoints_vg8k
 mkdir -p $log_dir $save_dir
 
 bpe_dir=../../utils/BPE
 user_dir=../../ofa_module
 
-data_dir=../../dataset/OFA_data/vrd
-data=${data_dir}/vg_train_full.tsv,${data_dir}/vg_val_full.tsv
+data_dir=../../dataset/OFA_data/vg8k
+data=${data_dir}/train.tsv,${data_dir}/test.tsv
 restore_file=../../checkpoints/ofa_base.pt
 
 tag=
@@ -25,8 +25,8 @@ label_smoothing=0.1
 lr=3e-5
 max_epoch=20
 warmup_ratio=0.06
-batch_size=6
-update_freq=8
+batch_size=12
+update_freq=4
 resnet_drop_path_rate=0.0
 encoder_drop_path_rate=0.1
 decoder_drop_path_rate=0.1
@@ -37,12 +37,12 @@ max_tgt_length=100
 num_bins=480
 patch_image_size=512
 
-log_file=${log_dir}/${tag}_${max_epoch}"_"${lr}"_"${patch_image_size}".log"
+log_file=${log_dir}/${tag}_${max_epoch}"_"${lr}"_"${patch_image_size}_vg8k".log"
 save_path=${save_dir}/${tag}_${max_epoch}"_"${lr}"_"${patch_image_size}/tmp
 tensorboard_logdir=./tensorboard/${tag}_${max_epoch}"_"${lr}"_"${patch_image_size}
 mkdir -p $save_path
 
-CUDA_VISIBLE_DEVICES=1,2 python3 -m torch.distributed.launch --nproc_per_node=2 --master_port=${MASTER_PORT} ../../train.py \
+CUDA_VISIBLE_DEVICES=0,1 python3 -m torch.distributed.launch --nproc_per_node=2 --master_port=${MASTER_PORT} ../../train.py \
     $data \
     --bpe-dir=${bpe_dir} \
     --user-dir=${user_dir} \
@@ -74,7 +74,7 @@ CUDA_VISIBLE_DEVICES=1,2 python3 -m torch.distributed.launch --nproc_per_node=2 
     --wandb-project=OFA-VG \
     --fixed-validation-seed=7 \
     --keep-best-checkpoints=1 \
-    --save-interval=2 --validate-interval=10 \
+    --save-interval=4 --validate-interval=10 \
     --all-gather-list-size=2097152 \
     --eval-args='{"beam":5,"max_len_a":0,"max_len_b":200}' \
     --best-checkpoint-metric=loss --maximize-best-checkpoint-metric \

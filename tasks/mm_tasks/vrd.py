@@ -73,7 +73,7 @@ class VRDTask(OFATask):
             os.path.join(cfg.bpe_dir, "dict.txt")
         )
 
-        for symbol in ['<sub>', '<obj>', '<pred>']:
+        for symbol in ['<sub>', '<obj>', '<pred>', '<rare>']:
             src_dict.add_symbol(symbol)
             tgt_dict.add_symbol(symbol)
         # quantization
@@ -96,18 +96,32 @@ class VRDTask(OFATask):
             file_path = paths[-1]
         dataset = FileDataset(file_path, self.cfg.selected_cols)
 
-        self.datasets[split] = VRDDataset(
-            split,
-            dataset,
-            self.bpe,
-            self.src_dict,
-            self.tgt_dict,
-            max_src_length=self.cfg.max_src_length,
-            max_tgt_length=self.cfg.max_tgt_length,
-            patch_image_size=self.cfg.patch_image_size,
-            num_bins=self.cfg.num_bins,
-            imagenet_default_mean_and_std=self.cfg.imagenet_default_mean_and_std
-        )
+        if split == 'train' or split == 'valid':
+            self.datasets[split] = VRDDataset(
+                split,
+                dataset,
+                self.bpe,
+                self.src_dict,
+                self.tgt_dict,
+                max_src_length=self.cfg.max_src_length,
+                max_tgt_length=self.cfg.max_tgt_length,
+                patch_image_size=self.cfg.patch_image_size,
+                num_bins=self.cfg.num_bins,
+                imagenet_default_mean_and_std=self.cfg.imagenet_default_mean_and_std
+            )
+        elif split == 'test':
+            self.datasets[split] = SGCLSDataset(
+                split,
+                dataset,
+                self.bpe,
+                self.src_dict,
+                self.tgt_dict,
+                max_src_length=self.cfg.max_src_length,
+                max_tgt_length=self.cfg.max_tgt_length,
+                patch_image_size=self.cfg.patch_image_size,
+                num_bins=self.cfg.num_bins,
+                imagenet_default_mean_and_std=self.cfg.imagenet_default_mean_and_std
+            )
 
     def build_model(self, cfg):
         model = super().build_model(cfg)
@@ -119,12 +133,12 @@ class VRDTask(OFATask):
         return model
 
     def valid_step(self, sample, model, criterion):
-        if self.valid_count % 50 == 0:
-            loss, sample_size, logging_output = criterion(model, sample)
+        loss, sample_size, logging_output = criterion(model, sample)
 
-            model.eval()
-            hyps, refs = self._inference(self.sequence_generator, sample, model)
-            img_ids = sample['id'].tolist()
+        model.eval()
+        hyps, refs = self._inference(self.sequence_generator, sample, model)
+        img_ids = sample['id'].tolist()
+        if self.valid_count % 50 == 0:
             print(img_ids[0], hyps[0], refs[0])
 
         self.valid_count += 1
