@@ -43,7 +43,7 @@ with h5py.File(os.path.join(vg_dir, 'VG-SGG-with-attri.h5'), 'r') as f, \
 			if toy and ((train_count > toy_count and split == 0) or (val_count > toy_count and split != 0)):
 				continue
 			try:
-				if last_rel - first_rel <= 0:
+				if last_rel - first_rel < 0:
 					skip_count += 1
 					continue
 
@@ -54,9 +54,9 @@ with h5py.File(os.path.join(vg_dir, 'VG-SGG-with-attri.h5'), 'r') as f, \
 						skip_count += 1
 						continue
 
-					pred_ids = f['predicates'][first_rel : last_rel+1].squeeze().tolist()
+					pred_ids = np.atleast_1d(f['predicates'][first_rel : last_rel+1].squeeze()).tolist()
 					boxes = f['boxes_1024'][first_box : last_box+1].squeeze().tolist()
-					box_ids = f['labels'][first_box : last_box+1].squeeze().tolist()
+					box_ids = np.atleast_1d(f['labels'][first_box : last_box+1].squeeze()).tolist()
 					pred_label = [d['idx_to_predicate'][str(i)] for i in pred_ids]
 					box_label = [d['idx_to_label'][str(i)] for i in box_ids]
 					box_range = [first_box, last_box]

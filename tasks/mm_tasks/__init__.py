@@ -6,3 +6,4 @@ from .vqa_gen import VqaGenTask
 from .detection import DetectionTask
 from .sg_cls import SGClsTask
 from .vrd import VRDTask
+from .vrd2 import VRD2Task

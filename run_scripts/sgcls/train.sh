@@ -24,7 +24,7 @@ arch=ofa_base
 criterion=adjust_label_smoothed_cross_entropy
 label_smoothing=0.1
 lr=3e-5
-max_epoch=30
+max_epoch=12
 warmup_ratio=0.06
 batch_size=7
 update_freq=4
@@ -38,12 +38,19 @@ max_tgt_length=150
 num_bins=1000
 patch_image_size=512
 
-log_file=${log_dir}/${tag}_${max_epoch}"_"${lr}"_"${patch_image_size}_base_nosrcbbox".log"
-save_path=${save_dir}/${tag}_${max_epoch}"_"${lr}"_"${patch_image_size}_base_nosrcbbox
+log_file=${log_dir}/${tag}_${max_epoch}"_"${lr}"_"${patch_image_size}_base_tgtobj".log"
+save_path=${save_dir}/${tag}_${max_epoch}"_"${lr}"_"${patch_image_size}_base_tgtobj
 tensorboard_logdir=./tensorboard/${tag}_${max_epoch}"_"${lr}"_"${patch_image_size}
 mkdir -p $save_path
 
-CUDA_VISIBLE_DEVICES=1 python3 -m torch.distributed.launch --nproc_per_node=1 --master_port=${MASTER_PORT} ../../train.py \
+if [ -f $log_file ]; then
+    read -p "Log file ${log_file} already exists, override? (y/n): " confirm
+    if [ $confirm != "y" ]; then
+        exit 1
+    fi
+fi
+
+CUDA_VISIBLE_DEVICES=0,1,2 python3 -m torch.distributed.launch --nproc_per_node=3 --master_port=${MASTER_PORT} ../../train.py \
     $data \
     --memory-efficient-fp16 \
     --bpe-dir=${bpe_dir} \
@@ -76,7 +83,7 @@ CUDA_VISIBLE_DEVICES=1 python3 -m torch.distributed.launch --nproc_per_node=1 --
     --wandb-project=OFA-VG \
     --fixed-validation-seed=7 \
     --keep-best-checkpoints=1 \
-    --save-interval=4 --validate-interval=30 \
+    --save-interval=2 --validate-interval=30 \
     --all-gather-list-size=2097152 \
     --eval-args='{"beam":5,"max_len_a":0,"max_len_b":200}' \
     --best-checkpoint-metric=loss --maximize-best-checkpoint-metric \

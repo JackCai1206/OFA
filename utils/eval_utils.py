@@ -8,10 +8,12 @@ import math
 import json
 from itertools import chain
 import os
+import numpy as np
 
 import torch
 import torch.distributed as dist
 from fairseq import utils
+from segment_anything import SamAutomaticMaskGenerator, sam_model_registry
 
 from data import data_utils
 from tasks.nlg_tasks.gigaword import fix_tokenization
@@ -411,6 +413,15 @@ def eval_sgcls(task, generator, models, sample, **kwargs):
 
     return results, scores
 
+def get_boxes_SAM(image):
+    sam = sam_model_registry["<model_type>"](checkpoint="<path/to/checkpoint>")
+    mask_generator = SamAutomaticMaskGenerator(sam)
+    masks = mask_generator.generate(image)
+    bbox = [mask['box'] for mask in masks]
+    # convert to x1, y1, x2, y2
+    bbox = [[box[0], box[1], box[0] + box[2], box[1] + box[3]] for box in bbox]
+    return bbox
+
 def eval_vrd(task, generator, models, sample, **kwargs):
     def decode(toks):
         s = task.tgt_dict.string(toks.int().cpu())
@@ -426,15 +437,21 @@ def eval_vrd(task, generator, models, sample, **kwargs):
     for i in range(len(sample["id"])):
         image_id = sample["id"][i]
         img_ids.append(image_id)
-        boxes = torch.split(utils.strip_pad(sample['net_input']['src_tokens'][i], task.tgt_dict.pad())[1:-1], 5)
+        boxes = sample['all_boxes'][i]
+        # boxes = get_boxes_SAM(sample['net_input']['patch_images'][i])
         last = obj_counts[-1][1] if len(obj_counts) > 0 else 0
         obj_counts.append((last, last + len(boxes)))
-        for j, box in enumerate(boxes):
-            if (len(box) == 5):
-                assert decode(box[4:]) == '<unk>'
-                box = box[:4]
+        prompt = dataset.encode_text(' describe the relations for this region: ')
+        for j, sub_box in enumerate(boxes):
+            # if (len(sub_box) == 5):
+            #     assert decode(sub_box[4:]) == '<unk>'
+            #     sub_box = sub_box[:4]
             # print(decode(box))
-            src_item = torch.cat([dataset.bos_item.cuda(), box, dataset.eos_item.cuda()])
+            obj_boxes = boxes[:j] + boxes[j+1:]
+            sub_box_str = '<sub> ' + sub_box + ' ' + ' '.join(['<obj> ' + ob for ob in obj_boxes])
+            # print(sub_box_str)
+            sub_box_str = dataset.encode_text(sub_box_str, use_bpe=False)
+            src_item = torch.cat([dataset.bos_item.cuda(), prompt.cuda(), sub_box_str.cuda(), dataset.eos_item.cuda()])
             example = {
                 "id": image_id + '-' + str(j),
                 "source": src_item,
@@ -444,12 +461,18 @@ def eval_vrd(task, generator, models, sample, **kwargs):
                 "prev_output_tokens": torch.Tensor([]) # not used
             }
             examples.append(example)
-    if len(examples) > 90: 
-        print('warning: skipped', len(examples) - 90, 'examples')
-        examples = examples[:90]
+        
+    examples_extra = None
+    if len(examples) > 60: 
+        examples_extra = examples[60:]
+        examples = examples[:60]
 
     batched_examples = dataset.collater(examples)
     gen_out = task.inference_step(generator, models, batched_examples)
+    if examples_extra is not None:
+        batched_examples_extra = dataset.collater(examples_extra)
+        gen_out_extra = task.inference_step(generator, models, batched_examples_extra)
+        gen_out.extend(gen_out_extra)
     for i, (first, last) in enumerate(obj_counts):
         hyp_trip = []
         hyp = ""
@@ -481,15 +504,107 @@ def eval_vrd(task, generator, models, sample, **kwargs):
 
     return results, scores
 
+def eval_vrd2(task, generator, models, sample, **kwargs):
+    def decode(toks):
+        s = task.tgt_dict.string(toks.int().cpu())
+        return s
+
+    hyps, refs = [], []
+    hyp_triplets, ref_triplets = [], []
+    rel_counts = []
+    img_ids = []
+    dataset = task.datasets['test']
+    models[0].eval()
+    examples = []
+    for i in range(len(sample["id"])):
+        image_id = sample["id"][i]
+        img_ids.append(image_id)
+        boxes = sample['all_boxes'][i]
+        boxes_raw = sample['all_boxes_raw'][i]
+        # boxes = get_boxes_SAM(sample['net_input']['patch_images'][i])
+        box_dist = get_box_dist(boxes_raw)
+        last = rel_counts[-1][1] if len(rel_counts) > 0 else 0
+        rel_count = 0
+        prompt = dataset.encode_text(' describe the relations: ')
+        for j, sub_box in enumerate(boxes):
+            # if (len(sub_box) == 5):
+            #     assert decode(sub_box[4:]) == '<unk>'
+            #     sub_box = sub_box[:4]
+            # print(decode(box))
+            obj_boxes = boxes[:j] + boxes[j+1:]
+            for k, obj_box in enumerate(obj_boxes):
+                if box_dist[j][k] < 500:
+                    sub_box_str = '<sub> ' + sub_box + ' <obj> ' + obj_box
+                    # print(sub_box_str)
+                    sub_box_str = dataset.encode_text(sub_box_str, use_bpe=False)
+                    src_item = torch.cat([dataset.bos_item.cuda(), prompt.cuda(), sub_box_str.cuda(), dataset.eos_item.cuda()])
+                    example = {
+                        "id": image_id + '-' + str(j),
+                        "source": src_item,
+                        "patch_image": sample['net_input']['patch_images'][i],
+                        "patch_mask": sample['net_input']['patch_masks'][i:i+1],
+                        "target": torch.Tensor([]), # not used
+                        "prev_output_tokens": torch.Tensor([]) # not used
+                    }
+                    examples.append(example)
+                rel_count += 1
+        rel_counts.append((last, last + rel_count))
+    gen_out = []
+    for i in range(0, len(examples), 60):
+        batched_examples = dataset.collater(examples[i:i+60])
+        gen_out.extend(task.inference_step(generator, models, batched_examples))
+    for i, (first, last) in enumerate(rel_counts):
+        hyp_trip = []
+        hyp = ""
+        for out in gen_out[first:last]:
+            sent = decode(out[0]["tokens"])
+            hyp += sent + ' '
+            trips = toks2triplets(sent.split(), task, reverse_sub_obj=True)
+            hyp_trip.extend(trips)
+        # print(hyp_trip)
+        hyp_triplets.append(hyp_trip)
+        hyps.append(hyp)
+        refs.append(decode(utils.strip_pad(sample["target"][i], task.tgt_dict.pad())))
+        ref_triplets.append(toks2triplets(refs[i].split(), task))
+    
+    # print(hyp_triplets[0])
+    # print(ref_triplets[0])
+
+    obj_list = task.vg_json['object_count'].keys()
+    pred_list = task.vg_json['predicate_to_idx'].keys()
+
+    results = []
+    # calculate triplet recall
+    scores = []
+    for img_id, hyp, ref in zip(img_ids, hyp_triplets, ref_triplets):
+        res = {"img_id": img_id, "hyp": hyp, "ref": ref}
+        pred_count = dict(zip(pred_list, [[0, 0] for _ in range(len(pred_list))]))
+        match_count, rel_count = calculate_recall(hyp, ref, pred_count) # per image
+        scores.append(match_count / rel_count)
+        res['pred_count'] = pred_count
+        res['match_count'] = match_count
+        results.append(res)
+
+    return results, scores
+
+def get_box_dist(boxes):
+    # use numpy to speed up
+    boxes = np.array(boxes)
+    box_dist = np.zeros((len(boxes), len(boxes)))
+    # broadcast
+    box_dist = np.sqrt(np.sum((boxes[:, None, :2] - boxes[None, :, :2]) ** 2, axis=-1))
+    return box_dist
+
 def calculate_recall(hyp, ref, pred_count):
     matches = []
-    for h in hyp:
-        for r in ref:
+    for r in ref:
+        for h in hyp:
             if len(h) != 3 or len(r) != 3:
                 print(h, r)
                 continue
             if h[0] == r[0] and h[1] == r[1] and h[2] == r[2]:
                 matches.append(h)
+                break
     for match in matches:
         pred_count[match[1]][0] += 1 if match[1] in pred_count else 0
     for r in ref:
@@ -497,9 +612,11 @@ def calculate_recall(hyp, ref, pred_count):
             pred_count[r[1]][1] += 1
         if r[1] not in pred_count:
             print(r)
+    # for p in pred_count:
+    #     assert pred_count[p][0] <= pred_count[p][1], pred_count
     return len(matches), len(ref)
 
-def toks2triplets(toks, task, reverse_pred_obj=False):
+def toks2triplets(toks, task, reverse_pred_obj=False, reverse_sub_obj=False):
     triplets = []
     curr_sub = ''
     curr_obj = ''
@@ -536,11 +653,23 @@ def toks2triplets(toks, task, reverse_pred_obj=False):
     if len(triplets[-1]) < 3:
         del triplets[-1]
     for trip in triplets:
+        if len(trip) < 3:
+            print(trip)
+            continue
         if len(trip) > 3:
             print(trip)
             trip = trip[:3]
         if reverse_pred_obj:
             trip[1], trip[2] = trip[2], trip[1]
+        if reverse_sub_obj:
+            trip[0], trip[2] = trip[2], trip[0]
+        if '<rare>' in trip[1]:
+            trip[1] = trip[1].replace('<rare>', '').strip()
+        if '<bin' in trip[0]:
+            trip[0] = trip[0].split('<bin')[0].strip()
+        if '<bin' in trip[2]:
+            trip[2] = trip[2].split('<bin')[0].strip()
+
     return triplets
 
 def eval_step(task, generator, models, sample, **kwargs):
@@ -570,6 +699,8 @@ def eval_step(task, generator, models, sample, **kwargs):
         return eval_sgcls(task, generator, models, sample, **kwargs)
     elif task.cfg._name == 'vrd':
         return eval_vrd(task, generator, models, sample, **kwargs)
+    elif task.cfg._name == 'vrd2':
+        return eval_vrd2(task, generator, models, sample, **kwargs)
     else:
         raise NotImplementedError
 
@@ -583,7 +714,7 @@ def merge_results(task, cfg, logger, score_cnt, score_sum, results):
             logger.info("score_sum: {}, score_cnt: {}, score: {}".format(
                 score_sum, score_cnt, round(score_sum.item() / score_cnt.item(), 4)
             ))
-    elif task.cfg._name == 'sgcls' or task.cfg._name == 'vrd':
+    elif task.cfg._name == 'sgcls' or task.cfg._name == 'vrd' or task.cfg._name == 'vrd2':
         gather_results = None
         if cfg.distributed_training.distributed_world_size > 1:
             gather_results = [None for _ in range(dist.get_world_size())]
@@ -611,12 +742,12 @@ def merge_results(task, cfg, logger, score_cnt, score_sum, results):
             logger.info("recall_by_image: {} / {} = {}, recall: {} / {} = {}, mean recall: {}, mean hyp n_rel: {}, mean ref n_rel {}".format(
                 round(score_sum.item(), 4), score_cnt.item(), round(score_sum.item() / score_cnt.item(), 4),
                 match_count, total_ref, round(match_count / total_ref, 4),
-                mean_recall, round( total_hyp / score_cnt.item(), 4), round(total_ref / score_cnt.item(), 4)
+                round(mean_recall, 4), round( total_hyp / score_cnt.item(), 4), round(total_ref / score_cnt.item(), 4)
             ))
         
         if cfg.distributed_training.distributed_world_size == 1 or dist.get_rank() == 0:
             os.makedirs(cfg.common_eval.results_path, exist_ok=True)
-            output_path = os.path.join(cfg.common_eval.results_path, "{}_predict.json".format(cfg.dataset.gen_subset))
+            output_path = os.path.join(cfg.common_eval.results_path, "{}_predict_{}.json".format(cfg.dataset.gen_subset, mean_recall))
             with open(output_path, 'w') as fw:
                 # for res in gather_results:
                 #     del res['pred_count']
