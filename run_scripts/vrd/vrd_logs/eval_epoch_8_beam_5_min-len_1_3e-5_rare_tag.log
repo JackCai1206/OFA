@@ -1,0 +1,3081 @@
+single-machine distributed training is initialized.
+2023-06-01 13:53:21 | INFO | ofa.evaluate | {'_name': None, 'common': {'_name': None, 'no_progress_bar': False, 'log_interval': 5, 'log_format': 'simple', 'log_file': None, 'tensorboard_logdir': None, 'wandb_project': None, 'azureml_logging': False, 'seed': 7, 'cpu': False, 'tpu': False, 'bf16': False, 'memory_efficient_bf16': False, 'fp16': True, 'memory_efficient_fp16': False, 'fp16_no_flatten_grads': False, 'fp16_init_scale': 128, 'fp16_scale_window': None, 'fp16_scale_tolerance': 0.0, 'on_cpu_convert_precision': False, 'min_loss_scale': 0.0001, 'threshold_loss_scale': None, 'amp': False, 'amp_batch_retries': 2, 'amp_init_scale': 128, 'amp_scale_window': None, 'user_dir': '../../ofa_module', 'empty_cache_freq': 0, 'all_gather_list_size': 16384, 'model_parallel_size': 1, 'quantization_config_path': None, 'profile': False, 'reset_logging': False, 'suppress_crashes': False, 'use_plasma_view': False, 'plasma_path': '/tmp/plasma'}, 'common_eval': {'_name': None, 'path': '../../checkpoints/OFA/vrd_checkpoints/_30_3e-5_512_rare_tag/checkpoint8.pt', 'post_process': None, 'quiet': False, 'model_overrides': '{"data":"../../dataset/OFA_data/sgcls/vg_val_full.tsv","bpe_dir":"../../utils/BPE","eval_cider":False}', 'results_path': '../../results/vrd'}, 'distributed_training': {'_name': None, 'distributed_world_size': 1, 'distributed_num_procs': 1, 'distributed_rank': 0, 'distributed_backend': 'nccl', 'distributed_init_method': 'env://', 'distributed_port': -1, 'device_id': 0, 'distributed_no_spawn': True, 'ddp_backend': 'pytorch_ddp', 'ddp_comm_hook': 'none', 'bucket_cap_mb': 25, 'fix_batches_to_gpus': False, 'find_unused_parameters': False, 'gradient_as_bucket_view': False, 'fast_stat_sync': False, 'heartbeat_timeout': -1, 'broadcast_buffers': False, 'slowmo_momentum': None, 'slowmo_algorithm': 'LocalSGD', 'localsgd_frequency': 3, 'nprocs_per_node': 1, 'pipeline_model_parallel': False, 'pipeline_balance': None, 'pipeline_devices': None, 'pipeline_chunks': 0, 'pipeline_encoder_balance': None, 'pipeline_encoder_devices': None, 'pipeline_decoder_balance': None, 'pipeline_decoder_devices': None, 'pipeline_checkpoint': 'never', 'zero_sharding': 'none', 'fp16': True, 'memory_efficient_fp16': False, 'tpu': False, 'no_reshard_after_forward': False, 'fp32_reduce_scatter': False, 'cpu_offload': False, 'use_sharded_state': False}, 'dataset': {'_name': None, 'num_workers': 0, 'skip_invalid_size_inputs_valid_test': False, 'max_tokens': None, 'batch_size': 4, 'required_batch_size_multiple': 8, 'required_seq_len_multiple': 1, 'dataset_impl': None, 'data_buffer_size': 10, 'train_subset': 'train', 'valid_subset': 'valid', 'combine_valid_subsets': None, 'ignore_unused_valid_subsets': False, 'validate_interval': 1, 'validate_interval_updates': 0, 'validate_after_updates': 0, 'fixed_validation_seed': None, 'disable_validation': False, 'max_tokens_valid': None, 'batch_size_valid': 4, 'max_valid_steps': None, 'curriculum': 0, 'gen_subset': 'test', 'num_shards': 1, 'shard_id': 0}, 'optimization': {'_name': None, 'max_epoch': 0, 'max_update': 0, 'stop_time_hours': 0.0, 'clip_norm': 0.0, 'sentence_avg': False, 'update_freq': [1], 'lr': [0.25], 'stop_min_lr': -1.0, 'use_bmuf': False}, 'checkpoint': {'_name': None, 'save_dir': 'checkpoints', 'restore_file': 'checkpoint_last.pt', 'finetune_from_model': None, 'reset_dataloader': False, 'reset_lr_scheduler': False, 'reset_meters': False, 'reset_optimizer': False, 'optimizer_overrides': '{}', 'save_interval': 1, 'save_interval_updates': 0, 'keep_interval_updates': -1, 'keep_interval_updates_pattern': -1, 'keep_last_epochs': -1, 'keep_best_checkpoints': -1, 'no_save': False, 'no_epoch_checkpoints': False, 'no_last_checkpoints': False, 'no_save_optimizer_state': False, 'best_checkpoint_metric': 'loss', 'maximize_best_checkpoint_metric': False, 'patience': -1, 'checkpoint_suffix': '', 'checkpoint_shard_count': 1, 'load_checkpoint_on_all_dp_ranks': False, 'write_checkpoints_asynchronously': False, 'model_parallel_size': 1, 'use_ema_weights_to_init_param': False, 'use_latest_weights_to_init_ema': False}, 'bmuf': {'_name': None, 'block_lr': 1.0, 'block_momentum': 0.875, 'global_sync_iter': 50, 'warmup_iterations': 500, 'use_nbm': False, 'average_sync': False, 'distributed_world_size': 1}, 'generation': {'_name': None, 'beam': 5, 'nbest': 1, 'max_len_a': 0.0, 'max_len_b': 100, 'min_len': 1, 'match_source_len': False, 'unnormalized': False, 'no_early_stop': False, 'no_beamable_mm': False, 'lenpen': 1.0, 'unkpen': 0.0, 'replace_unk': None, 'sacrebleu': False, 'score_reference': False, 'prefix_size': 0, 'no_repeat_ngram_size': 6, 'sampling': False, 'sampling_topk': -1, 'sampling_topp': -1.0, 'constraints': None, 'temperature': 1.0, 'diverse_beam_groups': -1, 'diverse_beam_strength': 0.5, 'diversity_rate': -1.0, 'print_alignment': None, 'print_step': False, 'lm_path': None, 'lm_weight': 0.0, 'iter_decode_eos_penalty': 0.0, 'iter_decode_max_iter': 10, 'iter_decode_force_max_iter': False, 'iter_decode_with_beam': 1, 'iter_decode_with_external_reranker': False, 'retain_iter_history': False, 'retain_dropout': False, 'retain_dropout_modules': None, 'decoding_format': None, 'no_seed_provided': False}, 'eval_lm': {'_name': None, 'output_word_probs': False, 'output_word_stats': False, 'context_window': 0, 'softmax_batch': 9223372036854775807}, 'interactive': {'_name': None, 'buffer_size': 0, 'input': '-'}, 'model': None, 'task': {'_name': 'vrd', 'data': '../../dataset/OFA_data/sgcls/vg_val_full.tsv', 'selected_cols': None, 'bpe': None, 'bpe_dir': None, 'max_source_positions': 1024, 'max_target_positions': 1024, 'max_src_length': 128, 'max_tgt_length': 30, 'code_dict_size': 8192, 'patch_image_size': 480, 'orig_patch_image_size': 256, 'num_bins': 1000, 'imagenet_default_mean_and_std': False, 'constraint_range': None, 'eval_args': '{}', 'eval_print_samples': False, 'vg_json_dir': '../../dataset/visual_genome/VG-SGG-dicts-with-attri.json'}, 'criterion': {'_name': 'cross_entropy', 'sentence_avg': True}, 'optimizer': None, 'lr_scheduler': {'_name': 'fixed', 'force_anneal': None, 'lr_shrink': 0.1, 'warmup_updates': 0, 'lr': [0.25]}, 'scoring': {'_name': 'bleu', 'pad': 1, 'eos': 2, 'unk': 3}, 'bpe': None, 'tokenizer': None, 'ema': {'_name': None, 'store_ema': False, 'ema_decay': 0.9999, 'ema_start_update': 0, 'ema_seed_model': None, 'ema_update_freq': 1, 'ema_fp32': False}, 'simul_type': None}
+2023-06-01 13:53:21 | INFO | ofa.evaluate | loading model(s) from ../../checkpoints/OFA/vrd_checkpoints/_30_3e-5_512_rare_tag/checkpoint8.pt
+2023-06-01 13:53:22 | INFO | tasks.mm_tasks.vrd | vrd setup: source dictionary: 50748 types
+2023-06-01 13:53:22 | INFO | tasks.mm_tasks.vrd | vrd setup: target dictionary: 50748 types
+/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torch/functional.py:478: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at  ../aten/src/ATen/native/TensorShape.cpp:2894.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+local datafile ../../dataset/OFA_data/sgcls/vg_val_full.tsv slice_id 0 begin to initialize row_count and line_idx-to-offset mapping
+local datafile ../../dataset/OFA_data/sgcls/vg_val_full.tsv slice_id 0 finished initializing row_count and line_idx-to-offset mapping
+file ../../dataset/OFA_data/sgcls/vg_val_full.tsv slice_id 0 row count 22880 total row count 22880
+/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torchvision/transforms/transforms.py:332: UserWarning: Argument 'interpolation' of type int is deprecated since 0.13 and will be removed in 0.15. Please use InterpolationMode enum.
+  warnings.warn(
+/home/zcai75/Github/OFA/fairseq/fairseq/search.py:140: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  beams_buf = indices_buf // vocab_size
+/home/zcai75/Github/OFA_forked/models/sequence_generator.py:705: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  unfin_idx = bbsz_idx // beam_size
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 13:53:39 | INFO | fairseq.logging.progress_bar | :      6 / 5720 sentences=4
+2023-06-01 13:53:48 | INFO | fairseq.logging.progress_bar | :     11 / 5720 sentences=4
+2023-06-01 13:54:00 | INFO | fairseq.logging.progress_bar | :     16 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 13:54:11 | INFO | fairseq.logging.progress_bar | :     21 / 5720 sentences=4
+2023-06-01 13:54:18 | INFO | fairseq.logging.progress_bar | :     26 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['tree', ' covered in', 'snow']
+['track', ' for', 'train']
+2023-06-01 13:54:27 | INFO | fairseq.logging.progress_bar | :     31 / 5720 sentences=4
+2023-06-01 13:54:36 | INFO | fairseq.logging.progress_bar | :     36 / 5720 sentences=4
+['street', ' covered in', 'snow']
+['track', ' for', 'train']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 13:54:45 | INFO | fairseq.logging.progress_bar | :     41 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 13:54:54 | INFO | fairseq.logging.progress_bar | :     46 / 5720 sentences=4
+2023-06-01 13:55:05 | INFO | fairseq.logging.progress_bar | :     51 / 5720 sentences=4
+2023-06-01 13:55:13 | INFO | fairseq.logging.progress_bar | :     56 / 5720 sentences=4
+2023-06-01 13:55:22 | INFO | fairseq.logging.progress_bar | :     61 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+2023-06-01 13:55:31 | INFO | fairseq.logging.progress_bar | :     66 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 13:55:42 | INFO | fairseq.logging.progress_bar | :     71 / 5720 sentences=4
+['snow', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 13:55:53 | INFO | fairseq.logging.progress_bar | :     76 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 13:56:03 | INFO | fairseq.logging.progress_bar | :     81 / 5720 sentences=4
+2023-06-01 13:56:11 | INFO | fairseq.logging.progress_bar | :     86 / 5720 sentences=4
+2023-06-01 13:56:21 | INFO | fairseq.logging.progress_bar | :     91 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 13:56:31 | INFO | fairseq.logging.progress_bar | :     96 / 5720 sentences=4
+2023-06-01 13:56:39 | INFO | fairseq.logging.progress_bar | :    101 / 5720 sentences=4
+2023-06-01 13:56:50 | INFO | fairseq.logging.progress_bar | :    106 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 13:57:02 | INFO | fairseq.logging.progress_bar | :    111 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 13:57:10 | INFO | fairseq.logging.progress_bar | :    116 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 13:57:21 | INFO | fairseq.logging.progress_bar | :    121 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 13:57:30 | INFO | fairseq.logging.progress_bar | :    126 / 5720 sentences=4
+['car', ' parked on', 'street']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 13:57:40 | INFO | fairseq.logging.progress_bar | :    131 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 13:57:50 | INFO | fairseq.logging.progress_bar | :    136 / 5720 sentences=4
+['track', ' for', 'train']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 13:57:59 | INFO | fairseq.logging.progress_bar | :    141 / 5720 sentences=4
+2023-06-01 13:58:05 | INFO | fairseq.logging.progress_bar | :    146 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+2023-06-01 13:58:14 | INFO | fairseq.logging.progress_bar | :    151 / 5720 sentences=4
+2023-06-01 13:58:23 | INFO | fairseq.logging.progress_bar | :    156 / 5720 sentences=4
+2023-06-01 13:58:33 | INFO | fairseq.logging.progress_bar | :    161 / 5720 sentences=4
+2023-06-01 13:58:43 | INFO | fairseq.logging.progress_bar | :    166 / 5720 sentences=4
+2023-06-01 13:58:52 | INFO | fairseq.logging.progress_bar | :    171 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 13:59:02 | INFO | fairseq.logging.progress_bar | :    176 / 5720 sentences=4
+2023-06-01 13:59:13 | INFO | fairseq.logging.progress_bar | :    181 / 5720 sentences=4
+2023-06-01 13:59:22 | INFO | fairseq.logging.progress_bar | :    186 / 5720 sentences=4
+2023-06-01 13:59:33 | INFO | fairseq.logging.progress_bar | :    191 / 5720 sentences=4
+2023-06-01 13:59:41 | INFO | fairseq.logging.progress_bar | :    196 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 13:59:51 | INFO | fairseq.logging.progress_bar | :    201 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 13:59:59 | INFO | fairseq.logging.progress_bar | :    206 / 5720 sentences=4
+2023-06-01 14:00:09 | INFO | fairseq.logging.progress_bar | :    211 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:00:18 | INFO | fairseq.logging.progress_bar | :    216 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 14:00:26 | INFO | fairseq.logging.progress_bar | :    221 / 5720 sentences=4
+2023-06-01 14:00:38 | INFO | fairseq.logging.progress_bar | :    226 / 5720 sentences=4
+2023-06-01 14:00:46 | INFO | fairseq.logging.progress_bar | :    231 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:00:56 | INFO | fairseq.logging.progress_bar | :    236 / 5720 sentences=4
+2023-06-01 14:01:06 | INFO | fairseq.logging.progress_bar | :    241 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:01:17 | INFO | fairseq.logging.progress_bar | :    246 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['track', ' for', 'train']
+2023-06-01 14:01:24 | INFO | fairseq.logging.progress_bar | :    251 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 14:01:33 | INFO | fairseq.logging.progress_bar | :    256 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+2023-06-01 14:01:45 | INFO | fairseq.logging.progress_bar | :    261 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 14:01:55 | INFO | fairseq.logging.progress_bar | :    266 / 5720 sentences=4
+['car', ' parked on', 'street']
+['cat', ' laying on', 'bed']
+2023-06-01 14:02:05 | INFO | fairseq.logging.progress_bar | :    271 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:02:14 | INFO | fairseq.logging.progress_bar | :    276 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:02:23 | INFO | fairseq.logging.progress_bar | :    281 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 14:02:33 | INFO | fairseq.logging.progress_bar | :    286 / 5720 sentences=4
+2023-06-01 14:02:42 | INFO | fairseq.logging.progress_bar | :    291 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 14:02:52 | INFO | fairseq.logging.progress_bar | :    296 / 5720 sentences=4
+['street', ' covered in', 'snow']
+2023-06-01 14:03:01 | INFO | fairseq.logging.progress_bar | :    301 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 14:03:11 | INFO | fairseq.logging.progress_bar | :    306 / 5720 sentences=4
+2023-06-01 14:03:19 | INFO | fairseq.logging.progress_bar | :    311 / 5720 sentences=4
+['car', ' parked on', 'street']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:03:27 | INFO | fairseq.logging.progress_bar | :    316 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['car', ' parked on', 'street']
+['mountain', ' covered in', 'snow']
+2023-06-01 14:03:36 | INFO | fairseq.logging.progress_bar | :    321 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 14:03:46 | INFO | fairseq.logging.progress_bar | :    326 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 14:03:58 | INFO | fairseq.logging.progress_bar | :    331 / 5720 sentences=4
+warning: skipped 11 examples
+['track', ' for', 'train']
+2023-06-01 14:04:09 | INFO | fairseq.logging.progress_bar | :    336 / 5720 sentences=4
+2023-06-01 14:04:19 | INFO | fairseq.logging.progress_bar | :    341 / 5720 sentences=4
+['people', ' watching', 'man']
+warning: skipped 5 examples
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 14:04:28 | INFO | fairseq.logging.progress_bar | :    346 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:04:39 | INFO | fairseq.logging.progress_bar | :    351 / 5720 sentences=4
+2023-06-01 14:04:49 | INFO | fairseq.logging.progress_bar | :    356 / 5720 sentences=4
+2023-06-01 14:04:59 | INFO | fairseq.logging.progress_bar | :    361 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:05:07 | INFO | fairseq.logging.progress_bar | :    366 / 5720 sentences=4
+2023-06-01 14:05:17 | INFO | fairseq.logging.progress_bar | :    371 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 14:05:27 | INFO | fairseq.logging.progress_bar | :    376 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+warning: skipped 7 examples
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:05:37 | INFO | fairseq.logging.progress_bar | :    381 / 5720 sentences=4
+['snow', ' covered in', 'snow']
+2023-06-01 14:05:48 | INFO | fairseq.logging.progress_bar | :    386 / 5720 sentences=4
+['cat', ' laying on', 'table']
+2023-06-01 14:05:59 | INFO | fairseq.logging.progress_bar | :    391 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 14:06:09 | INFO | fairseq.logging.progress_bar | :    396 / 5720 sentences=4
+2023-06-01 14:06:20 | INFO | fairseq.logging.progress_bar | :    401 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:06:29 | INFO | fairseq.logging.progress_bar | :    406 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['cat', ' laying on', 'bed']
+2023-06-01 14:06:42 | INFO | fairseq.logging.progress_bar | :    411 / 5720 sentences=4
+2023-06-01 14:06:52 | INFO | fairseq.logging.progress_bar | :    416 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:07:02 | INFO | fairseq.logging.progress_bar | :    421 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 14:07:11 | INFO | fairseq.logging.progress_bar | :    426 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:07:21 | INFO | fairseq.logging.progress_bar | :    431 / 5720 sentences=4
+warning: skipped 10 examples
+['track', ' for', 'train']
+2023-06-01 14:07:32 | INFO | fairseq.logging.progress_bar | :    436 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 14:07:41 | INFO | fairseq.logging.progress_bar | :    441 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:07:50 | INFO | fairseq.logging.progress_bar | :    446 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:07:59 | INFO | fairseq.logging.progress_bar | :    451 / 5720 sentences=4
+['track', ' for', 'train']
+['towel', ' hanging from', 'handle']
+2023-06-01 14:08:09 | INFO | fairseq.logging.progress_bar | :    456 / 5720 sentences=4
+2023-06-01 14:08:16 | INFO | fairseq.logging.progress_bar | :    461 / 5720 sentences=4
+2023-06-01 14:08:26 | INFO | fairseq.logging.progress_bar | :    466 / 5720 sentences=4
+['cat', ' laying on', 'table']
+2023-06-01 14:08:37 | INFO | fairseq.logging.progress_bar | :    471 / 5720 sentences=4
+['car', ' parked on', 'street']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['track', ' for', 'train']
+2023-06-01 14:08:48 | INFO | fairseq.logging.progress_bar | :    476 / 5720 sentences=4
+['car', ' parked on', 'street']
+['cat', ' laying on', 'bed']
+['track', ' for', 'train']
+2023-06-01 14:08:57 | INFO | fairseq.logging.progress_bar | :    481 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 14:09:06 | INFO | fairseq.logging.progress_bar | :    486 / 5720 sentences=4
+['track', ' for', 'train']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 14:09:14 | INFO | fairseq.logging.progress_bar | :    491 / 5720 sentences=4
+2023-06-01 14:09:23 | INFO | fairseq.logging.progress_bar | :    496 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 14:09:33 | INFO | fairseq.logging.progress_bar | :    501 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['tree', ' covered in', 'snow']
+2023-06-01 14:09:40 | INFO | fairseq.logging.progress_bar | :    506 / 5720 sentences=4
+2023-06-01 14:09:48 | INFO | fairseq.logging.progress_bar | :    511 / 5720 sentences=4
+2023-06-01 14:09:55 | INFO | fairseq.logging.progress_bar | :    516 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:10:03 | INFO | fairseq.logging.progress_bar | :    521 / 5720 sentences=4
+['track', ' for', 'train']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:10:11 | INFO | fairseq.logging.progress_bar | :    526 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:10:20 | INFO | fairseq.logging.progress_bar | :    531 / 5720 sentences=4
+2023-06-01 14:10:29 | INFO | fairseq.logging.progress_bar | :    536 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:10:37 | INFO | fairseq.logging.progress_bar | :    541 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:10:45 | INFO | fairseq.logging.progress_bar | :    546 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:10:54 | INFO | fairseq.logging.progress_bar | :    551 / 5720 sentences=4
+2023-06-01 14:11:02 | INFO | fairseq.logging.progress_bar | :    556 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 14:11:11 | INFO | fairseq.logging.progress_bar | :    561 / 5720 sentences=4
+2023-06-01 14:11:20 | INFO | fairseq.logging.progress_bar | :    566 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:11:29 | INFO | fairseq.logging.progress_bar | :    571 / 5720 sentences=4
+2023-06-01 14:11:38 | INFO | fairseq.logging.progress_bar | :    576 / 5720 sentences=4
+2023-06-01 14:11:49 | INFO | fairseq.logging.progress_bar | :    581 / 5720 sentences=4
+2023-06-01 14:11:58 | INFO | fairseq.logging.progress_bar | :    586 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 14:12:08 | INFO | fairseq.logging.progress_bar | :    591 / 5720 sentences=4
+['track', ' for', 'train']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:12:17 | INFO | fairseq.logging.progress_bar | :    596 / 5720 sentences=4
+2023-06-01 14:12:25 | INFO | fairseq.logging.progress_bar | :    601 / 5720 sentences=4
+2023-06-01 14:12:35 | INFO | fairseq.logging.progress_bar | :    606 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 14:12:44 | INFO | fairseq.logging.progress_bar | :    611 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 14:12:53 | INFO | fairseq.logging.progress_bar | :    616 / 5720 sentences=4
+['track', ' for', 'train']
+['car', ' parked on', 'street']
+2023-06-01 14:13:03 | INFO | fairseq.logging.progress_bar | :    621 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:13:13 | INFO | fairseq.logging.progress_bar | :    626 / 5720 sentences=4
+2023-06-01 14:13:24 | INFO | fairseq.logging.progress_bar | :    631 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['tree', ' covered in', 'snow']
+['car', ' parked on', 'street']
+2023-06-01 14:13:35 | INFO | fairseq.logging.progress_bar | :    636 / 5720 sentences=4
+2023-06-01 14:13:45 | INFO | fairseq.logging.progress_bar | :    641 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:13:54 | INFO | fairseq.logging.progress_bar | :    646 / 5720 sentences=4
+2023-06-01 14:14:03 | INFO | fairseq.logging.progress_bar | :    651 / 5720 sentences=4
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 14:14:14 | INFO | fairseq.logging.progress_bar | :    656 / 5720 sentences=4
+2023-06-01 14:14:23 | INFO | fairseq.logging.progress_bar | :    661 / 5720 sentences=4
+2023-06-01 14:14:31 | INFO | fairseq.logging.progress_bar | :    666 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:14:39 | INFO | fairseq.logging.progress_bar | :    671 / 5720 sentences=4
+2023-06-01 14:14:50 | INFO | fairseq.logging.progress_bar | :    676 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:14:58 | INFO | fairseq.logging.progress_bar | :    681 / 5720 sentences=4
+2023-06-01 14:15:07 | INFO | fairseq.logging.progress_bar | :    686 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['tree', ' covered in', 'snow']
+2023-06-01 14:15:16 | INFO | fairseq.logging.progress_bar | :    691 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:15:25 | INFO | fairseq.logging.progress_bar | :    696 / 5720 sentences=4
+2023-06-01 14:15:33 | INFO | fairseq.logging.progress_bar | :    701 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+warning: skipped 6 examples
+2023-06-01 14:15:44 | INFO | fairseq.logging.progress_bar | :    706 / 5720 sentences=4
+2023-06-01 14:15:53 | INFO | fairseq.logging.progress_bar | :    711 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 14:16:00 | INFO | fairseq.logging.progress_bar | :    716 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:16:08 | INFO | fairseq.logging.progress_bar | :    721 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 14:16:16 | INFO | fairseq.logging.progress_bar | :    726 / 5720 sentences=4
+['snow', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:16:27 | INFO | fairseq.logging.progress_bar | :    731 / 5720 sentences=4
+2023-06-01 14:16:35 | INFO | fairseq.logging.progress_bar | :    736 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 14:16:44 | INFO | fairseq.logging.progress_bar | :    741 / 5720 sentences=4
+2023-06-01 14:16:52 | INFO | fairseq.logging.progress_bar | :    746 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:17:00 | INFO | fairseq.logging.progress_bar | :    751 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:17:08 | INFO | fairseq.logging.progress_bar | :    756 / 5720 sentences=4
+2023-06-01 14:17:18 | INFO | fairseq.logging.progress_bar | :    761 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 14:17:27 | INFO | fairseq.logging.progress_bar | :    766 / 5720 sentences=4
+2023-06-01 14:17:36 | INFO | fairseq.logging.progress_bar | :    771 / 5720 sentences=4
+2023-06-01 14:17:47 | INFO | fairseq.logging.progress_bar | :    776 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 14:17:54 | INFO | fairseq.logging.progress_bar | :    781 / 5720 sentences=4
+2023-06-01 14:18:02 | INFO | fairseq.logging.progress_bar | :    786 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['track', ' for', 'train']
+2023-06-01 14:18:11 | INFO | fairseq.logging.progress_bar | :    791 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 14:18:20 | INFO | fairseq.logging.progress_bar | :    796 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:18:29 | INFO | fairseq.logging.progress_bar | :    801 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:18:38 | INFO | fairseq.logging.progress_bar | :    806 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 14:18:45 | INFO | fairseq.logging.progress_bar | :    811 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:18:54 | INFO | fairseq.logging.progress_bar | :    816 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 14:19:01 | INFO | fairseq.logging.progress_bar | :    821 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['cat', ' laying on', 'bed']
+['cat', ' laying on', 'bed']
+2023-06-01 14:19:10 | INFO | fairseq.logging.progress_bar | :    826 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:19:18 | INFO | fairseq.logging.progress_bar | :    831 / 5720 sentences=4
+warning: skipped 1 examples
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:19:28 | INFO | fairseq.logging.progress_bar | :    836 / 5720 sentences=4
+2023-06-01 14:19:37 | INFO | fairseq.logging.progress_bar | :    841 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 14:19:46 | INFO | fairseq.logging.progress_bar | :    846 / 5720 sentences=4
+2023-06-01 14:19:54 | INFO | fairseq.logging.progress_bar | :    851 / 5720 sentences=4
+2023-06-01 14:20:03 | INFO | fairseq.logging.progress_bar | :    856 / 5720 sentences=4
+2023-06-01 14:20:12 | INFO | fairseq.logging.progress_bar | :    861 / 5720 sentences=4
+2023-06-01 14:20:19 | INFO | fairseq.logging.progress_bar | :    866 / 5720 sentences=4
+2023-06-01 14:20:28 | INFO | fairseq.logging.progress_bar | :    871 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:20:36 | INFO | fairseq.logging.progress_bar | :    876 / 5720 sentences=4
+['snow', ' covered in', 'snow']
+2023-06-01 14:20:44 | INFO | fairseq.logging.progress_bar | :    881 / 5720 sentences=4
+2023-06-01 14:20:53 | INFO | fairseq.logging.progress_bar | :    886 / 5720 sentences=4
+2023-06-01 14:21:02 | INFO | fairseq.logging.progress_bar | :    891 / 5720 sentences=4
+2023-06-01 14:21:09 | INFO | fairseq.logging.progress_bar | :    896 / 5720 sentences=4
+2023-06-01 14:21:18 | INFO | fairseq.logging.progress_bar | :    901 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+2023-06-01 14:21:25 | INFO | fairseq.logging.progress_bar | :    906 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:21:33 | INFO | fairseq.logging.progress_bar | :    911 / 5720 sentences=4
+2023-06-01 14:21:42 | INFO | fairseq.logging.progress_bar | :    916 / 5720 sentences=4
+2023-06-01 14:21:51 | INFO | fairseq.logging.progress_bar | :    921 / 5720 sentences=4
+2023-06-01 14:21:59 | INFO | fairseq.logging.progress_bar | :    926 / 5720 sentences=4
+2023-06-01 14:22:08 | INFO | fairseq.logging.progress_bar | :    931 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 14:22:19 | INFO | fairseq.logging.progress_bar | :    936 / 5720 sentences=4
+2023-06-01 14:22:28 | INFO | fairseq.logging.progress_bar | :    941 / 5720 sentences=4
+2023-06-01 14:22:36 | INFO | fairseq.logging.progress_bar | :    946 / 5720 sentences=4
+2023-06-01 14:22:44 | INFO | fairseq.logging.progress_bar | :    951 / 5720 sentences=4
+2023-06-01 14:22:52 | INFO | fairseq.logging.progress_bar | :    956 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:23:00 | INFO | fairseq.logging.progress_bar | :    961 / 5720 sentences=4
+['motorcycle', ' parked on', 'street']
+['motorcycle', ' parked on', 'street']
+2023-06-01 14:23:09 | INFO | fairseq.logging.progress_bar | :    966 / 5720 sentences=4
+2023-06-01 14:23:19 | INFO | fairseq.logging.progress_bar | :    971 / 5720 sentences=4
+2023-06-01 14:23:29 | INFO | fairseq.logging.progress_bar | :    976 / 5720 sentences=4
+2023-06-01 14:23:37 | INFO | fairseq.logging.progress_bar | :    981 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:23:47 | INFO | fairseq.logging.progress_bar | :    986 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 14:23:57 | INFO | fairseq.logging.progress_bar | :    991 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 14:24:06 | INFO | fairseq.logging.progress_bar | :    996 / 5720 sentences=4
+2023-06-01 14:24:13 | INFO | fairseq.logging.progress_bar | :   1001 / 5720 sentences=4
+2023-06-01 14:24:22 | INFO | fairseq.logging.progress_bar | :   1006 / 5720 sentences=4
+2023-06-01 14:24:30 | INFO | fairseq.logging.progress_bar | :   1011 / 5720 sentences=4
+2023-06-01 14:24:39 | INFO | fairseq.logging.progress_bar | :   1016 / 5720 sentences=4
+['track', ' for', 'train']
+['tree', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+['track', ' for', 'train']
+2023-06-01 14:24:48 | INFO | fairseq.logging.progress_bar | :   1021 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 14:24:56 | INFO | fairseq.logging.progress_bar | :   1026 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:25:04 | INFO | fairseq.logging.progress_bar | :   1031 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 14:25:12 | INFO | fairseq.logging.progress_bar | :   1036 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:25:21 | INFO | fairseq.logging.progress_bar | :   1041 / 5720 sentences=4
+2023-06-01 14:25:30 | INFO | fairseq.logging.progress_bar | :   1046 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 14:25:38 | INFO | fairseq.logging.progress_bar | :   1051 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:25:46 | INFO | fairseq.logging.progress_bar | :   1056 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 14:25:56 | INFO | fairseq.logging.progress_bar | :   1061 / 5720 sentences=4
+2023-06-01 14:26:05 | INFO | fairseq.logging.progress_bar | :   1066 / 5720 sentences=4
+2023-06-01 14:26:15 | INFO | fairseq.logging.progress_bar | :   1071 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:26:23 | INFO | fairseq.logging.progress_bar | :   1076 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:26:34 | INFO | fairseq.logging.progress_bar | :   1081 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['cat', ' laying on', 'bed']
+2023-06-01 14:26:41 | INFO | fairseq.logging.progress_bar | :   1086 / 5720 sentences=4
+2023-06-01 14:26:50 | INFO | fairseq.logging.progress_bar | :   1091 / 5720 sentences=4
+2023-06-01 14:26:59 | INFO | fairseq.logging.progress_bar | :   1096 / 5720 sentences=4
+2023-06-01 14:27:08 | INFO | fairseq.logging.progress_bar | :   1101 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['track', ' for', 'train']
+2023-06-01 14:27:17 | INFO | fairseq.logging.progress_bar | :   1106 / 5720 sentences=4
+2023-06-01 14:27:26 | INFO | fairseq.logging.progress_bar | :   1111 / 5720 sentences=4
+['track', ' for', 'train']
+warning: skipped 18 examples
+2023-06-01 14:27:36 | INFO | fairseq.logging.progress_bar | :   1116 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:27:46 | INFO | fairseq.logging.progress_bar | :   1121 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:27:53 | INFO | fairseq.logging.progress_bar | :   1126 / 5720 sentences=4
+warning: skipped 4 examples
+2023-06-01 14:28:02 | INFO | fairseq.logging.progress_bar | :   1131 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['track', ' for', 'train']
+2023-06-01 14:28:11 | INFO | fairseq.logging.progress_bar | :   1136 / 5720 sentences=4
+2023-06-01 14:28:20 | INFO | fairseq.logging.progress_bar | :   1141 / 5720 sentences=4
+2023-06-01 14:28:29 | INFO | fairseq.logging.progress_bar | :   1146 / 5720 sentences=4
+warning: skipped 8 examples
+2023-06-01 14:28:39 | INFO | fairseq.logging.progress_bar | :   1151 / 5720 sentences=4
+2023-06-01 14:28:50 | INFO | fairseq.logging.progress_bar | :   1156 / 5720 sentences=4
+2023-06-01 14:29:01 | INFO | fairseq.logging.progress_bar | :   1161 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:29:11 | INFO | fairseq.logging.progress_bar | :   1166 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['cat', ' laying on', 'table']
+['cat', ' laying on', 'table']
+2023-06-01 14:29:21 | INFO | fairseq.logging.progress_bar | :   1171 / 5720 sentences=4
+2023-06-01 14:29:30 | INFO | fairseq.logging.progress_bar | :   1176 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:29:39 | INFO | fairseq.logging.progress_bar | :   1181 / 5720 sentences=4
+2023-06-01 14:29:48 | INFO | fairseq.logging.progress_bar | :   1186 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:29:57 | INFO | fairseq.logging.progress_bar | :   1191 / 5720 sentences=4
+2023-06-01 14:30:07 | INFO | fairseq.logging.progress_bar | :   1196 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+['track', ' for', 'train']
+2023-06-01 14:30:18 | INFO | fairseq.logging.progress_bar | :   1201 / 5720 sentences=4
+2023-06-01 14:30:28 | INFO | fairseq.logging.progress_bar | :   1206 / 5720 sentences=4
+2023-06-01 14:30:36 | INFO | fairseq.logging.progress_bar | :   1211 / 5720 sentences=4
+2023-06-01 14:30:45 | INFO | fairseq.logging.progress_bar | :   1216 / 5720 sentences=4
+2023-06-01 14:30:54 | INFO | fairseq.logging.progress_bar | :   1221 / 5720 sentences=4
+2023-06-01 14:31:03 | INFO | fairseq.logging.progress_bar | :   1226 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:31:10 | INFO | fairseq.logging.progress_bar | :   1231 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['car', ' parked on', 'street']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:31:20 | INFO | fairseq.logging.progress_bar | :   1236 / 5720 sentences=4
+warning: skipped 7 examples
+2023-06-01 14:31:30 | INFO | fairseq.logging.progress_bar | :   1241 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:31:39 | INFO | fairseq.logging.progress_bar | :   1246 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 14:31:48 | INFO | fairseq.logging.progress_bar | :   1251 / 5720 sentences=4
+2023-06-01 14:31:58 | INFO | fairseq.logging.progress_bar | :   1256 / 5720 sentences=4
+2023-06-01 14:32:06 | INFO | fairseq.logging.progress_bar | :   1261 / 5720 sentences=4
+2023-06-01 14:32:17 | INFO | fairseq.logging.progress_bar | :   1266 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 14:32:26 | INFO | fairseq.logging.progress_bar | :   1271 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 14:32:38 | INFO | fairseq.logging.progress_bar | :   1276 / 5720 sentences=4
+['towel', ' hanging from', 'handle']
+2023-06-01 14:32:47 | INFO | fairseq.logging.progress_bar | :   1281 / 5720 sentences=4
+2023-06-01 14:32:56 | INFO | fairseq.logging.progress_bar | :   1286 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+warning: skipped 3 examples
+2023-06-01 14:33:05 | INFO | fairseq.logging.progress_bar | :   1291 / 5720 sentences=4
+2023-06-01 14:33:15 | INFO | fairseq.logging.progress_bar | :   1296 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 14:33:24 | INFO | fairseq.logging.progress_bar | :   1301 / 5720 sentences=4
+2023-06-01 14:33:34 | INFO | fairseq.logging.progress_bar | :   1306 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+2023-06-01 14:33:43 | INFO | fairseq.logging.progress_bar | :   1311 / 5720 sentences=4
+2023-06-01 14:33:52 | INFO | fairseq.logging.progress_bar | :   1316 / 5720 sentences=4
+2023-06-01 14:34:00 | INFO | fairseq.logging.progress_bar | :   1321 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 14:34:10 | INFO | fairseq.logging.progress_bar | :   1326 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:34:20 | INFO | fairseq.logging.progress_bar | :   1331 / 5720 sentences=4
+2023-06-01 14:34:29 | INFO | fairseq.logging.progress_bar | :   1336 / 5720 sentences=4
+2023-06-01 14:34:39 | INFO | fairseq.logging.progress_bar | :   1341 / 5720 sentences=4
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:34:48 | INFO | fairseq.logging.progress_bar | :   1346 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:35:01 | INFO | fairseq.logging.progress_bar | :   1351 / 5720 sentences=4
+2023-06-01 14:35:12 | INFO | fairseq.logging.progress_bar | :   1356 / 5720 sentences=4
+warning: skipped 18 examples
+['car', ' parked on', 'street']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:35:22 | INFO | fairseq.logging.progress_bar | :   1361 / 5720 sentences=4
+2023-06-01 14:35:32 | INFO | fairseq.logging.progress_bar | :   1366 / 5720 sentences=4
+2023-06-01 14:35:41 | INFO | fairseq.logging.progress_bar | :   1371 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+2023-06-01 14:35:49 | INFO | fairseq.logging.progress_bar | :   1376 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:35:58 | INFO | fairseq.logging.progress_bar | :   1381 / 5720 sentences=4
+2023-06-01 14:36:08 | INFO | fairseq.logging.progress_bar | :   1386 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:36:18 | INFO | fairseq.logging.progress_bar | :   1391 / 5720 sentences=4
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+warning: skipped 20 examples
+2023-06-01 14:36:29 | INFO | fairseq.logging.progress_bar | :   1396 / 5720 sentences=4
+2023-06-01 14:36:37 | INFO | fairseq.logging.progress_bar | :   1401 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 14:36:47 | INFO | fairseq.logging.progress_bar | :   1406 / 5720 sentences=4
+2023-06-01 14:36:56 | INFO | fairseq.logging.progress_bar | :   1411 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:37:05 | INFO | fairseq.logging.progress_bar | :   1416 / 5720 sentences=4
+2023-06-01 14:37:16 | INFO | fairseq.logging.progress_bar | :   1421 / 5720 sentences=4
+2023-06-01 14:37:25 | INFO | fairseq.logging.progress_bar | :   1426 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 14:37:33 | INFO | fairseq.logging.progress_bar | :   1431 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 14:37:42 | INFO | fairseq.logging.progress_bar | :   1436 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:37:51 | INFO | fairseq.logging.progress_bar | :   1441 / 5720 sentences=4
+2023-06-01 14:38:01 | INFO | fairseq.logging.progress_bar | :   1446 / 5720 sentences=4
+2023-06-01 14:38:09 | INFO | fairseq.logging.progress_bar | :   1451 / 5720 sentences=4
+2023-06-01 14:38:17 | INFO | fairseq.logging.progress_bar | :   1456 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 14:38:28 | INFO | fairseq.logging.progress_bar | :   1461 / 5720 sentences=4
+2023-06-01 14:38:37 | INFO | fairseq.logging.progress_bar | :   1466 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 14:38:46 | INFO | fairseq.logging.progress_bar | :   1471 / 5720 sentences=4
+['snow', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['motorcycle', ' parked on', 'street']
+2023-06-01 14:38:56 | INFO | fairseq.logging.progress_bar | :   1476 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 14:39:07 | INFO | fairseq.logging.progress_bar | :   1481 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:39:15 | INFO | fairseq.logging.progress_bar | :   1486 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 14:39:26 | INFO | fairseq.logging.progress_bar | :   1491 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:39:37 | INFO | fairseq.logging.progress_bar | :   1496 / 5720 sentences=4
+2023-06-01 14:39:45 | INFO | fairseq.logging.progress_bar | :   1501 / 5720 sentences=4
+warning: skipped 14 examples
+2023-06-01 14:39:55 | INFO | fairseq.logging.progress_bar | :   1506 / 5720 sentences=4
+warning: skipped 1 examples
+2023-06-01 14:40:05 | INFO | fairseq.logging.progress_bar | :   1511 / 5720 sentences=4
+2023-06-01 14:40:14 | INFO | fairseq.logging.progress_bar | :   1516 / 5720 sentences=4
+['people', ' eating', 'pizza']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:40:24 | INFO | fairseq.logging.progress_bar | :   1521 / 5720 sentences=4
+2023-06-01 14:40:33 | INFO | fairseq.logging.progress_bar | :   1526 / 5720 sentences=4
+2023-06-01 14:40:43 | INFO | fairseq.logging.progress_bar | :   1531 / 5720 sentences=4
+2023-06-01 14:40:51 | INFO | fairseq.logging.progress_bar | :   1536 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:40:59 | INFO | fairseq.logging.progress_bar | :   1541 / 5720 sentences=4
+2023-06-01 14:41:08 | INFO | fairseq.logging.progress_bar | :   1546 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:41:18 | INFO | fairseq.logging.progress_bar | :   1551 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['car', ' parked on', 'street']
+2023-06-01 14:41:27 | INFO | fairseq.logging.progress_bar | :   1556 / 5720 sentences=4
+2023-06-01 14:41:35 | INFO | fairseq.logging.progress_bar | :   1561 / 5720 sentences=4
+['man', ' carrying', 'surfboard']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['cat', ' laying on', 'bed']
+2023-06-01 14:41:43 | INFO | fairseq.logging.progress_bar | :   1566 / 5720 sentences=4
+['motorcycle', ' parked on', 'street']
+2023-06-01 14:41:52 | INFO | fairseq.logging.progress_bar | :   1571 / 5720 sentences=4
+2023-06-01 14:42:00 | INFO | fairseq.logging.progress_bar | :   1576 / 5720 sentences=4
+['car', ' parked on', 'street']
+['cat', ' laying on', 'bed']
+['car', ' parked on', 'street']
+2023-06-01 14:42:09 | INFO | fairseq.logging.progress_bar | :   1581 / 5720 sentences=4
+2023-06-01 14:42:21 | INFO | fairseq.logging.progress_bar | :   1586 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:42:30 | INFO | fairseq.logging.progress_bar | :   1591 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:42:39 | INFO | fairseq.logging.progress_bar | :   1596 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 14:42:48 | INFO | fairseq.logging.progress_bar | :   1601 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 14:42:58 | INFO | fairseq.logging.progress_bar | :   1606 / 5720 sentences=4
+['cat', ' laying on', 'table']
+2023-06-01 14:43:05 | INFO | fairseq.logging.progress_bar | :   1611 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['car', ' parked on', 'street']
+['track', ' for', 'train']
+2023-06-01 14:43:13 | INFO | fairseq.logging.progress_bar | :   1616 / 5720 sentences=4
+2023-06-01 14:43:21 | INFO | fairseq.logging.progress_bar | :   1621 / 5720 sentences=4
+['motorcycle', ' parked on', 'street']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 14:43:30 | INFO | fairseq.logging.progress_bar | :   1626 / 5720 sentences=4
+2023-06-01 14:43:39 | INFO | fairseq.logging.progress_bar | :   1631 / 5720 sentences=4
+2023-06-01 14:43:47 | INFO | fairseq.logging.progress_bar | :   1636 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['motorcycle', ' parked on', 'street']
+2023-06-01 14:43:56 | INFO | fairseq.logging.progress_bar | :   1641 / 5720 sentences=4
+['track', ' for', 'train']
+['motorcycle', ' parked on', 'street']
+['motorcycle', ' parked on', 'street']
+['motorcycle', ' parked on', 'street']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['cat', ' laying on', 'bed']
+['cat', ' laying on', 'bed']
+2023-06-01 14:44:06 | INFO | fairseq.logging.progress_bar | :   1646 / 5720 sentences=4
+2023-06-01 14:44:15 | INFO | fairseq.logging.progress_bar | :   1651 / 5720 sentences=4
+2023-06-01 14:44:24 | INFO | fairseq.logging.progress_bar | :   1656 / 5720 sentences=4
+2023-06-01 14:44:34 | INFO | fairseq.logging.progress_bar | :   1661 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:44:42 | INFO | fairseq.logging.progress_bar | :   1666 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+warning: skipped 1 examples
+['track', ' for', 'train']
+2023-06-01 14:44:51 | INFO | fairseq.logging.progress_bar | :   1671 / 5720 sentences=4
+['cat', ' laying on', 'leg']
+2023-06-01 14:44:59 | INFO | fairseq.logging.progress_bar | :   1676 / 5720 sentences=4
+2023-06-01 14:45:08 | INFO | fairseq.logging.progress_bar | :   1681 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 14:45:17 | INFO | fairseq.logging.progress_bar | :   1686 / 5720 sentences=4
+2023-06-01 14:45:26 | INFO | fairseq.logging.progress_bar | :   1691 / 5720 sentences=4
+['people', ' watching', 'elephant']
+['people', ' watching', 'elephant']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:45:36 | INFO | fairseq.logging.progress_bar | :   1696 / 5720 sentences=4
+['motorcycle', ' parked on', 'street']
+2023-06-01 14:45:44 | INFO | fairseq.logging.progress_bar | :   1701 / 5720 sentences=4
+['towel', ' hanging from', 'handle']
+2023-06-01 14:45:53 | INFO | fairseq.logging.progress_bar | :   1706 / 5720 sentences=4
+['towel', ' hanging from', 'handle']
+2023-06-01 14:46:03 | INFO | fairseq.logging.progress_bar | :   1711 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:46:12 | INFO | fairseq.logging.progress_bar | :   1716 / 5720 sentences=4
+2023-06-01 14:46:19 | INFO | fairseq.logging.progress_bar | :   1721 / 5720 sentences=4
+2023-06-01 14:46:28 | INFO | fairseq.logging.progress_bar | :   1726 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:46:37 | INFO | fairseq.logging.progress_bar | :   1731 / 5720 sentences=4
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+2023-06-01 14:46:46 | INFO | fairseq.logging.progress_bar | :   1736 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:46:56 | INFO | fairseq.logging.progress_bar | :   1741 / 5720 sentences=4
+2023-06-01 14:47:05 | INFO | fairseq.logging.progress_bar | :   1746 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 14:47:14 | INFO | fairseq.logging.progress_bar | :   1751 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['track', ' for', 'train']
+2023-06-01 14:47:23 | INFO | fairseq.logging.progress_bar | :   1756 / 5720 sentences=4
+2023-06-01 14:47:29 | INFO | fairseq.logging.progress_bar | :   1761 / 5720 sentences=4
+2023-06-01 14:47:38 | INFO | fairseq.logging.progress_bar | :   1766 / 5720 sentences=4
+2023-06-01 14:47:46 | INFO | fairseq.logging.progress_bar | :   1771 / 5720 sentences=4
+2023-06-01 14:47:54 | INFO | fairseq.logging.progress_bar | :   1776 / 5720 sentences=4
+2023-06-01 14:48:04 | INFO | fairseq.logging.progress_bar | :   1781 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 14:48:14 | INFO | fairseq.logging.progress_bar | :   1786 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:48:23 | INFO | fairseq.logging.progress_bar | :   1791 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:48:30 | INFO | fairseq.logging.progress_bar | :   1796 / 5720 sentences=4
+2023-06-01 14:48:37 | INFO | fairseq.logging.progress_bar | :   1801 / 5720 sentences=4
+2023-06-01 14:48:46 | INFO | fairseq.logging.progress_bar | :   1806 / 5720 sentences=4
+warning: skipped 11 examples
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:48:54 | INFO | fairseq.logging.progress_bar | :   1811 / 5720 sentences=4
+2023-06-01 14:49:02 | INFO | fairseq.logging.progress_bar | :   1816 / 5720 sentences=4
+['people', ' watching', 'man']
+['track', ' for', 'train']
+2023-06-01 14:49:10 | INFO | fairseq.logging.progress_bar | :   1821 / 5720 sentences=4
+2023-06-01 14:49:18 | INFO | fairseq.logging.progress_bar | :   1826 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 14:49:25 | INFO | fairseq.logging.progress_bar | :   1831 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 14:49:33 | INFO | fairseq.logging.progress_bar | :   1836 / 5720 sentences=4
+['people', ' watching', 'man']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:49:40 | INFO | fairseq.logging.progress_bar | :   1841 / 5720 sentences=4
+2023-06-01 14:49:47 | INFO | fairseq.logging.progress_bar | :   1846 / 5720 sentences=4
+2023-06-01 14:49:55 | INFO | fairseq.logging.progress_bar | :   1851 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+2023-06-01 14:50:04 | INFO | fairseq.logging.progress_bar | :   1856 / 5720 sentences=4
+2023-06-01 14:50:12 | INFO | fairseq.logging.progress_bar | :   1861 / 5720 sentences=4
+2023-06-01 14:50:20 | INFO | fairseq.logging.progress_bar | :   1866 / 5720 sentences=4
+2023-06-01 14:50:27 | INFO | fairseq.logging.progress_bar | :   1871 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 14:50:37 | INFO | fairseq.logging.progress_bar | :   1876 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+2023-06-01 14:50:45 | INFO | fairseq.logging.progress_bar | :   1881 / 5720 sentences=4
+2023-06-01 14:50:52 | INFO | fairseq.logging.progress_bar | :   1886 / 5720 sentences=4
+2023-06-01 14:51:05 | INFO | fairseq.logging.progress_bar | :   1891 / 5720 sentences=4
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:51:13 | INFO | fairseq.logging.progress_bar | :   1896 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:51:20 | INFO | fairseq.logging.progress_bar | :   1901 / 5720 sentences=4
+2023-06-01 14:51:28 | INFO | fairseq.logging.progress_bar | :   1906 / 5720 sentences=4
+2023-06-01 14:51:35 | INFO | fairseq.logging.progress_bar | :   1911 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:51:43 | INFO | fairseq.logging.progress_bar | :   1916 / 5720 sentences=4
+2023-06-01 14:51:51 | INFO | fairseq.logging.progress_bar | :   1921 / 5720 sentences=4
+2023-06-01 14:52:01 | INFO | fairseq.logging.progress_bar | :   1926 / 5720 sentences=4
+2023-06-01 14:52:08 | INFO | fairseq.logging.progress_bar | :   1931 / 5720 sentences=4
+2023-06-01 14:52:15 | INFO | fairseq.logging.progress_bar | :   1936 / 5720 sentences=4
+2023-06-01 14:52:22 | INFO | fairseq.logging.progress_bar | :   1941 / 5720 sentences=4
+2023-06-01 14:52:30 | INFO | fairseq.logging.progress_bar | :   1946 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 14:52:39 | INFO | fairseq.logging.progress_bar | :   1951 / 5720 sentences=4
+2023-06-01 14:52:48 | INFO | fairseq.logging.progress_bar | :   1956 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:52:54 | INFO | fairseq.logging.progress_bar | :   1961 / 5720 sentences=4
+2023-06-01 14:53:01 | INFO | fairseq.logging.progress_bar | :   1966 / 5720 sentences=4
+2023-06-01 14:53:10 | INFO | fairseq.logging.progress_bar | :   1971 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 14:53:18 | INFO | fairseq.logging.progress_bar | :   1976 / 5720 sentences=4
+2023-06-01 14:53:27 | INFO | fairseq.logging.progress_bar | :   1981 / 5720 sentences=4
+2023-06-01 14:53:37 | INFO | fairseq.logging.progress_bar | :   1986 / 5720 sentences=4
+2023-06-01 14:53:45 | INFO | fairseq.logging.progress_bar | :   1991 / 5720 sentences=4
+2023-06-01 14:53:53 | INFO | fairseq.logging.progress_bar | :   1996 / 5720 sentences=4
+2023-06-01 14:54:00 | INFO | fairseq.logging.progress_bar | :   2001 / 5720 sentences=4
+['track', ' for', 'train']
+['car', ' parked on', 'street']
+2023-06-01 14:54:09 | INFO | fairseq.logging.progress_bar | :   2006 / 5720 sentences=4
+['track', ' for', 'train']
+['car', ' parked on', 'street']
+2023-06-01 14:54:16 | INFO | fairseq.logging.progress_bar | :   2011 / 5720 sentences=4
+2023-06-01 14:54:24 | INFO | fairseq.logging.progress_bar | :   2016 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 14:54:34 | INFO | fairseq.logging.progress_bar | :   2021 / 5720 sentences=4
+2023-06-01 14:54:42 | INFO | fairseq.logging.progress_bar | :   2026 / 5720 sentences=4
+['car', ' parked on', 'street']
+['track', ' for', 'train']
+2023-06-01 14:54:49 | INFO | fairseq.logging.progress_bar | :   2031 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:54:55 | INFO | fairseq.logging.progress_bar | :   2036 / 5720 sentences=4
+2023-06-01 14:55:04 | INFO | fairseq.logging.progress_bar | :   2041 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['track', ' for', 'train']
+2023-06-01 14:55:12 | INFO | fairseq.logging.progress_bar | :   2046 / 5720 sentences=4
+2023-06-01 14:55:22 | INFO | fairseq.logging.progress_bar | :   2051 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 14:55:30 | INFO | fairseq.logging.progress_bar | :   2056 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['car', ' parked on', 'street']
+2023-06-01 14:55:39 | INFO | fairseq.logging.progress_bar | :   2061 / 5720 sentences=4
+2023-06-01 14:55:47 | INFO | fairseq.logging.progress_bar | :   2066 / 5720 sentences=4
+2023-06-01 14:55:56 | INFO | fairseq.logging.progress_bar | :   2071 / 5720 sentences=4
+2023-06-01 14:56:04 | INFO | fairseq.logging.progress_bar | :   2076 / 5720 sentences=4
+2023-06-01 14:56:13 | INFO | fairseq.logging.progress_bar | :   2081 / 5720 sentences=4
+2023-06-01 14:56:20 | INFO | fairseq.logging.progress_bar | :   2086 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 14:56:28 | INFO | fairseq.logging.progress_bar | :   2091 / 5720 sentences=4
+2023-06-01 14:56:38 | INFO | fairseq.logging.progress_bar | :   2096 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 14:56:47 | INFO | fairseq.logging.progress_bar | :   2101 / 5720 sentences=4
+2023-06-01 14:56:53 | INFO | fairseq.logging.progress_bar | :   2106 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:57:00 | INFO | fairseq.logging.progress_bar | :   2111 / 5720 sentences=4
+2023-06-01 14:57:08 | INFO | fairseq.logging.progress_bar | :   2116 / 5720 sentences=4
+2023-06-01 14:57:18 | INFO | fairseq.logging.progress_bar | :   2121 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:57:25 | INFO | fairseq.logging.progress_bar | :   2126 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 14:57:32 | INFO | fairseq.logging.progress_bar | :   2131 / 5720 sentences=4
+2023-06-01 14:57:40 | INFO | fairseq.logging.progress_bar | :   2136 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:57:47 | INFO | fairseq.logging.progress_bar | :   2141 / 5720 sentences=4
+2023-06-01 14:57:54 | INFO | fairseq.logging.progress_bar | :   2146 / 5720 sentences=4
+['car', ' parked on', 'street']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 14:58:03 | INFO | fairseq.logging.progress_bar | :   2151 / 5720 sentences=4
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:58:12 | INFO | fairseq.logging.progress_bar | :   2156 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 14:58:21 | INFO | fairseq.logging.progress_bar | :   2161 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+['track', ' for', 'train']
+2023-06-01 14:58:31 | INFO | fairseq.logging.progress_bar | :   2166 / 5720 sentences=4
+2023-06-01 14:58:40 | INFO | fairseq.logging.progress_bar | :   2171 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 14:58:49 | INFO | fairseq.logging.progress_bar | :   2176 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 14:58:56 | INFO | fairseq.logging.progress_bar | :   2181 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 14:59:05 | INFO | fairseq.logging.progress_bar | :   2186 / 5720 sentences=4
+['street', ' covered in', 'snow']
+2023-06-01 14:59:15 | INFO | fairseq.logging.progress_bar | :   2191 / 5720 sentences=4
+2023-06-01 14:59:23 | INFO | fairseq.logging.progress_bar | :   2196 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+['tree', ' covered in', 'snow']
+2023-06-01 14:59:30 | INFO | fairseq.logging.progress_bar | :   2201 / 5720 sentences=4
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 14:59:39 | INFO | fairseq.logging.progress_bar | :   2206 / 5720 sentences=4
+['track', ' for', 'train']
+['car', ' parked on', 'street']
+['cat', ' laying on', 'bed']
+2023-06-01 14:59:46 | INFO | fairseq.logging.progress_bar | :   2211 / 5720 sentences=4
+2023-06-01 14:59:53 | INFO | fairseq.logging.progress_bar | :   2216 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:00:00 | INFO | fairseq.logging.progress_bar | :   2221 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 15:00:07 | INFO | fairseq.logging.progress_bar | :   2226 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:00:16 | INFO | fairseq.logging.progress_bar | :   2231 / 5720 sentences=4
+2023-06-01 15:00:25 | INFO | fairseq.logging.progress_bar | :   2236 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 15:00:33 | INFO | fairseq.logging.progress_bar | :   2241 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:00:41 | INFO | fairseq.logging.progress_bar | :   2246 / 5720 sentences=4
+2023-06-01 15:00:51 | INFO | fairseq.logging.progress_bar | :   2251 / 5720 sentences=4
+2023-06-01 15:00:58 | INFO | fairseq.logging.progress_bar | :   2256 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:01:07 | INFO | fairseq.logging.progress_bar | :   2261 / 5720 sentences=4
+2023-06-01 15:01:16 | INFO | fairseq.logging.progress_bar | :   2266 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 15:01:23 | INFO | fairseq.logging.progress_bar | :   2271 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:01:32 | INFO | fairseq.logging.progress_bar | :   2276 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 15:01:40 | INFO | fairseq.logging.progress_bar | :   2281 / 5720 sentences=4
+2023-06-01 15:01:48 | INFO | fairseq.logging.progress_bar | :   2286 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:01:55 | INFO | fairseq.logging.progress_bar | :   2291 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:02:04 | INFO | fairseq.logging.progress_bar | :   2296 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:02:11 | INFO | fairseq.logging.progress_bar | :   2301 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 15:02:20 | INFO | fairseq.logging.progress_bar | :   2306 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:02:28 | INFO | fairseq.logging.progress_bar | :   2311 / 5720 sentences=4
+2023-06-01 15:02:37 | INFO | fairseq.logging.progress_bar | :   2316 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 15:02:45 | INFO | fairseq.logging.progress_bar | :   2321 / 5720 sentences=4
+2023-06-01 15:02:52 | INFO | fairseq.logging.progress_bar | :   2326 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+['car', ' parked on', 'street']
+2023-06-01 15:03:01 | INFO | fairseq.logging.progress_bar | :   2331 / 5720 sentences=4
+2023-06-01 15:03:09 | INFO | fairseq.logging.progress_bar | :   2336 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 15:03:17 | INFO | fairseq.logging.progress_bar | :   2341 / 5720 sentences=4
+2023-06-01 15:03:28 | INFO | fairseq.logging.progress_bar | :   2346 / 5720 sentences=4
+2023-06-01 15:03:36 | INFO | fairseq.logging.progress_bar | :   2351 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:03:46 | INFO | fairseq.logging.progress_bar | :   2356 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 15:03:58 | INFO | fairseq.logging.progress_bar | :   2361 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:04:06 | INFO | fairseq.logging.progress_bar | :   2366 / 5720 sentences=4
+2023-06-01 15:04:15 | INFO | fairseq.logging.progress_bar | :   2371 / 5720 sentences=4
+2023-06-01 15:04:24 | INFO | fairseq.logging.progress_bar | :   2376 / 5720 sentences=4
+2023-06-01 15:04:33 | INFO | fairseq.logging.progress_bar | :   2381 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 15:04:44 | INFO | fairseq.logging.progress_bar | :   2386 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['cat', ' laying on', 'bed']
+2023-06-01 15:04:53 | INFO | fairseq.logging.progress_bar | :   2391 / 5720 sentences=4
+2023-06-01 15:05:02 | INFO | fairseq.logging.progress_bar | :   2396 / 5720 sentences=4
+['car', ' parked on', 'street']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:05:11 | INFO | fairseq.logging.progress_bar | :   2401 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:05:19 | INFO | fairseq.logging.progress_bar | :   2406 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:05:28 | INFO | fairseq.logging.progress_bar | :   2411 / 5720 sentences=4
+2023-06-01 15:05:36 | INFO | fairseq.logging.progress_bar | :   2416 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 15:05:45 | INFO | fairseq.logging.progress_bar | :   2421 / 5720 sentences=4
+['motorcycle', ' parked on', 'street']
+2023-06-01 15:05:53 | INFO | fairseq.logging.progress_bar | :   2426 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 15:06:03 | INFO | fairseq.logging.progress_bar | :   2431 / 5720 sentences=4
+2023-06-01 15:06:13 | INFO | fairseq.logging.progress_bar | :   2436 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:06:22 | INFO | fairseq.logging.progress_bar | :   2441 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:06:30 | INFO | fairseq.logging.progress_bar | :   2446 / 5720 sentences=4
+2023-06-01 15:06:39 | INFO | fairseq.logging.progress_bar | :   2451 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 15:06:47 | INFO | fairseq.logging.progress_bar | :   2456 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:06:57 | INFO | fairseq.logging.progress_bar | :   2461 / 5720 sentences=4
+warning: skipped 1 examples
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 15:07:07 | INFO | fairseq.logging.progress_bar | :   2466 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+warning: skipped 4 examples
+2023-06-01 15:07:17 | INFO | fairseq.logging.progress_bar | :   2471 / 5720 sentences=4
+2023-06-01 15:07:26 | INFO | fairseq.logging.progress_bar | :   2476 / 5720 sentences=4
+2023-06-01 15:07:35 | INFO | fairseq.logging.progress_bar | :   2481 / 5720 sentences=4
+2023-06-01 15:07:45 | INFO | fairseq.logging.progress_bar | :   2486 / 5720 sentences=4
+2023-06-01 15:07:53 | INFO | fairseq.logging.progress_bar | :   2491 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:08:04 | INFO | fairseq.logging.progress_bar | :   2496 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:08:12 | INFO | fairseq.logging.progress_bar | :   2501 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 15:08:20 | INFO | fairseq.logging.progress_bar | :   2506 / 5720 sentences=4
+2023-06-01 15:08:29 | INFO | fairseq.logging.progress_bar | :   2511 / 5720 sentences=4
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 15:08:41 | INFO | fairseq.logging.progress_bar | :   2516 / 5720 sentences=4
+2023-06-01 15:08:49 | INFO | fairseq.logging.progress_bar | :   2521 / 5720 sentences=4
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['track', ' for', 'train']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:08:57 | INFO | fairseq.logging.progress_bar | :   2526 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 15:09:06 | INFO | fairseq.logging.progress_bar | :   2531 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:09:14 | INFO | fairseq.logging.progress_bar | :   2536 / 5720 sentences=4
+2023-06-01 15:09:22 | INFO | fairseq.logging.progress_bar | :   2541 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 15:09:31 | INFO | fairseq.logging.progress_bar | :   2546 / 5720 sentences=4
+['car', ' parked on', 'street']
+warning: skipped 9 examples
+['car', ' parked on', 'street']
+2023-06-01 15:09:41 | INFO | fairseq.logging.progress_bar | :   2551 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['car', ' parked on', 'street']
+['people', ' watching', 'man']
+2023-06-01 15:09:52 | INFO | fairseq.logging.progress_bar | :   2556 / 5720 sentences=4
+2023-06-01 15:10:01 | INFO | fairseq.logging.progress_bar | :   2561 / 5720 sentences=4
+['track', ' for', 'train']
+['mountain', ' covered in', 'snow']
+2023-06-01 15:10:08 | INFO | fairseq.logging.progress_bar | :   2566 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 15:10:16 | INFO | fairseq.logging.progress_bar | :   2571 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:10:25 | INFO | fairseq.logging.progress_bar | :   2576 / 5720 sentences=4
+2023-06-01 15:10:34 | INFO | fairseq.logging.progress_bar | :   2581 / 5720 sentences=4
+2023-06-01 15:10:42 | INFO | fairseq.logging.progress_bar | :   2586 / 5720 sentences=4
+2023-06-01 15:10:52 | INFO | fairseq.logging.progress_bar | :   2591 / 5720 sentences=4
+warning: skipped 12 examples
+2023-06-01 15:11:01 | INFO | fairseq.logging.progress_bar | :   2596 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+warning: skipped 1 examples
+['mountain', ' covered in', 'snow']
+2023-06-01 15:11:10 | INFO | fairseq.logging.progress_bar | :   2601 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['motorcycle', ' parked on', 'street']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:11:21 | INFO | fairseq.logging.progress_bar | :   2606 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 15:11:31 | INFO | fairseq.logging.progress_bar | :   2611 / 5720 sentences=4
+warning: skipped 2 examples
+['track', ' for', 'train']
+2023-06-01 15:11:40 | INFO | fairseq.logging.progress_bar | :   2616 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 15:11:50 | INFO | fairseq.logging.progress_bar | :   2621 / 5720 sentences=4
+2023-06-01 15:11:58 | INFO | fairseq.logging.progress_bar | :   2626 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['tree', ' covered in', 'snow']
+2023-06-01 15:12:07 | INFO | fairseq.logging.progress_bar | :   2631 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:12:17 | INFO | fairseq.logging.progress_bar | :   2636 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:12:26 | INFO | fairseq.logging.progress_bar | :   2641 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:12:38 | INFO | fairseq.logging.progress_bar | :   2646 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:12:48 | INFO | fairseq.logging.progress_bar | :   2651 / 5720 sentences=4
+2023-06-01 15:12:58 | INFO | fairseq.logging.progress_bar | :   2656 / 5720 sentences=4
+2023-06-01 15:13:06 | INFO | fairseq.logging.progress_bar | :   2661 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 15:13:18 | INFO | fairseq.logging.progress_bar | :   2666 / 5720 sentences=4
+2023-06-01 15:13:26 | INFO | fairseq.logging.progress_bar | :   2671 / 5720 sentences=4
+['car', ' parked on', 'street']
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:13:35 | INFO | fairseq.logging.progress_bar | :   2676 / 5720 sentences=4
+2023-06-01 15:13:44 | INFO | fairseq.logging.progress_bar | :   2681 / 5720 sentences=4
+2023-06-01 15:13:52 | INFO | fairseq.logging.progress_bar | :   2686 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:14:01 | INFO | fairseq.logging.progress_bar | :   2691 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:14:10 | INFO | fairseq.logging.progress_bar | :   2696 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['car', ' parked on', 'street']
+2023-06-01 15:14:20 | INFO | fairseq.logging.progress_bar | :   2701 / 5720 sentences=4
+2023-06-01 15:14:29 | INFO | fairseq.logging.progress_bar | :   2706 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:14:37 | INFO | fairseq.logging.progress_bar | :   2711 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:14:45 | INFO | fairseq.logging.progress_bar | :   2716 / 5720 sentences=4
+['motorcycle', ' parked on', 'street']
+2023-06-01 15:14:53 | INFO | fairseq.logging.progress_bar | :   2721 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 15:15:03 | INFO | fairseq.logging.progress_bar | :   2726 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:15:11 | INFO | fairseq.logging.progress_bar | :   2731 / 5720 sentences=4
+2023-06-01 15:15:19 | INFO | fairseq.logging.progress_bar | :   2736 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 15:15:29 | INFO | fairseq.logging.progress_bar | :   2741 / 5720 sentences=4
+warning: skipped 21 examples
+2023-06-01 15:15:38 | INFO | fairseq.logging.progress_bar | :   2746 / 5720 sentences=4
+2023-06-01 15:15:47 | INFO | fairseq.logging.progress_bar | :   2751 / 5720 sentences=4
+2023-06-01 15:15:57 | INFO | fairseq.logging.progress_bar | :   2756 / 5720 sentences=4
+warning: skipped 5 examples
+2023-06-01 15:16:07 | INFO | fairseq.logging.progress_bar | :   2761 / 5720 sentences=4
+warning: skipped 1 examples
+2023-06-01 15:16:17 | INFO | fairseq.logging.progress_bar | :   2766 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:16:26 | INFO | fairseq.logging.progress_bar | :   2771 / 5720 sentences=4
+2023-06-01 15:16:35 | INFO | fairseq.logging.progress_bar | :   2776 / 5720 sentences=4
+2023-06-01 15:16:43 | INFO | fairseq.logging.progress_bar | :   2781 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 15:16:53 | INFO | fairseq.logging.progress_bar | :   2786 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 15:17:02 | INFO | fairseq.logging.progress_bar | :   2791 / 5720 sentences=4
+2023-06-01 15:17:11 | INFO | fairseq.logging.progress_bar | :   2796 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 15:17:20 | INFO | fairseq.logging.progress_bar | :   2801 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:17:30 | INFO | fairseq.logging.progress_bar | :   2806 / 5720 sentences=4
+2023-06-01 15:17:40 | INFO | fairseq.logging.progress_bar | :   2811 / 5720 sentences=4
+2023-06-01 15:17:49 | INFO | fairseq.logging.progress_bar | :   2816 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 15:18:00 | INFO | fairseq.logging.progress_bar | :   2821 / 5720 sentences=4
+2023-06-01 15:18:08 | INFO | fairseq.logging.progress_bar | :   2826 / 5720 sentences=4
+2023-06-01 15:18:18 | INFO | fairseq.logging.progress_bar | :   2831 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:18:27 | INFO | fairseq.logging.progress_bar | :   2836 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:18:37 | INFO | fairseq.logging.progress_bar | :   2841 / 5720 sentences=4
+2023-06-01 15:18:45 | INFO | fairseq.logging.progress_bar | :   2846 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:18:54 | INFO | fairseq.logging.progress_bar | :   2851 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 15:19:03 | INFO | fairseq.logging.progress_bar | :   2856 / 5720 sentences=4
+2023-06-01 15:19:12 | INFO | fairseq.logging.progress_bar | :   2861 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:19:22 | INFO | fairseq.logging.progress_bar | :   2866 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 15:19:31 | INFO | fairseq.logging.progress_bar | :   2871 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+2023-06-01 15:19:41 | INFO | fairseq.logging.progress_bar | :   2876 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:19:51 | INFO | fairseq.logging.progress_bar | :   2881 / 5720 sentences=4
+2023-06-01 15:19:59 | INFO | fairseq.logging.progress_bar | :   2886 / 5720 sentences=4
+2023-06-01 15:20:07 | INFO | fairseq.logging.progress_bar | :   2891 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 15:20:16 | INFO | fairseq.logging.progress_bar | :   2896 / 5720 sentences=4
+['track', ' for', 'train']
+['umbrella', ' over', 'woman']
+2023-06-01 15:20:23 | INFO | fairseq.logging.progress_bar | :   2901 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:20:32 | INFO | fairseq.logging.progress_bar | :   2906 / 5720 sentences=4
+2023-06-01 15:20:41 | INFO | fairseq.logging.progress_bar | :   2911 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['cat', ' laying on', 'table']
+2023-06-01 15:20:49 | INFO | fairseq.logging.progress_bar | :   2916 / 5720 sentences=4
+2023-06-01 15:20:55 | INFO | fairseq.logging.progress_bar | :   2921 / 5720 sentences=4
+2023-06-01 15:21:04 | INFO | fairseq.logging.progress_bar | :   2926 / 5720 sentences=4
+2023-06-01 15:21:15 | INFO | fairseq.logging.progress_bar | :   2931 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:21:22 | INFO | fairseq.logging.progress_bar | :   2936 / 5720 sentences=4
+2023-06-01 15:21:30 | INFO | fairseq.logging.progress_bar | :   2941 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:21:40 | INFO | fairseq.logging.progress_bar | :   2946 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['cat', ' laying on', 'bed']
+['track', ' for', 'train']
+2023-06-01 15:21:49 | INFO | fairseq.logging.progress_bar | :   2951 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['cat', ' laying on', 'bed']
+['tree', ' covered in', 'snow']
+2023-06-01 15:22:00 | INFO | fairseq.logging.progress_bar | :   2956 / 5720 sentences=4
+2023-06-01 15:22:08 | INFO | fairseq.logging.progress_bar | :   2961 / 5720 sentences=4
+['track', ' for', 'train']
+['cat', ' laying on', 'bed']
+['car', ' parked on', 'street']
+['car', ' covered in', 'snow']
+['car', ' parked on', 'street']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:22:16 | INFO | fairseq.logging.progress_bar | :   2966 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:22:25 | INFO | fairseq.logging.progress_bar | :   2971 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 15:22:34 | INFO | fairseq.logging.progress_bar | :   2976 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 15:22:45 | INFO | fairseq.logging.progress_bar | :   2981 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:22:55 | INFO | fairseq.logging.progress_bar | :   2986 / 5720 sentences=4
+2023-06-01 15:23:04 | INFO | fairseq.logging.progress_bar | :   2991 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 15:23:13 | INFO | fairseq.logging.progress_bar | :   2996 / 5720 sentences=4
+2023-06-01 15:23:22 | INFO | fairseq.logging.progress_bar | :   3001 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:23:33 | INFO | fairseq.logging.progress_bar | :   3006 / 5720 sentences=4
+2023-06-01 15:23:44 | INFO | fairseq.logging.progress_bar | :   3011 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:23:53 | INFO | fairseq.logging.progress_bar | :   3016 / 5720 sentences=4
+2023-06-01 15:24:02 | INFO | fairseq.logging.progress_bar | :   3021 / 5720 sentences=4
+['people', ' watching', 'man']
+2023-06-01 15:24:12 | INFO | fairseq.logging.progress_bar | :   3026 / 5720 sentences=4
+2023-06-01 15:24:23 | INFO | fairseq.logging.progress_bar | :   3031 / 5720 sentences=4
+2023-06-01 15:24:33 | INFO | fairseq.logging.progress_bar | :   3036 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['cat', ' laying on', 'leg']
+2023-06-01 15:24:42 | INFO | fairseq.logging.progress_bar | :   3041 / 5720 sentences=4
+['snow', ' covered in', 'snow']
+2023-06-01 15:24:52 | INFO | fairseq.logging.progress_bar | :   3046 / 5720 sentences=4
+['car', ' parked on', 'beach']
+['tree', ' covered in', 'snow']
+2023-06-01 15:25:01 | INFO | fairseq.logging.progress_bar | :   3051 / 5720 sentences=4
+['car', ' parked on', 'street']
+['tree', ' covered in', 'snow']
+2023-06-01 15:25:11 | INFO | fairseq.logging.progress_bar | :   3056 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:25:21 | INFO | fairseq.logging.progress_bar | :   3061 / 5720 sentences=4
+warning: skipped 15 examples
+2023-06-01 15:25:33 | INFO | fairseq.logging.progress_bar | :   3066 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:25:45 | INFO | fairseq.logging.progress_bar | :   3071 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+warning: skipped 1 examples
+2023-06-01 15:25:56 | INFO | fairseq.logging.progress_bar | :   3076 / 5720 sentences=4
+2023-06-01 15:26:06 | INFO | fairseq.logging.progress_bar | :   3081 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:26:17 | INFO | fairseq.logging.progress_bar | :   3086 / 5720 sentences=4
+2023-06-01 15:26:26 | INFO | fairseq.logging.progress_bar | :   3091 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 15:26:35 | INFO | fairseq.logging.progress_bar | :   3096 / 5720 sentences=4
+2023-06-01 15:26:42 | INFO | fairseq.logging.progress_bar | :   3101 / 5720 sentences=4
+2023-06-01 15:26:52 | INFO | fairseq.logging.progress_bar | :   3106 / 5720 sentences=4
+['man', ' carrying', 'surfboard']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:27:01 | INFO | fairseq.logging.progress_bar | :   3111 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:27:12 | INFO | fairseq.logging.progress_bar | :   3116 / 5720 sentences=4
+warning: skipped 31 examples
+['track', ' for', 'train']
+2023-06-01 15:27:22 | INFO | fairseq.logging.progress_bar | :   3121 / 5720 sentences=4
+2023-06-01 15:27:31 | INFO | fairseq.logging.progress_bar | :   3126 / 5720 sentences=4
+2023-06-01 15:27:39 | INFO | fairseq.logging.progress_bar | :   3131 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 15:27:48 | INFO | fairseq.logging.progress_bar | :   3136 / 5720 sentences=4
+['track', ' for', 'train']
+['motorcycle', ' parked on', 'street']
+['motorcycle', ' parked on', 'street']
+2023-06-01 15:27:56 | INFO | fairseq.logging.progress_bar | :   3141 / 5720 sentences=4
+['track', ' for', 'train']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 15:28:05 | INFO | fairseq.logging.progress_bar | :   3146 / 5720 sentences=4
+2023-06-01 15:28:14 | INFO | fairseq.logging.progress_bar | :   3151 / 5720 sentences=4
+['man', ' carrying', 'surfboard']
+2023-06-01 15:28:24 | INFO | fairseq.logging.progress_bar | :   3156 / 5720 sentences=4
+warning: skipped 5 examples
+['car', ' parked on', 'street']
+['tree', ' covered in', 'snow']
+2023-06-01 15:28:35 | INFO | fairseq.logging.progress_bar | :   3161 / 5720 sentences=4
+2023-06-01 15:28:43 | INFO | fairseq.logging.progress_bar | :   3166 / 5720 sentences=4
+2023-06-01 15:28:51 | INFO | fairseq.logging.progress_bar | :   3171 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+2023-06-01 15:29:00 | INFO | fairseq.logging.progress_bar | :   3176 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 15:29:11 | INFO | fairseq.logging.progress_bar | :   3181 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:29:18 | INFO | fairseq.logging.progress_bar | :   3186 / 5720 sentences=4
+['car', ' parked on', 'street']
+['track', ' for', 'train']
+2023-06-01 15:29:28 | INFO | fairseq.logging.progress_bar | :   3191 / 5720 sentences=4
+2023-06-01 15:29:38 | INFO | fairseq.logging.progress_bar | :   3196 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 15:29:47 | INFO | fairseq.logging.progress_bar | :   3201 / 5720 sentences=4
+2023-06-01 15:29:54 | INFO | fairseq.logging.progress_bar | :   3206 / 5720 sentences=4
+2023-06-01 15:30:01 | INFO | fairseq.logging.progress_bar | :   3211 / 5720 sentences=4
+2023-06-01 15:30:09 | INFO | fairseq.logging.progress_bar | :   3216 / 5720 sentences=4
+['towel', ' hanging from', 'handle']
+2023-06-01 15:30:18 | INFO | fairseq.logging.progress_bar | :   3221 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 15:30:27 | INFO | fairseq.logging.progress_bar | :   3226 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 15:30:37 | INFO | fairseq.logging.progress_bar | :   3231 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['people', ' eating', 'pizza']
+2023-06-01 15:30:45 | INFO | fairseq.logging.progress_bar | :   3236 / 5720 sentences=4
+2023-06-01 15:30:54 | INFO | fairseq.logging.progress_bar | :   3241 / 5720 sentences=4
+2023-06-01 15:31:02 | INFO | fairseq.logging.progress_bar | :   3246 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 15:31:13 | INFO | fairseq.logging.progress_bar | :   3251 / 5720 sentences=4
+['people', ' watching', 'man']
+2023-06-01 15:31:23 | INFO | fairseq.logging.progress_bar | :   3256 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 15:31:34 | INFO | fairseq.logging.progress_bar | :   3261 / 5720 sentences=4
+2023-06-01 15:31:43 | INFO | fairseq.logging.progress_bar | :   3266 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 15:31:52 | INFO | fairseq.logging.progress_bar | :   3271 / 5720 sentences=4
+2023-06-01 15:32:03 | INFO | fairseq.logging.progress_bar | :   3276 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:32:11 | INFO | fairseq.logging.progress_bar | :   3281 / 5720 sentences=4
+2023-06-01 15:32:21 | INFO | fairseq.logging.progress_bar | :   3286 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:32:31 | INFO | fairseq.logging.progress_bar | :   3291 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:32:42 | INFO | fairseq.logging.progress_bar | :   3296 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:32:50 | INFO | fairseq.logging.progress_bar | :   3301 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 15:32:59 | INFO | fairseq.logging.progress_bar | :   3306 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['track', ' for', 'train']
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:33:08 | INFO | fairseq.logging.progress_bar | :   3311 / 5720 sentences=4
+warning: skipped 6 examples
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:33:18 | INFO | fairseq.logging.progress_bar | :   3316 / 5720 sentences=4
+['people', ' watching', 'horse']
+2023-06-01 15:33:28 | INFO | fairseq.logging.progress_bar | :   3321 / 5720 sentences=4
+2023-06-01 15:33:36 | INFO | fairseq.logging.progress_bar | :   3326 / 5720 sentences=4
+2023-06-01 15:33:47 | INFO | fairseq.logging.progress_bar | :   3331 / 5720 sentences=4
+2023-06-01 15:33:55 | INFO | fairseq.logging.progress_bar | :   3336 / 5720 sentences=4
+2023-06-01 15:34:04 | INFO | fairseq.logging.progress_bar | :   3341 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:34:14 | INFO | fairseq.logging.progress_bar | :   3346 / 5720 sentences=4
+2023-06-01 15:34:23 | INFO | fairseq.logging.progress_bar | :   3351 / 5720 sentences=4
+2023-06-01 15:34:31 | INFO | fairseq.logging.progress_bar | :   3356 / 5720 sentences=4
+2023-06-01 15:34:41 | INFO | fairseq.logging.progress_bar | :   3361 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:34:49 | INFO | fairseq.logging.progress_bar | :   3366 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:34:58 | INFO | fairseq.logging.progress_bar | :   3371 / 5720 sentences=4
+2023-06-01 15:35:09 | INFO | fairseq.logging.progress_bar | :   3376 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:35:16 | INFO | fairseq.logging.progress_bar | :   3381 / 5720 sentences=4
+2023-06-01 15:35:25 | INFO | fairseq.logging.progress_bar | :   3386 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 15:35:32 | INFO | fairseq.logging.progress_bar | :   3391 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 15:35:42 | INFO | fairseq.logging.progress_bar | :   3396 / 5720 sentences=4
+2023-06-01 15:35:50 | INFO | fairseq.logging.progress_bar | :   3401 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:35:59 | INFO | fairseq.logging.progress_bar | :   3406 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:36:08 | INFO | fairseq.logging.progress_bar | :   3411 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:36:19 | INFO | fairseq.logging.progress_bar | :   3416 / 5720 sentences=4
+['people', ' watching', 'man']
+2023-06-01 15:36:27 | INFO | fairseq.logging.progress_bar | :   3421 / 5720 sentences=4
+2023-06-01 15:36:35 | INFO | fairseq.logging.progress_bar | :   3426 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 15:36:44 | INFO | fairseq.logging.progress_bar | :   3431 / 5720 sentences=4
+2023-06-01 15:36:52 | INFO | fairseq.logging.progress_bar | :   3436 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:37:02 | INFO | fairseq.logging.progress_bar | :   3441 / 5720 sentences=4
+2023-06-01 15:37:13 | INFO | fairseq.logging.progress_bar | :   3446 / 5720 sentences=4
+2023-06-01 15:37:21 | INFO | fairseq.logging.progress_bar | :   3451 / 5720 sentences=4
+2023-06-01 15:37:28 | INFO | fairseq.logging.progress_bar | :   3456 / 5720 sentences=4
+2023-06-01 15:37:38 | INFO | fairseq.logging.progress_bar | :   3461 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:37:46 | INFO | fairseq.logging.progress_bar | :   3466 / 5720 sentences=4
+['car', ' parked on', 'street']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:37:56 | INFO | fairseq.logging.progress_bar | :   3471 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['cat', ' laying on', 'bed']
+2023-06-01 15:38:04 | INFO | fairseq.logging.progress_bar | :   3476 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:38:12 | INFO | fairseq.logging.progress_bar | :   3481 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['car', ' parked on', 'street']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:38:21 | INFO | fairseq.logging.progress_bar | :   3486 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:38:29 | INFO | fairseq.logging.progress_bar | :   3491 / 5720 sentences=4
+warning: skipped 17 examples
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:38:39 | INFO | fairseq.logging.progress_bar | :   3496 / 5720 sentences=4
+2023-06-01 15:38:48 | INFO | fairseq.logging.progress_bar | :   3501 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:38:56 | INFO | fairseq.logging.progress_bar | :   3506 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 15:39:06 | INFO | fairseq.logging.progress_bar | :   3511 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['car', ' parked on', 'street']
+['tree', ' covered in', 'snow']
+['car', ' parked on', 'street']
+2023-06-01 15:39:15 | INFO | fairseq.logging.progress_bar | :   3516 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 15:39:24 | INFO | fairseq.logging.progress_bar | :   3521 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:39:31 | INFO | fairseq.logging.progress_bar | :   3526 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:39:41 | INFO | fairseq.logging.progress_bar | :   3531 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 15:39:49 | INFO | fairseq.logging.progress_bar | :   3536 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 15:39:59 | INFO | fairseq.logging.progress_bar | :   3541 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 15:40:08 | INFO | fairseq.logging.progress_bar | :   3546 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 15:40:16 | INFO | fairseq.logging.progress_bar | :   3551 / 5720 sentences=4
+2023-06-01 15:40:25 | INFO | fairseq.logging.progress_bar | :   3556 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+['car', ' parked on', 'street']
+2023-06-01 15:40:34 | INFO | fairseq.logging.progress_bar | :   3561 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:40:44 | INFO | fairseq.logging.progress_bar | :   3566 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 15:40:54 | INFO | fairseq.logging.progress_bar | :   3571 / 5720 sentences=4
+2023-06-01 15:41:04 | INFO | fairseq.logging.progress_bar | :   3576 / 5720 sentences=4
+2023-06-01 15:41:14 | INFO | fairseq.logging.progress_bar | :   3581 / 5720 sentences=4
+2023-06-01 15:41:24 | INFO | fairseq.logging.progress_bar | :   3586 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 15:41:32 | INFO | fairseq.logging.progress_bar | :   3591 / 5720 sentences=4
+2023-06-01 15:41:41 | INFO | fairseq.logging.progress_bar | :   3596 / 5720 sentences=4
+2023-06-01 15:41:51 | INFO | fairseq.logging.progress_bar | :   3601 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 15:42:00 | INFO | fairseq.logging.progress_bar | :   3606 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:42:09 | INFO | fairseq.logging.progress_bar | :   3611 / 5720 sentences=4
+2023-06-01 15:42:19 | INFO | fairseq.logging.progress_bar | :   3616 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 15:42:27 | INFO | fairseq.logging.progress_bar | :   3621 / 5720 sentences=4
+2023-06-01 15:42:37 | INFO | fairseq.logging.progress_bar | :   3626 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:42:47 | INFO | fairseq.logging.progress_bar | :   3631 / 5720 sentences=4
+warning: skipped 3 examples
+2023-06-01 15:42:58 | INFO | fairseq.logging.progress_bar | :   3636 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 15:43:08 | INFO | fairseq.logging.progress_bar | :   3641 / 5720 sentences=4
+2023-06-01 15:43:18 | INFO | fairseq.logging.progress_bar | :   3646 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:43:28 | INFO | fairseq.logging.progress_bar | :   3651 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:43:38 | INFO | fairseq.logging.progress_bar | :   3656 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 15:43:48 | INFO | fairseq.logging.progress_bar | :   3661 / 5720 sentences=4
+warning: skipped 1 examples
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:43:59 | INFO | fairseq.logging.progress_bar | :   3666 / 5720 sentences=4
+['track', ' for', 'train']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:44:08 | INFO | fairseq.logging.progress_bar | :   3671 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 15:44:17 | INFO | fairseq.logging.progress_bar | :   3676 / 5720 sentences=4
+2023-06-01 15:44:25 | INFO | fairseq.logging.progress_bar | :   3681 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:44:33 | INFO | fairseq.logging.progress_bar | :   3686 / 5720 sentences=4
+2023-06-01 15:44:42 | INFO | fairseq.logging.progress_bar | :   3691 / 5720 sentences=4
+2023-06-01 15:44:51 | INFO | fairseq.logging.progress_bar | :   3696 / 5720 sentences=4
+2023-06-01 15:45:03 | INFO | fairseq.logging.progress_bar | :   3701 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 15:45:11 | INFO | fairseq.logging.progress_bar | :   3706 / 5720 sentences=4
+2023-06-01 15:45:22 | INFO | fairseq.logging.progress_bar | :   3711 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+2023-06-01 15:45:31 | INFO | fairseq.logging.progress_bar | :   3716 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 15:45:41 | INFO | fairseq.logging.progress_bar | :   3721 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['towel', ' hanging from', 'handle']
+['mountain', ' covered in', 'snow']
+2023-06-01 15:45:50 | INFO | fairseq.logging.progress_bar | :   3726 / 5720 sentences=4
+2023-06-01 15:46:01 | INFO | fairseq.logging.progress_bar | :   3731 / 5720 sentences=4
+2023-06-01 15:46:10 | INFO | fairseq.logging.progress_bar | :   3736 / 5720 sentences=4
+2023-06-01 15:46:19 | INFO | fairseq.logging.progress_bar | :   3741 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:46:29 | INFO | fairseq.logging.progress_bar | :   3746 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 15:46:39 | INFO | fairseq.logging.progress_bar | :   3751 / 5720 sentences=4
+2023-06-01 15:46:47 | INFO | fairseq.logging.progress_bar | :   3756 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+warning: skipped 19 examples
+['car', ' parked on', 'street']
+2023-06-01 15:46:58 | INFO | fairseq.logging.progress_bar | :   3761 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+warning: skipped 3 examples
+2023-06-01 15:47:10 | INFO | fairseq.logging.progress_bar | :   3766 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 15:47:21 | INFO | fairseq.logging.progress_bar | :   3771 / 5720 sentences=4
+2023-06-01 15:47:32 | INFO | fairseq.logging.progress_bar | :   3776 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 15:47:44 | INFO | fairseq.logging.progress_bar | :   3781 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:47:54 | INFO | fairseq.logging.progress_bar | :   3786 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 15:48:06 | INFO | fairseq.logging.progress_bar | :   3791 / 5720 sentences=4
+2023-06-01 15:48:16 | INFO | fairseq.logging.progress_bar | :   3796 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 15:48:26 | INFO | fairseq.logging.progress_bar | :   3801 / 5720 sentences=4
+2023-06-01 15:48:35 | INFO | fairseq.logging.progress_bar | :   3806 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:48:46 | INFO | fairseq.logging.progress_bar | :   3811 / 5720 sentences=4
+warning: skipped 9 examples
+['car', ' parked on', 'street']
+['track', ' for', 'train']
+2023-06-01 15:48:58 | INFO | fairseq.logging.progress_bar | :   3816 / 5720 sentences=4
+warning: skipped 10 examples
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 15:49:08 | INFO | fairseq.logging.progress_bar | :   3821 / 5720 sentences=4
+warning: skipped 5 examples
+2023-06-01 15:49:19 | INFO | fairseq.logging.progress_bar | :   3826 / 5720 sentences=4
+warning: skipped 6 examples
+2023-06-01 15:49:31 | INFO | fairseq.logging.progress_bar | :   3831 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 15:49:42 | INFO | fairseq.logging.progress_bar | :   3836 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 15:49:51 | INFO | fairseq.logging.progress_bar | :   3841 / 5720 sentences=4
+warning: skipped 39 examples
+2023-06-01 15:50:02 | INFO | fairseq.logging.progress_bar | :   3846 / 5720 sentences=4
+['car', ' parked on', 'street']
+['cat', ' laying on', 'bed']
+2023-06-01 15:50:11 | INFO | fairseq.logging.progress_bar | :   3851 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 15:50:21 | INFO | fairseq.logging.progress_bar | :   3856 / 5720 sentences=4
+2023-06-01 15:50:31 | INFO | fairseq.logging.progress_bar | :   3861 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:50:42 | INFO | fairseq.logging.progress_bar | :   3866 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:50:51 | INFO | fairseq.logging.progress_bar | :   3871 / 5720 sentences=4
+2023-06-01 15:51:01 | INFO | fairseq.logging.progress_bar | :   3876 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 15:51:11 | INFO | fairseq.logging.progress_bar | :   3881 / 5720 sentences=4
+['car', ' parked on', 'street']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:51:21 | INFO | fairseq.logging.progress_bar | :   3886 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 15:51:29 | INFO | fairseq.logging.progress_bar | :   3891 / 5720 sentences=4
+2023-06-01 15:51:39 | INFO | fairseq.logging.progress_bar | :   3896 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['cat', ' laying on', 'table']
+2023-06-01 15:51:49 | INFO | fairseq.logging.progress_bar | :   3901 / 5720 sentences=4
+2023-06-01 15:51:59 | INFO | fairseq.logging.progress_bar | :   3906 / 5720 sentences=4
+2023-06-01 15:52:08 | INFO | fairseq.logging.progress_bar | :   3911 / 5720 sentences=4
+2023-06-01 15:52:18 | INFO | fairseq.logging.progress_bar | :   3916 / 5720 sentences=4
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:52:28 | INFO | fairseq.logging.progress_bar | :   3921 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 15:52:38 | INFO | fairseq.logging.progress_bar | :   3926 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['cat', ' laying on', 'pillow']
+2023-06-01 15:52:48 | INFO | fairseq.logging.progress_bar | :   3931 / 5720 sentences=4
+2023-06-01 15:52:59 | INFO | fairseq.logging.progress_bar | :   3936 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 15:53:09 | INFO | fairseq.logging.progress_bar | :   3941 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:53:18 | INFO | fairseq.logging.progress_bar | :   3946 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:53:27 | INFO | fairseq.logging.progress_bar | :   3951 / 5720 sentences=4
+warning: skipped 6 examples
+2023-06-01 15:53:37 | INFO | fairseq.logging.progress_bar | :   3956 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['tree', ' covered in', 'snow']
+2023-06-01 15:53:48 | INFO | fairseq.logging.progress_bar | :   3961 / 5720 sentences=4
+['people', ' watching', 'man']
+['tree', ' covered in', 'snow']
+2023-06-01 15:53:59 | INFO | fairseq.logging.progress_bar | :   3966 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 15:54:09 | INFO | fairseq.logging.progress_bar | :   3971 / 5720 sentences=4
+2023-06-01 15:54:20 | INFO | fairseq.logging.progress_bar | :   3976 / 5720 sentences=4
+['motorcycle', ' parked on', 'street']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 15:54:30 | INFO | fairseq.logging.progress_bar | :   3981 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:54:39 | INFO | fairseq.logging.progress_bar | :   3986 / 5720 sentences=4
+2023-06-01 15:54:48 | INFO | fairseq.logging.progress_bar | :   3991 / 5720 sentences=4
+warning: skipped 2 examples
+2023-06-01 15:54:58 | INFO | fairseq.logging.progress_bar | :   3996 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['car', ' parked on', 'street']
+2023-06-01 15:55:09 | INFO | fairseq.logging.progress_bar | :   4001 / 5720 sentences=4
+2023-06-01 15:55:18 | INFO | fairseq.logging.progress_bar | :   4006 / 5720 sentences=4
+['car', ' parked on', 'street']
+['track', ' for', 'train']
+2023-06-01 15:55:27 | INFO | fairseq.logging.progress_bar | :   4011 / 5720 sentences=4
+2023-06-01 15:55:36 | INFO | fairseq.logging.progress_bar | :   4016 / 5720 sentences=4
+2023-06-01 15:55:45 | INFO | fairseq.logging.progress_bar | :   4021 / 5720 sentences=4
+2023-06-01 15:55:54 | INFO | fairseq.logging.progress_bar | :   4026 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:56:03 | INFO | fairseq.logging.progress_bar | :   4031 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:56:14 | INFO | fairseq.logging.progress_bar | :   4036 / 5720 sentences=4
+2023-06-01 15:56:23 | INFO | fairseq.logging.progress_bar | :   4041 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+2023-06-01 15:56:32 | INFO | fairseq.logging.progress_bar | :   4046 / 5720 sentences=4
+2023-06-01 15:56:43 | INFO | fairseq.logging.progress_bar | :   4051 / 5720 sentences=4
+2023-06-01 15:56:55 | INFO | fairseq.logging.progress_bar | :   4056 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 15:57:04 | INFO | fairseq.logging.progress_bar | :   4061 / 5720 sentences=4
+2023-06-01 15:57:12 | INFO | fairseq.logging.progress_bar | :   4066 / 5720 sentences=4
+2023-06-01 15:57:21 | INFO | fairseq.logging.progress_bar | :   4071 / 5720 sentences=4
+2023-06-01 15:57:31 | INFO | fairseq.logging.progress_bar | :   4076 / 5720 sentences=4
+2023-06-01 15:57:41 | INFO | fairseq.logging.progress_bar | :   4081 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['people', ' eating', 'pizza']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 15:57:51 | INFO | fairseq.logging.progress_bar | :   4086 / 5720 sentences=4
+2023-06-01 15:58:01 | INFO | fairseq.logging.progress_bar | :   4091 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 15:58:12 | INFO | fairseq.logging.progress_bar | :   4096 / 5720 sentences=4
+['car', ' parked on', 'street']
+['man', ' carrying', 'surfboard']
+['man', ' carrying', 'surfboard']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:58:22 | INFO | fairseq.logging.progress_bar | :   4101 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 15:58:32 | INFO | fairseq.logging.progress_bar | :   4106 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 15:58:41 | INFO | fairseq.logging.progress_bar | :   4111 / 5720 sentences=4
+2023-06-01 15:58:52 | INFO | fairseq.logging.progress_bar | :   4116 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 15:59:01 | INFO | fairseq.logging.progress_bar | :   4121 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 15:59:11 | INFO | fairseq.logging.progress_bar | :   4126 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 15:59:19 | INFO | fairseq.logging.progress_bar | :   4131 / 5720 sentences=4
+2023-06-01 15:59:28 | INFO | fairseq.logging.progress_bar | :   4136 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 15:59:38 | INFO | fairseq.logging.progress_bar | :   4141 / 5720 sentences=4
+2023-06-01 15:59:47 | INFO | fairseq.logging.progress_bar | :   4146 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 15:59:56 | INFO | fairseq.logging.progress_bar | :   4151 / 5720 sentences=4
+2023-06-01 16:00:04 | INFO | fairseq.logging.progress_bar | :   4156 / 5720 sentences=4
+2023-06-01 16:00:13 | INFO | fairseq.logging.progress_bar | :   4161 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:00:26 | INFO | fairseq.logging.progress_bar | :   4166 / 5720 sentences=4
+['car', ' parked on', 'street']
+['motorcycle', ' parked on', 'street']
+2023-06-01 16:00:36 | INFO | fairseq.logging.progress_bar | :   4171 / 5720 sentences=4
+2023-06-01 16:00:48 | INFO | fairseq.logging.progress_bar | :   4176 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 16:00:58 | INFO | fairseq.logging.progress_bar | :   4181 / 5720 sentences=4
+2023-06-01 16:01:07 | INFO | fairseq.logging.progress_bar | :   4186 / 5720 sentences=4
+2023-06-01 16:01:17 | INFO | fairseq.logging.progress_bar | :   4191 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 16:01:29 | INFO | fairseq.logging.progress_bar | :   4196 / 5720 sentences=4
+2023-06-01 16:01:40 | INFO | fairseq.logging.progress_bar | :   4201 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+2023-06-01 16:01:50 | INFO | fairseq.logging.progress_bar | :   4206 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 16:02:00 | INFO | fairseq.logging.progress_bar | :   4211 / 5720 sentences=4
+2023-06-01 16:02:10 | INFO | fairseq.logging.progress_bar | :   4216 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:02:20 | INFO | fairseq.logging.progress_bar | :   4221 / 5720 sentences=4
+2023-06-01 16:02:28 | INFO | fairseq.logging.progress_bar | :   4226 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+['snow', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+2023-06-01 16:02:37 | INFO | fairseq.logging.progress_bar | :   4231 / 5720 sentences=4
+2023-06-01 16:02:48 | INFO | fairseq.logging.progress_bar | :   4236 / 5720 sentences=4
+2023-06-01 16:02:58 | INFO | fairseq.logging.progress_bar | :   4241 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:03:09 | INFO | fairseq.logging.progress_bar | :   4246 / 5720 sentences=4
+2023-06-01 16:03:18 | INFO | fairseq.logging.progress_bar | :   4251 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['motorcycle', ' parked on', 'street']
+2023-06-01 16:03:27 | INFO | fairseq.logging.progress_bar | :   4256 / 5720 sentences=4
+2023-06-01 16:03:40 | INFO | fairseq.logging.progress_bar | :   4261 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 16:03:48 | INFO | fairseq.logging.progress_bar | :   4266 / 5720 sentences=4
+2023-06-01 16:04:01 | INFO | fairseq.logging.progress_bar | :   4271 / 5720 sentences=4
+2023-06-01 16:04:09 | INFO | fairseq.logging.progress_bar | :   4276 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 16:04:18 | INFO | fairseq.logging.progress_bar | :   4281 / 5720 sentences=4
+2023-06-01 16:04:26 | INFO | fairseq.logging.progress_bar | :   4286 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 16:04:40 | INFO | fairseq.logging.progress_bar | :   4291 / 5720 sentences=4
+2023-06-01 16:04:50 | INFO | fairseq.logging.progress_bar | :   4296 / 5720 sentences=4
+2023-06-01 16:05:02 | INFO | fairseq.logging.progress_bar | :   4301 / 5720 sentences=4
+2023-06-01 16:05:10 | INFO | fairseq.logging.progress_bar | :   4306 / 5720 sentences=4
+warning: skipped 13 examples
+2023-06-01 16:05:20 | INFO | fairseq.logging.progress_bar | :   4311 / 5720 sentences=4
+warning: skipped 5 examples
+2023-06-01 16:05:31 | INFO | fairseq.logging.progress_bar | :   4316 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 16:05:40 | INFO | fairseq.logging.progress_bar | :   4321 / 5720 sentences=4
+2023-06-01 16:05:49 | INFO | fairseq.logging.progress_bar | :   4326 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+2023-06-01 16:05:59 | INFO | fairseq.logging.progress_bar | :   4331 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:06:07 | INFO | fairseq.logging.progress_bar | :   4336 / 5720 sentences=4
+2023-06-01 16:06:15 | INFO | fairseq.logging.progress_bar | :   4341 / 5720 sentences=4
+warning: skipped 1 examples
+2023-06-01 16:06:27 | INFO | fairseq.logging.progress_bar | :   4346 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:06:37 | INFO | fairseq.logging.progress_bar | :   4351 / 5720 sentences=4
+2023-06-01 16:06:47 | INFO | fairseq.logging.progress_bar | :   4356 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 16:06:58 | INFO | fairseq.logging.progress_bar | :   4361 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 16:07:06 | INFO | fairseq.logging.progress_bar | :   4366 / 5720 sentences=4
+2023-06-01 16:07:15 | INFO | fairseq.logging.progress_bar | :   4371 / 5720 sentences=4
+warning: skipped 7 examples
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:07:25 | INFO | fairseq.logging.progress_bar | :   4376 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+warning: skipped 7 examples
+2023-06-01 16:07:37 | INFO | fairseq.logging.progress_bar | :   4381 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 16:07:48 | INFO | fairseq.logging.progress_bar | :   4386 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+['cat', ' laying on', 'bed']
+['cat', ' laying on', 'bed']
+2023-06-01 16:07:57 | INFO | fairseq.logging.progress_bar | :   4391 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:08:06 | INFO | fairseq.logging.progress_bar | :   4396 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 16:08:15 | INFO | fairseq.logging.progress_bar | :   4401 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:08:24 | INFO | fairseq.logging.progress_bar | :   4406 / 5720 sentences=4
+warning: skipped 3 examples
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:08:35 | INFO | fairseq.logging.progress_bar | :   4411 / 5720 sentences=4
+['cat', ' laying on', 'laptop']
+2023-06-01 16:08:45 | INFO | fairseq.logging.progress_bar | :   4416 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 16:08:55 | INFO | fairseq.logging.progress_bar | :   4421 / 5720 sentences=4
+2023-06-01 16:09:05 | INFO | fairseq.logging.progress_bar | :   4426 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 16:09:14 | INFO | fairseq.logging.progress_bar | :   4431 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 16:09:23 | INFO | fairseq.logging.progress_bar | :   4436 / 5720 sentences=4
+2023-06-01 16:09:33 | INFO | fairseq.logging.progress_bar | :   4441 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:09:43 | INFO | fairseq.logging.progress_bar | :   4446 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 16:09:54 | INFO | fairseq.logging.progress_bar | :   4451 / 5720 sentences=4
+2023-06-01 16:10:03 | INFO | fairseq.logging.progress_bar | :   4456 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 16:10:15 | INFO | fairseq.logging.progress_bar | :   4461 / 5720 sentences=4
+['people', ' watching', 'horse']
+['people', ' watching', 'horse']
+2023-06-01 16:10:27 | INFO | fairseq.logging.progress_bar | :   4466 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['car', ' parked on', 'street']
+['tree', ' covered in', 'snow']
+['track', ' for', 'train']
+2023-06-01 16:10:38 | INFO | fairseq.logging.progress_bar | :   4471 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+['cat', ' laying on', 'bed']
+2023-06-01 16:10:48 | INFO | fairseq.logging.progress_bar | :   4476 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 16:10:58 | INFO | fairseq.logging.progress_bar | :   4481 / 5720 sentences=4
+['street', ' covered in', 'snow']
+2023-06-01 16:11:11 | INFO | fairseq.logging.progress_bar | :   4486 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+warning: skipped 3 examples
+['cat', ' laying on', 'table']
+2023-06-01 16:11:24 | INFO | fairseq.logging.progress_bar | :   4491 / 5720 sentences=4
+2023-06-01 16:11:35 | INFO | fairseq.logging.progress_bar | :   4496 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['track', ' for', 'train']
+['track', ' for', 'train']
+warning: skipped 20 examples
+['tree', ' covered in', 'snow']
+2023-06-01 16:11:46 | INFO | fairseq.logging.progress_bar | :   4501 / 5720 sentences=4
+warning: skipped 11 examples
+2023-06-01 16:11:59 | INFO | fairseq.logging.progress_bar | :   4506 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 16:12:10 | INFO | fairseq.logging.progress_bar | :   4511 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 16:12:23 | INFO | fairseq.logging.progress_bar | :   4516 / 5720 sentences=4
+2023-06-01 16:12:33 | INFO | fairseq.logging.progress_bar | :   4521 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:12:43 | INFO | fairseq.logging.progress_bar | :   4526 / 5720 sentences=4
+['track', ' for', 'train']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:12:55 | INFO | fairseq.logging.progress_bar | :   4531 / 5720 sentences=4
+['car', ' parked on', 'street']
+['people', ' watching', 'player']
+['car', ' parked on', 'street']
+2023-06-01 16:13:04 | INFO | fairseq.logging.progress_bar | :   4536 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:13:13 | INFO | fairseq.logging.progress_bar | :   4541 / 5720 sentences=4
+2023-06-01 16:13:23 | INFO | fairseq.logging.progress_bar | :   4546 / 5720 sentences=4
+2023-06-01 16:13:33 | INFO | fairseq.logging.progress_bar | :   4551 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 16:13:43 | INFO | fairseq.logging.progress_bar | :   4556 / 5720 sentences=4
+2023-06-01 16:13:54 | INFO | fairseq.logging.progress_bar | :   4561 / 5720 sentences=4
+['motorcycle', ' parked on', 'street']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['car', ' parked on', 'street']
+2023-06-01 16:14:03 | INFO | fairseq.logging.progress_bar | :   4566 / 5720 sentences=4
+2023-06-01 16:14:13 | INFO | fairseq.logging.progress_bar | :   4571 / 5720 sentences=4
+2023-06-01 16:14:25 | INFO | fairseq.logging.progress_bar | :   4576 / 5720 sentences=4
+warning: skipped 3 examples
+2023-06-01 16:14:35 | INFO | fairseq.logging.progress_bar | :   4581 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:14:46 | INFO | fairseq.logging.progress_bar | :   4586 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+2023-06-01 16:14:58 | INFO | fairseq.logging.progress_bar | :   4591 / 5720 sentences=4
+2023-06-01 16:15:08 | INFO | fairseq.logging.progress_bar | :   4596 / 5720 sentences=4
+2023-06-01 16:15:20 | INFO | fairseq.logging.progress_bar | :   4601 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:15:30 | INFO | fairseq.logging.progress_bar | :   4606 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:15:42 | INFO | fairseq.logging.progress_bar | :   4611 / 5720 sentences=4
+['person', ' carrying', 'surfboard']
+['man', ' carrying', 'surfboard']
+2023-06-01 16:15:51 | INFO | fairseq.logging.progress_bar | :   4616 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:16:00 | INFO | fairseq.logging.progress_bar | :   4621 / 5720 sentences=4
+2023-06-01 16:16:09 | INFO | fairseq.logging.progress_bar | :   4626 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:16:19 | INFO | fairseq.logging.progress_bar | :   4631 / 5720 sentences=4
+2023-06-01 16:16:29 | INFO | fairseq.logging.progress_bar | :   4636 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 16:16:38 | INFO | fairseq.logging.progress_bar | :   4641 / 5720 sentences=4
+['car', ' parked on', 'street']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 16:16:47 | INFO | fairseq.logging.progress_bar | :   4646 / 5720 sentences=4
+['towel', ' hanging from', 'handle']
+['towel', ' hanging from', 'handle']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:16:56 | INFO | fairseq.logging.progress_bar | :   4651 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 16:17:06 | INFO | fairseq.logging.progress_bar | :   4656 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:17:17 | INFO | fairseq.logging.progress_bar | :   4661 / 5720 sentences=4
+2023-06-01 16:17:28 | INFO | fairseq.logging.progress_bar | :   4666 / 5720 sentences=4
+warning: skipped 19 examples
+2023-06-01 16:17:39 | INFO | fairseq.logging.progress_bar | :   4671 / 5720 sentences=4
+2023-06-01 16:17:48 | INFO | fairseq.logging.progress_bar | :   4676 / 5720 sentences=4
+2023-06-01 16:17:58 | INFO | fairseq.logging.progress_bar | :   4681 / 5720 sentences=4
+2023-06-01 16:18:07 | INFO | fairseq.logging.progress_bar | :   4686 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+['cat', ' laying on', 'seat']
+['car', ' parked on', 'street']
+2023-06-01 16:18:18 | INFO | fairseq.logging.progress_bar | :   4691 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 16:18:28 | INFO | fairseq.logging.progress_bar | :   4696 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:18:38 | INFO | fairseq.logging.progress_bar | :   4701 / 5720 sentences=4
+2023-06-01 16:18:47 | INFO | fairseq.logging.progress_bar | :   4706 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 16:18:57 | INFO | fairseq.logging.progress_bar | :   4711 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 16:19:08 | INFO | fairseq.logging.progress_bar | :   4716 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:19:18 | INFO | fairseq.logging.progress_bar | :   4721 / 5720 sentences=4
+warning: skipped 20 examples
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:19:27 | INFO | fairseq.logging.progress_bar | :   4726 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 16:19:37 | INFO | fairseq.logging.progress_bar | :   4731 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:19:47 | INFO | fairseq.logging.progress_bar | :   4736 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 16:19:59 | INFO | fairseq.logging.progress_bar | :   4741 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 16:20:07 | INFO | fairseq.logging.progress_bar | :   4746 / 5720 sentences=4
+2023-06-01 16:20:17 | INFO | fairseq.logging.progress_bar | :   4751 / 5720 sentences=4
+2023-06-01 16:20:27 | INFO | fairseq.logging.progress_bar | :   4756 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 16:20:39 | INFO | fairseq.logging.progress_bar | :   4761 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 16:20:49 | INFO | fairseq.logging.progress_bar | :   4766 / 5720 sentences=4
+['car', ' parked on', 'street']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:20:56 | INFO | fairseq.logging.progress_bar | :   4771 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 16:21:05 | INFO | fairseq.logging.progress_bar | :   4776 / 5720 sentences=4
+2023-06-01 16:21:12 | INFO | fairseq.logging.progress_bar | :   4781 / 5720 sentences=4
+2023-06-01 16:21:20 | INFO | fairseq.logging.progress_bar | :   4786 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:21:29 | INFO | fairseq.logging.progress_bar | :   4791 / 5720 sentences=4
+2023-06-01 16:21:37 | INFO | fairseq.logging.progress_bar | :   4796 / 5720 sentences=4
+2023-06-01 16:21:45 | INFO | fairseq.logging.progress_bar | :   4801 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:21:54 | INFO | fairseq.logging.progress_bar | :   4806 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:22:03 | INFO | fairseq.logging.progress_bar | :   4811 / 5720 sentences=4
+2023-06-01 16:22:10 | INFO | fairseq.logging.progress_bar | :   4816 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 16:22:18 | INFO | fairseq.logging.progress_bar | :   4821 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:22:26 | INFO | fairseq.logging.progress_bar | :   4826 / 5720 sentences=4
+2023-06-01 16:22:34 | INFO | fairseq.logging.progress_bar | :   4831 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['track', ' for', 'train']
+['tree', ' covered in', 'snow']
+2023-06-01 16:22:42 | INFO | fairseq.logging.progress_bar | :   4836 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:22:51 | INFO | fairseq.logging.progress_bar | :   4841 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['track', ' for', 'train']
+2023-06-01 16:23:01 | INFO | fairseq.logging.progress_bar | :   4846 / 5720 sentences=4
+2023-06-01 16:23:10 | INFO | fairseq.logging.progress_bar | :   4851 / 5720 sentences=4
+2023-06-01 16:23:21 | INFO | fairseq.logging.progress_bar | :   4856 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['car', ' parked on', 'street']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['track', ' for', 'train']
+2023-06-01 16:23:30 | INFO | fairseq.logging.progress_bar | :   4861 / 5720 sentences=4
+2023-06-01 16:23:39 | INFO | fairseq.logging.progress_bar | :   4866 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 16:23:48 | INFO | fairseq.logging.progress_bar | :   4871 / 5720 sentences=4
+2023-06-01 16:23:57 | INFO | fairseq.logging.progress_bar | :   4876 / 5720 sentences=4
+2023-06-01 16:24:06 | INFO | fairseq.logging.progress_bar | :   4881 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:24:14 | INFO | fairseq.logging.progress_bar | :   4886 / 5720 sentences=4
+2023-06-01 16:24:20 | INFO | fairseq.logging.progress_bar | :   4891 / 5720 sentences=4
+2023-06-01 16:24:28 | INFO | fairseq.logging.progress_bar | :   4896 / 5720 sentences=4
+2023-06-01 16:24:34 | INFO | fairseq.logging.progress_bar | :   4901 / 5720 sentences=4
+2023-06-01 16:24:43 | INFO | fairseq.logging.progress_bar | :   4906 / 5720 sentences=4
+2023-06-01 16:24:50 | INFO | fairseq.logging.progress_bar | :   4911 / 5720 sentences=4
+2023-06-01 16:24:59 | INFO | fairseq.logging.progress_bar | :   4916 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['track', ' for', 'train']
+['car', ' parked on', 'street']
+2023-06-01 16:25:07 | INFO | fairseq.logging.progress_bar | :   4921 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:25:15 | INFO | fairseq.logging.progress_bar | :   4926 / 5720 sentences=4
+2023-06-01 16:25:22 | INFO | fairseq.logging.progress_bar | :   4931 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:25:30 | INFO | fairseq.logging.progress_bar | :   4936 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 16:25:37 | INFO | fairseq.logging.progress_bar | :   4941 / 5720 sentences=4
+['man', ' carrying', 'surfboard']
+2023-06-01 16:25:46 | INFO | fairseq.logging.progress_bar | :   4946 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 16:25:54 | INFO | fairseq.logging.progress_bar | :   4951 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 16:26:04 | INFO | fairseq.logging.progress_bar | :   4956 / 5720 sentences=4
+['towel', ' hanging from', 'handle']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 16:26:11 | INFO | fairseq.logging.progress_bar | :   4961 / 5720 sentences=4
+2023-06-01 16:26:19 | INFO | fairseq.logging.progress_bar | :   4966 / 5720 sentences=4
+2023-06-01 16:26:27 | INFO | fairseq.logging.progress_bar | :   4971 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 16:26:34 | INFO | fairseq.logging.progress_bar | :   4976 / 5720 sentences=4
+2023-06-01 16:26:43 | INFO | fairseq.logging.progress_bar | :   4981 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+2023-06-01 16:26:52 | INFO | fairseq.logging.progress_bar | :   4986 / 5720 sentences=4
+2023-06-01 16:27:01 | INFO | fairseq.logging.progress_bar | :   4991 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:27:10 | INFO | fairseq.logging.progress_bar | :   4996 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 16:27:19 | INFO | fairseq.logging.progress_bar | :   5001 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:27:29 | INFO | fairseq.logging.progress_bar | :   5006 / 5720 sentences=4
+2023-06-01 16:27:38 | INFO | fairseq.logging.progress_bar | :   5011 / 5720 sentences=4
+2023-06-01 16:27:48 | INFO | fairseq.logging.progress_bar | :   5016 / 5720 sentences=4
+['track', ' for', 'train']
+['tree', ' covered in', 'snow']
+2023-06-01 16:27:56 | INFO | fairseq.logging.progress_bar | :   5021 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['motorcycle', ' parked on', 'street']
+2023-06-01 16:28:05 | INFO | fairseq.logging.progress_bar | :   5026 / 5720 sentences=4
+['person', ' watching', 'man']
+['person', ' watching', 'man']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['umbrella', ' over', 'woman']
+2023-06-01 16:28:14 | INFO | fairseq.logging.progress_bar | :   5031 / 5720 sentences=4
+['car', ' parked on', 'street']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 16:28:25 | INFO | fairseq.logging.progress_bar | :   5036 / 5720 sentences=4
+2023-06-01 16:28:36 | INFO | fairseq.logging.progress_bar | :   5041 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 16:28:45 | INFO | fairseq.logging.progress_bar | :   5046 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 16:28:55 | INFO | fairseq.logging.progress_bar | :   5051 / 5720 sentences=4
+2023-06-01 16:29:03 | INFO | fairseq.logging.progress_bar | :   5056 / 5720 sentences=4
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['car', ' parked on', 'street']
+2023-06-01 16:29:14 | INFO | fairseq.logging.progress_bar | :   5061 / 5720 sentences=4
+['track', ' for', 'train']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:29:22 | INFO | fairseq.logging.progress_bar | :   5066 / 5720 sentences=4
+2023-06-01 16:29:32 | INFO | fairseq.logging.progress_bar | :   5071 / 5720 sentences=4
+2023-06-01 16:29:41 | INFO | fairseq.logging.progress_bar | :   5076 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 16:29:51 | INFO | fairseq.logging.progress_bar | :   5081 / 5720 sentences=4
+2023-06-01 16:30:00 | INFO | fairseq.logging.progress_bar | :   5086 / 5720 sentences=4
+['track', ' for', 'train']
+['car', ' parked on', 'street']
+['track', ' for', 'train']
+2023-06-01 16:30:09 | INFO | fairseq.logging.progress_bar | :   5091 / 5720 sentences=4
+['track', ' for', 'train']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:30:18 | INFO | fairseq.logging.progress_bar | :   5096 / 5720 sentences=4
+2023-06-01 16:30:27 | INFO | fairseq.logging.progress_bar | :   5101 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 16:30:38 | INFO | fairseq.logging.progress_bar | :   5106 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:30:48 | INFO | fairseq.logging.progress_bar | :   5111 / 5720 sentences=4
+2023-06-01 16:30:57 | INFO | fairseq.logging.progress_bar | :   5116 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 16:31:07 | INFO | fairseq.logging.progress_bar | :   5121 / 5720 sentences=4
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['cat', ' laying on', 'bed']
+2023-06-01 16:31:16 | INFO | fairseq.logging.progress_bar | :   5126 / 5720 sentences=4
+2023-06-01 16:31:24 | INFO | fairseq.logging.progress_bar | :   5131 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+['cat', ' laying on', 'bed']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 16:31:34 | INFO | fairseq.logging.progress_bar | :   5136 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['track', ' for', 'train']
+['car', ' parked on', 'street']
+2023-06-01 16:31:42 | INFO | fairseq.logging.progress_bar | :   5141 / 5720 sentences=4
+2023-06-01 16:31:52 | INFO | fairseq.logging.progress_bar | :   5146 / 5720 sentences=4
+2023-06-01 16:32:01 | INFO | fairseq.logging.progress_bar | :   5151 / 5720 sentences=4
+2023-06-01 16:32:09 | INFO | fairseq.logging.progress_bar | :   5156 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['track', ' for', 'train']
+2023-06-01 16:32:17 | INFO | fairseq.logging.progress_bar | :   5161 / 5720 sentences=4
+['track', ' for', 'train']
+['car', ' parked on', 'street']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:32:26 | INFO | fairseq.logging.progress_bar | :   5166 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:32:34 | INFO | fairseq.logging.progress_bar | :   5171 / 5720 sentences=4
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+2023-06-01 16:32:43 | INFO | fairseq.logging.progress_bar | :   5176 / 5720 sentences=4
+2023-06-01 16:32:50 | INFO | fairseq.logging.progress_bar | :   5181 / 5720 sentences=4
+2023-06-01 16:32:58 | INFO | fairseq.logging.progress_bar | :   5186 / 5720 sentences=4
+2023-06-01 16:33:07 | INFO | fairseq.logging.progress_bar | :   5191 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:33:15 | INFO | fairseq.logging.progress_bar | :   5196 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 16:33:22 | INFO | fairseq.logging.progress_bar | :   5201 / 5720 sentences=4
+2023-06-01 16:33:31 | INFO | fairseq.logging.progress_bar | :   5206 / 5720 sentences=4
+2023-06-01 16:33:39 | INFO | fairseq.logging.progress_bar | :   5211 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:33:49 | INFO | fairseq.logging.progress_bar | :   5216 / 5720 sentences=4
+2023-06-01 16:33:58 | INFO | fairseq.logging.progress_bar | :   5221 / 5720 sentences=4
+2023-06-01 16:34:08 | INFO | fairseq.logging.progress_bar | :   5226 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 16:34:19 | INFO | fairseq.logging.progress_bar | :   5231 / 5720 sentences=4
+2023-06-01 16:34:26 | INFO | fairseq.logging.progress_bar | :   5236 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 16:34:34 | INFO | fairseq.logging.progress_bar | :   5241 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 16:34:42 | INFO | fairseq.logging.progress_bar | :   5246 / 5720 sentences=4
+['cat', ' laying on', 'seat']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 16:34:51 | INFO | fairseq.logging.progress_bar | :   5251 / 5720 sentences=4
+2023-06-01 16:35:01 | INFO | fairseq.logging.progress_bar | :   5256 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 16:35:11 | INFO | fairseq.logging.progress_bar | :   5261 / 5720 sentences=4
+['snow', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+['car', ' parked on', 'street']
+2023-06-01 16:35:19 | INFO | fairseq.logging.progress_bar | :   5266 / 5720 sentences=4
+['people', ' watching', 'kite']
+2023-06-01 16:35:26 | INFO | fairseq.logging.progress_bar | :   5271 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 16:35:34 | INFO | fairseq.logging.progress_bar | :   5276 / 5720 sentences=4
+2023-06-01 16:35:42 | INFO | fairseq.logging.progress_bar | :   5281 / 5720 sentences=4
+2023-06-01 16:35:51 | INFO | fairseq.logging.progress_bar | :   5286 / 5720 sentences=4
+warning: skipped 13 examples
+2023-06-01 16:36:00 | INFO | fairseq.logging.progress_bar | :   5291 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:36:09 | INFO | fairseq.logging.progress_bar | :   5296 / 5720 sentences=4
+2023-06-01 16:36:18 | INFO | fairseq.logging.progress_bar | :   5301 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:36:28 | INFO | fairseq.logging.progress_bar | :   5306 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 16:36:36 | INFO | fairseq.logging.progress_bar | :   5311 / 5720 sentences=4
+2023-06-01 16:36:43 | INFO | fairseq.logging.progress_bar | :   5316 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:36:53 | INFO | fairseq.logging.progress_bar | :   5321 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 16:37:02 | INFO | fairseq.logging.progress_bar | :   5326 / 5720 sentences=4
+2023-06-01 16:37:10 | INFO | fairseq.logging.progress_bar | :   5331 / 5720 sentences=4
+['people', ' eating', 'pizza']
+2023-06-01 16:37:19 | INFO | fairseq.logging.progress_bar | :   5336 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:37:28 | INFO | fairseq.logging.progress_bar | :   5341 / 5720 sentences=4
+2023-06-01 16:37:36 | INFO | fairseq.logging.progress_bar | :   5346 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:37:43 | INFO | fairseq.logging.progress_bar | :   5351 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 16:37:52 | INFO | fairseq.logging.progress_bar | :   5356 / 5720 sentences=4
+2023-06-01 16:38:02 | INFO | fairseq.logging.progress_bar | :   5361 / 5720 sentences=4
+2023-06-01 16:38:10 | INFO | fairseq.logging.progress_bar | :   5366 / 5720 sentences=4
+['cat', ' laying on', 'laptop']
+2023-06-01 16:38:19 | INFO | fairseq.logging.progress_bar | :   5371 / 5720 sentences=4
+2023-06-01 16:38:28 | INFO | fairseq.logging.progress_bar | :   5376 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 16:38:37 | INFO | fairseq.logging.progress_bar | :   5381 / 5720 sentences=4
+2023-06-01 16:38:45 | INFO | fairseq.logging.progress_bar | :   5386 / 5720 sentences=4
+2023-06-01 16:38:56 | INFO | fairseq.logging.progress_bar | :   5391 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['street', ' covered in', 'snow']
+['track', ' for', 'train']
+2023-06-01 16:39:06 | INFO | fairseq.logging.progress_bar | :   5396 / 5720 sentences=4
+2023-06-01 16:39:15 | INFO | fairseq.logging.progress_bar | :   5401 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:39:26 | INFO | fairseq.logging.progress_bar | :   5406 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 16:39:36 | INFO | fairseq.logging.progress_bar | :   5411 / 5720 sentences=4
+warning: skipped 7 examples
+2023-06-01 16:39:46 | INFO | fairseq.logging.progress_bar | :   5416 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:39:56 | INFO | fairseq.logging.progress_bar | :   5421 / 5720 sentences=4
+2023-06-01 16:40:04 | INFO | fairseq.logging.progress_bar | :   5426 / 5720 sentences=4
+2023-06-01 16:40:14 | INFO | fairseq.logging.progress_bar | :   5431 / 5720 sentences=4
+2023-06-01 16:40:22 | INFO | fairseq.logging.progress_bar | :   5436 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 16:40:33 | INFO | fairseq.logging.progress_bar | :   5441 / 5720 sentences=4
+2023-06-01 16:40:41 | INFO | fairseq.logging.progress_bar | :   5446 / 5720 sentences=4
+warning: skipped 12 examples
+2023-06-01 16:40:52 | INFO | fairseq.logging.progress_bar | :   5451 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 16:41:02 | INFO | fairseq.logging.progress_bar | :   5456 / 5720 sentences=4
+2023-06-01 16:41:11 | INFO | fairseq.logging.progress_bar | :   5461 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+2023-06-01 16:41:21 | INFO | fairseq.logging.progress_bar | :   5466 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 16:41:32 | INFO | fairseq.logging.progress_bar | :   5471 / 5720 sentences=4
+2023-06-01 16:41:41 | INFO | fairseq.logging.progress_bar | :   5476 / 5720 sentences=4
+2023-06-01 16:41:49 | INFO | fairseq.logging.progress_bar | :   5481 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:41:59 | INFO | fairseq.logging.progress_bar | :   5486 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:42:08 | INFO | fairseq.logging.progress_bar | :   5491 / 5720 sentences=4
+2023-06-01 16:42:17 | INFO | fairseq.logging.progress_bar | :   5496 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:42:25 | INFO | fairseq.logging.progress_bar | :   5501 / 5720 sentences=4
+2023-06-01 16:42:36 | INFO | fairseq.logging.progress_bar | :   5506 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+2023-06-01 16:42:46 | INFO | fairseq.logging.progress_bar | :   5511 / 5720 sentences=4
+2023-06-01 16:42:53 | INFO | fairseq.logging.progress_bar | :   5516 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:43:00 | INFO | fairseq.logging.progress_bar | :   5521 / 5720 sentences=4
+2023-06-01 16:43:08 | INFO | fairseq.logging.progress_bar | :   5526 / 5720 sentences=4
+2023-06-01 16:43:18 | INFO | fairseq.logging.progress_bar | :   5531 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 16:43:27 | INFO | fairseq.logging.progress_bar | :   5536 / 5720 sentences=4
+['track', ' for', 'train']
+['people', ' watching', 'horse']
+2023-06-01 16:43:35 | INFO | fairseq.logging.progress_bar | :   5541 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:43:43 | INFO | fairseq.logging.progress_bar | :   5546 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['cat', ' laying on', 'bed']
+2023-06-01 16:43:50 | INFO | fairseq.logging.progress_bar | :   5551 / 5720 sentences=4
+['cat', ' laying on', 'bed']
+['person', ' walking in', 'street']
+['person', ' walking in', 'street']
+['person', ' walking in', 'street']
+['motorcycle', ' parked on', 'street']
+2023-06-01 16:44:00 | INFO | fairseq.logging.progress_bar | :   5556 / 5720 sentences=4
+2023-06-01 16:44:08 | INFO | fairseq.logging.progress_bar | :   5561 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 16:44:17 | INFO | fairseq.logging.progress_bar | :   5566 / 5720 sentences=4
+2023-06-01 16:44:25 | INFO | fairseq.logging.progress_bar | :   5571 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 16:44:35 | INFO | fairseq.logging.progress_bar | :   5576 / 5720 sentences=4
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['snow', ' covered in', 'snow']
+2023-06-01 16:44:46 | INFO | fairseq.logging.progress_bar | :   5581 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 16:44:55 | INFO | fairseq.logging.progress_bar | :   5586 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:45:05 | INFO | fairseq.logging.progress_bar | :   5591 / 5720 sentences=4
+['cat', ' laying on', 'laptop']
+2023-06-01 16:45:14 | INFO | fairseq.logging.progress_bar | :   5596 / 5720 sentences=4
+['people', ' watching', 'man']
+2023-06-01 16:45:24 | INFO | fairseq.logging.progress_bar | :   5601 / 5720 sentences=4
+2023-06-01 16:45:32 | INFO | fairseq.logging.progress_bar | :   5606 / 5720 sentences=4
+2023-06-01 16:45:41 | INFO | fairseq.logging.progress_bar | :   5611 / 5720 sentences=4
+2023-06-01 16:45:48 | INFO | fairseq.logging.progress_bar | :   5616 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 16:45:55 | INFO | fairseq.logging.progress_bar | :   5621 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 16:46:04 | INFO | fairseq.logging.progress_bar | :   5626 / 5720 sentences=4
+['car', ' parked on', 'street']
+2023-06-01 16:46:13 | INFO | fairseq.logging.progress_bar | :   5631 / 5720 sentences=4
+2023-06-01 16:46:23 | INFO | fairseq.logging.progress_bar | :   5636 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+2023-06-01 16:46:32 | INFO | fairseq.logging.progress_bar | :   5641 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['track', ' for', 'train']
+2023-06-01 16:46:43 | INFO | fairseq.logging.progress_bar | :   5646 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+2023-06-01 16:46:53 | INFO | fairseq.logging.progress_bar | :   5651 / 5720 sentences=4
+warning: skipped 10 examples
+2023-06-01 16:47:04 | INFO | fairseq.logging.progress_bar | :   5656 / 5720 sentences=4
+2023-06-01 16:47:13 | INFO | fairseq.logging.progress_bar | :   5661 / 5720 sentences=4
+warning: skipped 11 examples
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['mountain', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 16:47:24 | INFO | fairseq.logging.progress_bar | :   5666 / 5720 sentences=4
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+['track', ' for', 'train']
+2023-06-01 16:47:33 | INFO | fairseq.logging.progress_bar | :   5671 / 5720 sentences=4
+2023-06-01 16:47:42 | INFO | fairseq.logging.progress_bar | :   5676 / 5720 sentences=4
+['tree', ' covered in', 'snow']
+['tree', ' covered in', 'snow']
+['track', ' for', 'train']
+2023-06-01 16:47:52 | INFO | fairseq.logging.progress_bar | :   5681 / 5720 sentences=4
+['car', ' parked on', 'street']
+['car', ' parked on', 'street']
+2023-06-01 16:48:01 | INFO | fairseq.logging.progress_bar | :   5686 / 5720 sentences=4
+2023-06-01 16:48:09 | INFO | fairseq.logging.progress_bar | :   5691 / 5720 sentences=4
+2023-06-01 16:48:17 | INFO | fairseq.logging.progress_bar | :   5696 / 5720 sentences=4
+['people', ' watching', 'man']
+['people', ' watching', 'man']
+2023-06-01 16:48:25 | INFO | fairseq.logging.progress_bar | :   5701 / 5720 sentences=4
+2023-06-01 16:48:35 | INFO | fairseq.logging.progress_bar | :   5706 / 5720 sentences=4
+2023-06-01 16:48:43 | INFO | fairseq.logging.progress_bar | :   5711 / 5720 sentences=4
+['mountain', ' covered in', 'snow']
+2023-06-01 16:48:51 | INFO | fairseq.logging.progress_bar | :   5716 / 5720 sentences=4
+['track', ' for', 'train']
+2023-06-01 16:48:57 | INFO | ofa.evaluate | recall_by_image: 10036.7451 / 22880.0 = 0.4387, recall: 75986 / 140828 = 0.5396, mean recall: 0.07543465331608976, mean hyp n_rel: 18.3051, mean ref n_rel 6.1551
+2023-06-01 16:49:01 | INFO | torch.distributed.distributed_c10d | Added key: store_based_barrier_key:2 to store for rank: 0
+2023-06-01 16:49:01 | INFO | torch.distributed.distributed_c10d | Rank 0: Completed store-based barrier for key:store_based_barrier_key:2 with 1 nodes.
+/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torch/distributed/launch.py:178: FutureWarning: The module torch.distributed.launch is deprecated
+and will be removed in future. Use torchrun.
+Note that --use_env is set by default in torchrun.
+If your script expects `--local_rank` argument to be set, please
+change it to read from `os.environ['LOCAL_RANK']` instead. See 
+https://pytorch.org/docs/stable/distributed.html#launch-utility for 
+further instructions
+
+  warnings.warn(

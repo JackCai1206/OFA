@@ -1,0 +1,1510 @@
+/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torch/distributed/launch.py:178: FutureWarning: The module torch.distributed.launch is deprecated
+and will be removed in future. Use torchrun.
+Note that --use_env is set by default in torchrun.
+If your script expects `--local_rank` argument to be set, please
+change it to read from `os.environ['LOCAL_RANK']` instead. See 
+https://pytorch.org/docs/stable/distributed.html#launch-utility for 
+further instructions
+
+  warnings.warn(
+WARNING:torch.distributed.run:
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+single-machine distributed training is initialized.
+single-machine distributed training is initialized.
+single-machine distributed training is initialized.
+2023-06-29 22:49:24 | INFO | ofa.evaluate | {'_name': None, 'common': {'_name': None, 'no_progress_bar': False, 'log_interval': 5, 'log_format': 'simple', 'log_file': None, 'tensorboard_logdir': None, 'wandb_project': None, 'azureml_logging': False, 'seed': 7, 'cpu': False, 'tpu': False, 'bf16': False, 'memory_efficient_bf16': False, 'fp16': True, 'memory_efficient_fp16': False, 'fp16_no_flatten_grads': False, 'fp16_init_scale': 128, 'fp16_scale_window': None, 'fp16_scale_tolerance': 0.0, 'on_cpu_convert_precision': False, 'min_loss_scale': 0.0001, 'threshold_loss_scale': None, 'amp': False, 'amp_batch_retries': 2, 'amp_init_scale': 128, 'amp_scale_window': None, 'user_dir': '../../ofa_module', 'empty_cache_freq': 0, 'all_gather_list_size': 16384, 'model_parallel_size': 1, 'quantization_config_path': None, 'profile': False, 'reset_logging': False, 'suppress_crashes': False, 'use_plasma_view': False, 'plasma_path': '/tmp/plasma'}, 'common_eval': {'_name': None, 'path': '../../checkpoints/OFA/sgcls_checkpoints/_12_3e-5_512_base_tgtobj/checkpoint8.pt', 'post_process': None, 'quiet': False, 'model_overrides': '{"data":"../../dataset/OFA_data/sgcls/vg_val_full.tsv","bpe_dir":"../../utils/BPE","eval_cider":False}', 'results_path': '../../results/sgcls'}, 'distributed_training': {'_name': None, 'distributed_world_size': 3, 'distributed_num_procs': 3, 'distributed_rank': 2, 'distributed_backend': 'nccl', 'distributed_init_method': 'env://', 'distributed_port': -1, 'device_id': 2, 'distributed_no_spawn': True, 'ddp_backend': 'pytorch_ddp', 'ddp_comm_hook': 'none', 'bucket_cap_mb': 25, 'fix_batches_to_gpus': False, 'find_unused_parameters': False, 'gradient_as_bucket_view': False, 'fast_stat_sync': False, 'heartbeat_timeout': -1, 'broadcast_buffers': False, 'slowmo_momentum': None, 'slowmo_algorithm': 'LocalSGD', 'localsgd_frequency': 3, 'nprocs_per_node': 3, 'pipeline_model_parallel': False, 'pipeline_balance': None, 'pipeline_devices': None, 'pipeline_chunks': 0, 'pipeline_encoder_balance': None, 'pipeline_encoder_devices': None, 'pipeline_decoder_balance': None, 'pipeline_decoder_devices': None, 'pipeline_checkpoint': 'never', 'zero_sharding': 'none', 'fp16': True, 'memory_efficient_fp16': False, 'tpu': False, 'no_reshard_after_forward': False, 'fp32_reduce_scatter': False, 'cpu_offload': False, 'use_sharded_state': False}, 'dataset': {'_name': None, 'num_workers': 0, 'skip_invalid_size_inputs_valid_test': False, 'max_tokens': None, 'batch_size': 40, 'required_batch_size_multiple': 8, 'required_seq_len_multiple': 1, 'dataset_impl': None, 'data_buffer_size': 10, 'train_subset': 'train', 'valid_subset': 'valid', 'combine_valid_subsets': None, 'ignore_unused_valid_subsets': False, 'validate_interval': 1, 'validate_interval_updates': 0, 'validate_after_updates': 0, 'fixed_validation_seed': None, 'disable_validation': False, 'max_tokens_valid': None, 'batch_size_valid': 40, 'max_valid_steps': None, 'curriculum': 0, 'gen_subset': 'test', 'num_shards': 1, 'shard_id': 0}, 'optimization': {'_name': None, 'max_epoch': 0, 'max_update': 0, 'stop_time_hours': 0.0, 'clip_norm': 0.0, 'sentence_avg': False, 'update_freq': [1], 'lr': [0.25], 'stop_min_lr': -1.0, 'use_bmuf': False}, 'checkpoint': {'_name': None, 'save_dir': 'checkpoints', 'restore_file': 'checkpoint_last.pt', 'finetune_from_model': None, 'reset_dataloader': False, 'reset_lr_scheduler': False, 'reset_meters': False, 'reset_optimizer': False, 'optimizer_overrides': '{}', 'save_interval': 1, 'save_interval_updates': 0, 'keep_interval_updates': -1, 'keep_interval_updates_pattern': -1, 'keep_last_epochs': -1, 'keep_best_checkpoints': -1, 'no_save': False, 'no_epoch_checkpoints': False, 'no_last_checkpoints': False, 'no_save_optimizer_state': False, 'best_checkpoint_metric': 'loss', 'maximize_best_checkpoint_metric': False, 'patience': -1, 'checkpoint_suffix': '', 'checkpoint_shard_count': 1, 'load_checkpoint_on_all_dp_ranks': False, 'write_checkpoints_asynchronously': False, 'model_parallel_size': 1, 'use_ema_weights_to_init_param': False, 'use_latest_weights_to_init_ema': False}, 'bmuf': {'_name': None, 'block_lr': 1.0, 'block_momentum': 0.875, 'global_sync_iter': 50, 'warmup_iterations': 500, 'use_nbm': False, 'average_sync': False, 'distributed_world_size': 3}, 'generation': {'_name': None, 'beam': 5, 'nbest': 1, 'max_len_a': 0.0, 'max_len_b': 1000, 'min_len': 1, 'match_source_len': False, 'unnormalized': False, 'no_early_stop': False, 'no_beamable_mm': False, 'lenpen': 1.0, 'unkpen': 0.0, 'replace_unk': None, 'sacrebleu': False, 'score_reference': False, 'prefix_size': 0, 'no_repeat_ngram_size': 6, 'sampling': False, 'sampling_topk': -1, 'sampling_topp': -1.0, 'constraints': None, 'temperature': 1.0, 'diverse_beam_groups': -1, 'diverse_beam_strength': 0.5, 'diversity_rate': -1.0, 'print_alignment': None, 'print_step': False, 'lm_path': None, 'lm_weight': 0.0, 'iter_decode_eos_penalty': 0.0, 'iter_decode_max_iter': 10, 'iter_decode_force_max_iter': False, 'iter_decode_with_beam': 1, 'iter_decode_with_external_reranker': False, 'retain_iter_history': False, 'retain_dropout': False, 'retain_dropout_modules': None, 'decoding_format': None, 'no_seed_provided': False}, 'eval_lm': {'_name': None, 'output_word_probs': False, 'output_word_stats': False, 'context_window': 0, 'softmax_batch': 9223372036854775807}, 'interactive': {'_name': None, 'buffer_size': 0, 'input': '-'}, 'model': None, 'task': {'_name': 'sgcls', 'data': '../../dataset/OFA_data/sgcls/vg_val_full.tsv', 'selected_cols': None, 'bpe': None, 'bpe_dir': None, 'max_source_positions': 1024, 'max_target_positions': 1024, 'max_src_length': 128, 'max_tgt_length': 30, 'code_dict_size': 8192, 'patch_image_size': 480, 'orig_patch_image_size': 256, 'num_bins': 1000, 'imagenet_default_mean_and_std': False, 'constraint_range': None, 'eval_args': '{}', 'eval_print_samples': False, 'vg_json_dir': '../../dataset/visual_genome/VG-SGG-dicts-with-attri.json'}, 'criterion': {'_name': 'cross_entropy', 'sentence_avg': True}, 'optimizer': None, 'lr_scheduler': {'_name': 'fixed', 'force_anneal': None, 'lr_shrink': 0.1, 'warmup_updates': 0, 'lr': [0.25]}, 'scoring': {'_name': 'bleu', 'pad': 1, 'eos': 2, 'unk': 3}, 'bpe': None, 'tokenizer': None, 'ema': {'_name': None, 'store_ema': False, 'ema_decay': 0.9999, 'ema_start_update': 0, 'ema_seed_model': None, 'ema_update_freq': 1, 'ema_fp32': False}, 'simul_type': None}
+2023-06-29 22:49:24 | INFO | ofa.evaluate | {'_name': None, 'common': {'_name': None, 'no_progress_bar': False, 'log_interval': 5, 'log_format': 'simple', 'log_file': None, 'tensorboard_logdir': None, 'wandb_project': None, 'azureml_logging': False, 'seed': 7, 'cpu': False, 'tpu': False, 'bf16': False, 'memory_efficient_bf16': False, 'fp16': True, 'memory_efficient_fp16': False, 'fp16_no_flatten_grads': False, 'fp16_init_scale': 128, 'fp16_scale_window': None, 'fp16_scale_tolerance': 0.0, 'on_cpu_convert_precision': False, 'min_loss_scale': 0.0001, 'threshold_loss_scale': None, 'amp': False, 'amp_batch_retries': 2, 'amp_init_scale': 128, 'amp_scale_window': None, 'user_dir': '../../ofa_module', 'empty_cache_freq': 0, 'all_gather_list_size': 16384, 'model_parallel_size': 1, 'quantization_config_path': None, 'profile': False, 'reset_logging': False, 'suppress_crashes': False, 'use_plasma_view': False, 'plasma_path': '/tmp/plasma'}, 'common_eval': {'_name': None, 'path': '../../checkpoints/OFA/sgcls_checkpoints/_12_3e-5_512_base_tgtobj/checkpoint8.pt', 'post_process': None, 'quiet': False, 'model_overrides': '{"data":"../../dataset/OFA_data/sgcls/vg_val_full.tsv","bpe_dir":"../../utils/BPE","eval_cider":False}', 'results_path': '../../results/sgcls'}, 'distributed_training': {'_name': None, 'distributed_world_size': 3, 'distributed_num_procs': 3, 'distributed_rank': 0, 'distributed_backend': 'nccl', 'distributed_init_method': 'env://', 'distributed_port': -1, 'device_id': 0, 'distributed_no_spawn': True, 'ddp_backend': 'pytorch_ddp', 'ddp_comm_hook': 'none', 'bucket_cap_mb': 25, 'fix_batches_to_gpus': False, 'find_unused_parameters': False, 'gradient_as_bucket_view': False, 'fast_stat_sync': False, 'heartbeat_timeout': -1, 'broadcast_buffers': False, 'slowmo_momentum': None, 'slowmo_algorithm': 'LocalSGD', 'localsgd_frequency': 3, 'nprocs_per_node': 3, 'pipeline_model_parallel': False, 'pipeline_balance': None, 'pipeline_devices': None, 'pipeline_chunks': 0, 'pipeline_encoder_balance': None, 'pipeline_encoder_devices': None, 'pipeline_decoder_balance': None, 'pipeline_decoder_devices': None, 'pipeline_checkpoint': 'never', 'zero_sharding': 'none', 'fp16': True, 'memory_efficient_fp16': False, 'tpu': False, 'no_reshard_after_forward': False, 'fp32_reduce_scatter': False, 'cpu_offload': False, 'use_sharded_state': False}, 'dataset': {'_name': None, 'num_workers': 0, 'skip_invalid_size_inputs_valid_test': False, 'max_tokens': None, 'batch_size': 40, 'required_batch_size_multiple': 8, 'required_seq_len_multiple': 1, 'dataset_impl': None, 'data_buffer_size': 10, 'train_subset': 'train', 'valid_subset': 'valid', 'combine_valid_subsets': None, 'ignore_unused_valid_subsets': False, 'validate_interval': 1, 'validate_interval_updates': 0, 'validate_after_updates': 0, 'fixed_validation_seed': None, 'disable_validation': False, 'max_tokens_valid': None, 'batch_size_valid': 40, 'max_valid_steps': None, 'curriculum': 0, 'gen_subset': 'test', 'num_shards': 1, 'shard_id': 0}, 'optimization': {'_name': None, 'max_epoch': 0, 'max_update': 0, 'stop_time_hours': 0.0, 'clip_norm': 0.0, 'sentence_avg': False, 'update_freq': [1], 'lr': [0.25], 'stop_min_lr': -1.0, 'use_bmuf': False}, 'checkpoint': {'_name': None, 'save_dir': 'checkpoints', 'restore_file': 'checkpoint_last.pt', 'finetune_from_model': None, 'reset_dataloader': False, 'reset_lr_scheduler': False, 'reset_meters': False, 'reset_optimizer': False, 'optimizer_overrides': '{}', 'save_interval': 1, 'save_interval_updates': 0, 'keep_interval_updates': -1, 'keep_interval_updates_pattern': -1, 'keep_last_epochs': -1, 'keep_best_checkpoints': -1, 'no_save': False, 'no_epoch_checkpoints': False, 'no_last_checkpoints': False, 'no_save_optimizer_state': False, 'best_checkpoint_metric': 'loss', 'maximize_best_checkpoint_metric': False, 'patience': -1, 'checkpoint_suffix': '', 'checkpoint_shard_count': 1, 'load_checkpoint_on_all_dp_ranks': False, 'write_checkpoints_asynchronously': False, 'model_parallel_size': 1, 'use_ema_weights_to_init_param': False, 'use_latest_weights_to_init_ema': False}, 'bmuf': {'_name': None, 'block_lr': 1.0, 'block_momentum': 0.875, 'global_sync_iter': 50, 'warmup_iterations': 500, 'use_nbm': False, 'average_sync': False, 'distributed_world_size': 3}, 'generation': {'_name': None, 'beam': 5, 'nbest': 1, 'max_len_a': 0.0, 'max_len_b': 1000, 'min_len': 1, 'match_source_len': False, 'unnormalized': False, 'no_early_stop': False, 'no_beamable_mm': False, 'lenpen': 1.0, 'unkpen': 0.0, 'replace_unk': None, 'sacrebleu': False, 'score_reference': False, 'prefix_size': 0, 'no_repeat_ngram_size': 6, 'sampling': False, 'sampling_topk': -1, 'sampling_topp': -1.0, 'constraints': None, 'temperature': 1.0, 'diverse_beam_groups': -1, 'diverse_beam_strength': 0.5, 'diversity_rate': -1.0, 'print_alignment': None, 'print_step': False, 'lm_path': None, 'lm_weight': 0.0, 'iter_decode_eos_penalty': 0.0, 'iter_decode_max_iter': 10, 'iter_decode_force_max_iter': False, 'iter_decode_with_beam': 1, 'iter_decode_with_external_reranker': False, 'retain_iter_history': False, 'retain_dropout': False, 'retain_dropout_modules': None, 'decoding_format': None, 'no_seed_provided': False}, 'eval_lm': {'_name': None, 'output_word_probs': False, 'output_word_stats': False, 'context_window': 0, 'softmax_batch': 9223372036854775807}, 'interactive': {'_name': None, 'buffer_size': 0, 'input': '-'}, 'model': None, 'task': {'_name': 'sgcls', 'data': '../../dataset/OFA_data/sgcls/vg_val_full.tsv', 'selected_cols': None, 'bpe': None, 'bpe_dir': None, 'max_source_positions': 1024, 'max_target_positions': 1024, 'max_src_length': 128, 'max_tgt_length': 30, 'code_dict_size': 8192, 'patch_image_size': 480, 'orig_patch_image_size': 256, 'num_bins': 1000, 'imagenet_default_mean_and_std': False, 'constraint_range': None, 'eval_args': '{}', 'eval_print_samples': False, 'vg_json_dir': '../../dataset/visual_genome/VG-SGG-dicts-with-attri.json'}, 'criterion': {'_name': 'cross_entropy', 'sentence_avg': True}, 'optimizer': None, 'lr_scheduler': {'_name': 'fixed', 'force_anneal': None, 'lr_shrink': 0.1, 'warmup_updates': 0, 'lr': [0.25]}, 'scoring': {'_name': 'bleu', 'pad': 1, 'eos': 2, 'unk': 3}, 'bpe': None, 'tokenizer': None, 'ema': {'_name': None, 'store_ema': False, 'ema_decay': 0.9999, 'ema_start_update': 0, 'ema_seed_model': None, 'ema_update_freq': 1, 'ema_fp32': False}, 'simul_type': None}
+2023-06-29 22:49:24 | INFO | ofa.evaluate | {'_name': None, 'common': {'_name': None, 'no_progress_bar': False, 'log_interval': 5, 'log_format': 'simple', 'log_file': None, 'tensorboard_logdir': None, 'wandb_project': None, 'azureml_logging': False, 'seed': 7, 'cpu': False, 'tpu': False, 'bf16': False, 'memory_efficient_bf16': False, 'fp16': True, 'memory_efficient_fp16': False, 'fp16_no_flatten_grads': False, 'fp16_init_scale': 128, 'fp16_scale_window': None, 'fp16_scale_tolerance': 0.0, 'on_cpu_convert_precision': False, 'min_loss_scale': 0.0001, 'threshold_loss_scale': None, 'amp': False, 'amp_batch_retries': 2, 'amp_init_scale': 128, 'amp_scale_window': None, 'user_dir': '../../ofa_module', 'empty_cache_freq': 0, 'all_gather_list_size': 16384, 'model_parallel_size': 1, 'quantization_config_path': None, 'profile': False, 'reset_logging': False, 'suppress_crashes': False, 'use_plasma_view': False, 'plasma_path': '/tmp/plasma'}, 'common_eval': {'_name': None, 'path': '../../checkpoints/OFA/sgcls_checkpoints/_12_3e-5_512_base_tgtobj/checkpoint8.pt', 'post_process': None, 'quiet': False, 'model_overrides': '{"data":"../../dataset/OFA_data/sgcls/vg_val_full.tsv","bpe_dir":"../../utils/BPE","eval_cider":False}', 'results_path': '../../results/sgcls'}, 'distributed_training': {'_name': None, 'distributed_world_size': 3, 'distributed_num_procs': 3, 'distributed_rank': 1, 'distributed_backend': 'nccl', 'distributed_init_method': 'env://', 'distributed_port': -1, 'device_id': 1, 'distributed_no_spawn': True, 'ddp_backend': 'pytorch_ddp', 'ddp_comm_hook': 'none', 'bucket_cap_mb': 25, 'fix_batches_to_gpus': False, 'find_unused_parameters': False, 'gradient_as_bucket_view': False, 'fast_stat_sync': False, 'heartbeat_timeout': -1, 'broadcast_buffers': False, 'slowmo_momentum': None, 'slowmo_algorithm': 'LocalSGD', 'localsgd_frequency': 3, 'nprocs_per_node': 3, 'pipeline_model_parallel': False, 'pipeline_balance': None, 'pipeline_devices': None, 'pipeline_chunks': 0, 'pipeline_encoder_balance': None, 'pipeline_encoder_devices': None, 'pipeline_decoder_balance': None, 'pipeline_decoder_devices': None, 'pipeline_checkpoint': 'never', 'zero_sharding': 'none', 'fp16': True, 'memory_efficient_fp16': False, 'tpu': False, 'no_reshard_after_forward': False, 'fp32_reduce_scatter': False, 'cpu_offload': False, 'use_sharded_state': False}, 'dataset': {'_name': None, 'num_workers': 0, 'skip_invalid_size_inputs_valid_test': False, 'max_tokens': None, 'batch_size': 40, 'required_batch_size_multiple': 8, 'required_seq_len_multiple': 1, 'dataset_impl': None, 'data_buffer_size': 10, 'train_subset': 'train', 'valid_subset': 'valid', 'combine_valid_subsets': None, 'ignore_unused_valid_subsets': False, 'validate_interval': 1, 'validate_interval_updates': 0, 'validate_after_updates': 0, 'fixed_validation_seed': None, 'disable_validation': False, 'max_tokens_valid': None, 'batch_size_valid': 40, 'max_valid_steps': None, 'curriculum': 0, 'gen_subset': 'test', 'num_shards': 1, 'shard_id': 0}, 'optimization': {'_name': None, 'max_epoch': 0, 'max_update': 0, 'stop_time_hours': 0.0, 'clip_norm': 0.0, 'sentence_avg': False, 'update_freq': [1], 'lr': [0.25], 'stop_min_lr': -1.0, 'use_bmuf': False}, 'checkpoint': {'_name': None, 'save_dir': 'checkpoints', 'restore_file': 'checkpoint_last.pt', 'finetune_from_model': None, 'reset_dataloader': False, 'reset_lr_scheduler': False, 'reset_meters': False, 'reset_optimizer': False, 'optimizer_overrides': '{}', 'save_interval': 1, 'save_interval_updates': 0, 'keep_interval_updates': -1, 'keep_interval_updates_pattern': -1, 'keep_last_epochs': -1, 'keep_best_checkpoints': -1, 'no_save': False, 'no_epoch_checkpoints': False, 'no_last_checkpoints': False, 'no_save_optimizer_state': False, 'best_checkpoint_metric': 'loss', 'maximize_best_checkpoint_metric': False, 'patience': -1, 'checkpoint_suffix': '', 'checkpoint_shard_count': 1, 'load_checkpoint_on_all_dp_ranks': False, 'write_checkpoints_asynchronously': False, 'model_parallel_size': 1, 'use_ema_weights_to_init_param': False, 'use_latest_weights_to_init_ema': False}, 'bmuf': {'_name': None, 'block_lr': 1.0, 'block_momentum': 0.875, 'global_sync_iter': 50, 'warmup_iterations': 500, 'use_nbm': False, 'average_sync': False, 'distributed_world_size': 3}, 'generation': {'_name': None, 'beam': 5, 'nbest': 1, 'max_len_a': 0.0, 'max_len_b': 1000, 'min_len': 1, 'match_source_len': False, 'unnormalized': False, 'no_early_stop': False, 'no_beamable_mm': False, 'lenpen': 1.0, 'unkpen': 0.0, 'replace_unk': None, 'sacrebleu': False, 'score_reference': False, 'prefix_size': 0, 'no_repeat_ngram_size': 6, 'sampling': False, 'sampling_topk': -1, 'sampling_topp': -1.0, 'constraints': None, 'temperature': 1.0, 'diverse_beam_groups': -1, 'diverse_beam_strength': 0.5, 'diversity_rate': -1.0, 'print_alignment': None, 'print_step': False, 'lm_path': None, 'lm_weight': 0.0, 'iter_decode_eos_penalty': 0.0, 'iter_decode_max_iter': 10, 'iter_decode_force_max_iter': False, 'iter_decode_with_beam': 1, 'iter_decode_with_external_reranker': False, 'retain_iter_history': False, 'retain_dropout': False, 'retain_dropout_modules': None, 'decoding_format': None, 'no_seed_provided': False}, 'eval_lm': {'_name': None, 'output_word_probs': False, 'output_word_stats': False, 'context_window': 0, 'softmax_batch': 9223372036854775807}, 'interactive': {'_name': None, 'buffer_size': 0, 'input': '-'}, 'model': None, 'task': {'_name': 'sgcls', 'data': '../../dataset/OFA_data/sgcls/vg_val_full.tsv', 'selected_cols': None, 'bpe': None, 'bpe_dir': None, 'max_source_positions': 1024, 'max_target_positions': 1024, 'max_src_length': 128, 'max_tgt_length': 30, 'code_dict_size': 8192, 'patch_image_size': 480, 'orig_patch_image_size': 256, 'num_bins': 1000, 'imagenet_default_mean_and_std': False, 'constraint_range': None, 'eval_args': '{}', 'eval_print_samples': False, 'vg_json_dir': '../../dataset/visual_genome/VG-SGG-dicts-with-attri.json'}, 'criterion': {'_name': 'cross_entropy', 'sentence_avg': True}, 'optimizer': None, 'lr_scheduler': {'_name': 'fixed', 'force_anneal': None, 'lr_shrink': 0.1, 'warmup_updates': 0, 'lr': [0.25]}, 'scoring': {'_name': 'bleu', 'pad': 1, 'eos': 2, 'unk': 3}, 'bpe': None, 'tokenizer': None, 'ema': {'_name': None, 'store_ema': False, 'ema_decay': 0.9999, 'ema_start_update': 0, 'ema_seed_model': None, 'ema_update_freq': 1, 'ema_fp32': False}, 'simul_type': None}
+2023-06-29 22:49:24 | INFO | ofa.evaluate | loading model(s) from ../../checkpoints/OFA/sgcls_checkpoints/_12_3e-5_512_base_tgtobj/checkpoint8.pt
+2023-06-29 22:49:24 | INFO | ofa.evaluate | loading model(s) from ../../checkpoints/OFA/sgcls_checkpoints/_12_3e-5_512_base_tgtobj/checkpoint8.pt
+2023-06-29 22:49:24 | INFO | ofa.evaluate | loading model(s) from ../../checkpoints/OFA/sgcls_checkpoints/_12_3e-5_512_base_tgtobj/checkpoint8.pt
+2023-06-29 22:49:26 | INFO | tasks.mm_tasks.sg_cls | sgcls setup: source dictionary: 51267 types
+2023-06-29 22:49:26 | INFO | tasks.mm_tasks.sg_cls | sgcls setup: target dictionary: 51267 types
+2023-06-29 22:49:26 | INFO | tasks.mm_tasks.sg_cls | sgcls setup: source dictionary: 51267 types
+2023-06-29 22:49:26 | INFO | tasks.mm_tasks.sg_cls | sgcls setup: target dictionary: 51267 types
+2023-06-29 22:49:26 | INFO | tasks.mm_tasks.sg_cls | sgcls setup: source dictionary: 51267 types
+2023-06-29 22:49:26 | INFO | tasks.mm_tasks.sg_cls | sgcls setup: target dictionary: 51267 types
+/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torch/functional.py:478: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at  ../aten/src/ATen/native/TensorShape.cpp:2894.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torch/functional.py:478: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at  ../aten/src/ATen/native/TensorShape.cpp:2894.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torch/functional.py:478: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at  ../aten/src/ATen/native/TensorShape.cpp:2894.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+local datafile ../../dataset/OFA_data/sgcls/vg_val_full.tsv slice_id 2 begin to initialize row_count and line_idx-to-offset mapping
+local datafile ../../dataset/OFA_data/sgcls/vg_val_full.tsv slice_id 1 begin to initialize row_count and line_idx-to-offset mapping
+local datafile ../../dataset/OFA_data/sgcls/vg_val_full.tsv slice_id 0 begin to initialize row_count and line_idx-to-offset mapping
+local datafile ../../dataset/OFA_data/sgcls/vg_val_full.tsv slice_id 2 finished initializing row_count and line_idx-to-offset mapping
+file ../../dataset/OFA_data/sgcls/vg_val_full.tsv slice_id 2 row count 7626 total row count 22880
+/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torchvision/transforms/transforms.py:332: UserWarning: Argument 'interpolation' of type int is deprecated since 0.13 and will be removed in 0.15. Please use InterpolationMode enum.
+  warnings.warn(
+local datafile ../../dataset/OFA_data/sgcls/vg_val_full.tsv slice_id 1 finished initializing row_count and line_idx-to-offset mapping
+file ../../dataset/OFA_data/sgcls/vg_val_full.tsv slice_id 1 row count 7627 total row count 22880
+/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torchvision/transforms/transforms.py:332: UserWarning: Argument 'interpolation' of type int is deprecated since 0.13 and will be removed in 0.15. Please use InterpolationMode enum.
+  warnings.warn(
+local datafile ../../dataset/OFA_data/sgcls/vg_val_full.tsv slice_id 0 finished initializing row_count and line_idx-to-offset mapping
+file ../../dataset/OFA_data/sgcls/vg_val_full.tsv slice_id 0 row count 7627 total row count 22880
+/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torchvision/transforms/transforms.py:332: UserWarning: Argument 'interpolation' of type int is deprecated since 0.13 and will be removed in 0.15. Please use InterpolationMode enum.
+  warnings.warn(
+start inference
+start inference
+start inference
+/home/zcai75/Github/OFA/fairseq/fairseq/search.py:140: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  beams_buf = indices_buf // vocab_size
+/home/zcai75/Github/OFA/fairseq/fairseq/search.py:140: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  beams_buf = indices_buf // vocab_size
+/home/zcai75/Github/OFA/fairseq/fairseq/search.py:140: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  beams_buf = indices_buf // vocab_size
+/home/zcai75/Github/OFA_forked/models/sequence_generator.py:705: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  unfin_idx = bbsz_idx // beam_size
+/home/zcai75/Github/OFA_forked/models/sequence_generator.py:705: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  unfin_idx = bbsz_idx // beam_size
+/home/zcai75/Github/OFA_forked/models/sequence_generator.py:705: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  unfin_idx = bbsz_idx // beam_size
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 22:55:11 | INFO | fairseq.logging.progress_bar | :      6 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 22:56:19 | INFO | fairseq.logging.progress_bar | :      6 / 191 sentences=40
+start inference
+done inference
+2023-06-29 22:56:51 | INFO | fairseq.logging.progress_bar | :      6 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:00:00 | INFO | fairseq.logging.progress_bar | :     11 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:02:17 | INFO | fairseq.logging.progress_bar | :     11 / 191 sentences=40
+start inference
+done inference
+2023-06-29 23:02:35 | INFO | fairseq.logging.progress_bar | :     11 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:04:42 | INFO | fairseq.logging.progress_bar | :     16 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:07:31 | INFO | fairseq.logging.progress_bar | :     16 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+['woman<bin_261><bin_47><bin_845><bin_896>', 'wearing']
+['woman<bin_702><bin_113><bin_993><bin_993>']
+['woman<bin_261><bin_47><bin_845><bin_896>', 'wearing'] ['man', 'wearing', 'sock']
+['woman<bin_261><bin_47><bin_845><bin_896>', 'wearing'] ['man', 'wearing', 'sock']
+['woman<bin_261><bin_47><bin_845><bin_896>', 'wearing'] ['man', 'wearing', 'shoe']
+['woman<bin_261><bin_47><bin_845><bin_896>', 'wearing'] ['man', 'wearing', 'pant']
+['woman<bin_261><bin_47><bin_845><bin_896>', 'wearing'] ['man', 'wearing', 'sneaker']
+['woman<bin_261><bin_47><bin_845><bin_896>', 'wearing'] ['man', 'wearing', 'cap']
+['woman<bin_261><bin_47><bin_845><bin_896>', 'wearing'] ['man', 'wearing', 'shirt']
+['woman<bin_261><bin_47><bin_845><bin_896>', 'wearing'] ['shoe', 'of', 'man']
+['woman<bin_261><bin_47><bin_845><bin_896>', 'wearing'] ['man', 'wearing', 'shoe']
+['woman<bin_261><bin_47><bin_845><bin_896>', 'wearing'] ['man', 'wearing', 'short']
+['woman<bin_261><bin_47><bin_845><bin_896>', 'wearing'] ['hand', 'of', 'person']
+['woman<bin_702><bin_113><bin_993><bin_993>'] ['man', 'wearing', 'jacket']
+['woman<bin_702><bin_113><bin_993><bin_993>'] ['man', 'sitting on', 'bench']
+['woman<bin_702><bin_113><bin_993><bin_993>'] ['man', 'in', 'coat']
+['woman<bin_702><bin_113><bin_993><bin_993>'] ['man', 'sitting on', 'bench']
+['woman<bin_702><bin_113><bin_993><bin_993>'] ['lady', 'wearing', 'hat']
+['woman<bin_702><bin_113><bin_993><bin_993>'] ['man', 'in', 'coat']
+['woman<bin_702><bin_113><bin_993><bin_993>'] ['man', 'in', 'hat']
+['woman<bin_702><bin_113><bin_993><bin_993>'] ['person', 'sitting on', 'bench']
+['woman<bin_702><bin_113><bin_993><bin_993>'] ['person', 'sitting on', 'bench']
+['woman<bin_702><bin_113><bin_993><bin_993>'] ['person', 'sitting on', 'bench']
+['woman<bin_702><bin_113><bin_993><bin_993>'] ['person', 'on', 'bench']
+['woman<bin_702><bin_113><bin_993><bin_993>'] ['person', 'sitting on', 'bench']
+2023-06-29 23:09:00 | INFO | fairseq.logging.progress_bar | :     16 / 191 sentences=40
+start inference
+done inference
+2023-06-29 23:09:24 | INFO | fairseq.logging.progress_bar | :     21 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:13:29 | INFO | fairseq.logging.progress_bar | :     21 / 191 sentences=40
+start inference
+done inference
+2023-06-29 23:14:02 | INFO | fairseq.logging.progress_bar | :     26 / 191 sentences=40
+start inference
+done inference
+2023-06-29 23:14:18 | INFO | fairseq.logging.progress_bar | :     21 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:18:30 | INFO | fairseq.logging.progress_bar | :     31 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:19:01 | INFO | fairseq.logging.progress_bar | :     26 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:19:43 | INFO | fairseq.logging.progress_bar | :     26 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+['man<bin_395><bin_289><bin_823><bin_875>', 'wearing']
+['man<bin_395><bin_289><bin_823><bin_875>', 'wearing'] ['person', 'in front of', 'building']
+['man<bin_395><bin_289><bin_823><bin_875>', 'wearing'] ['person', 'in front of', 'building']
+['man<bin_395><bin_289><bin_823><bin_875>', 'wearing'] ['person', 'in front of', 'building']
+['man<bin_395><bin_289><bin_823><bin_875>', 'wearing'] ['person', 'in front of', 'building']
+['man<bin_395><bin_289><bin_823><bin_875>', 'wearing'] ['person', 'in front of', 'building']
+['man<bin_395><bin_289><bin_823><bin_875>', 'wearing'] ['building', 'has', 'roof']
+['man<bin_395><bin_289><bin_823><bin_875>', 'wearing'] ['flag', 'on', 'building']
+['man<bin_395><bin_289><bin_823><bin_875>', 'wearing'] ['clock', 'on', 'building']
+['man<bin_395><bin_289><bin_823><bin_875>', 'wearing'] ['clock', 'on', 'building']
+['man<bin_395><bin_289><bin_823><bin_875>', 'wearing'] ['window', 'on', 'building']
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:23:09 | INFO | fairseq.logging.progress_bar | :     36 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:24:43 | INFO | fairseq.logging.progress_bar | :     31 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:25:41 | INFO | fairseq.logging.progress_bar | :     31 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:28:03 | INFO | fairseq.logging.progress_bar | :     41 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:30:20 | INFO | fairseq.logging.progress_bar | :     36 / 191 sentences=40
+start inference
+done inference
+2023-06-29 23:30:55 | INFO | fairseq.logging.progress_bar | :     36 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+['ear<bin_0><bin_0><bin_997><bin_996>', 'of']
+['ear<bin_0><bin_0><bin_997><bin_996>', 'of'] ['shirt', 'on', 'man']
+['ear<bin_0><bin_0><bin_997><bin_996>', 'of'] ['coat', 'on', 'girl']
+['ear<bin_0><bin_0><bin_997><bin_996>', 'of'] ['coat', 'on', 'boy']
+['ear<bin_0><bin_0><bin_997><bin_996>', 'of'] ['eye', 'of', 'girl']
+['ear<bin_0><bin_0><bin_997><bin_996>', 'of'] ['man', 'wearing', 'jacket']
+['ear<bin_0><bin_0><bin_997><bin_996>', 'of'] ['man', 'has', 'cup']
+['ear<bin_0><bin_0><bin_997><bin_996>', 'of'] ['man', 'has', 'head']
+['ear<bin_0><bin_0><bin_997><bin_996>', 'of'] ['girl', 'wearing', 'coat']
+['ear<bin_0><bin_0><bin_997><bin_996>', 'of'] ['girl', 'on', 'chair']
+['ear<bin_0><bin_0><bin_997><bin_996>', 'of'] ['girl', 'has', 'eye']
+['ear<bin_0><bin_0><bin_997><bin_996>', 'of'] ['bottle', 'on', 'shelf']
+['ear<bin_0><bin_0><bin_997><bin_996>', 'of'] ['sign', 'on', 'window']
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:33:22 | INFO | fairseq.logging.progress_bar | :     46 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:36:27 | INFO | fairseq.logging.progress_bar | :     41 / 191 sentences=40
+start inference
+done inference
+2023-06-29 23:36:29 | INFO | fairseq.logging.progress_bar | :     41 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:39:02 | INFO | fairseq.logging.progress_bar | :     51 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+['man<bin_103><bin_236><bin_993><bin_983>', 'wearing']
+['man<bin_103><bin_236><bin_993><bin_983>', 'wearing'] ['person', 'in', 'snow']
+['man<bin_103><bin_236><bin_993><bin_983>', 'wearing'] ['person', 'wearing', 'shoe']
+['man<bin_103><bin_236><bin_993><bin_983>', 'wearing'] ['tree', 'in', 'snow']
+['man<bin_103><bin_236><bin_993><bin_983>', 'wearing'] ['track', 'in', 'snow']
+['man<bin_103><bin_236><bin_993><bin_983>', 'wearing'] ['man', 'has', 'pole']
+['man<bin_103><bin_236><bin_993><bin_983>', 'wearing'] ['man', 'has', 'hat']
+['man<bin_103><bin_236><bin_993><bin_983>', 'wearing'] ['shoe', 'of', 'man']
+['man<bin_103><bin_236><bin_993><bin_983>', 'wearing'] ['man', 'has', 'glove']
+['man<bin_103><bin_236><bin_993><bin_983>', 'wearing'] ['person', 'watching', 'skier']
+start inference
+done inference
+2023-06-29 23:42:10 | INFO | fairseq.logging.progress_bar | :     46 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:42:26 | INFO | fairseq.logging.progress_bar | :     46 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:44:32 | INFO | fairseq.logging.progress_bar | :     56 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+['boy<bin_859><bin_703><bin_992><bin_992>', 'wearing']
+['boy<bin_859><bin_703><bin_992><bin_992>', 'wearing'] ['cow', 'near', 'girl']
+['boy<bin_859><bin_703><bin_992><bin_992>', 'wearing'] ['cow', 'has', 'ear']
+['boy<bin_859><bin_703><bin_992><bin_992>', 'wearing'] ['cow', 'has', 'nose']
+['boy<bin_859><bin_703><bin_992><bin_992>', 'wearing'] ['cow', 'has', 'ear']
+['boy<bin_859><bin_703><bin_992><bin_992>', 'wearing'] ['cow', 'has', 'head']
+['boy<bin_859><bin_703><bin_992><bin_992>', 'wearing'] ['girl', 'wearing', 'jacket']
+['boy<bin_859><bin_703><bin_992><bin_992>', 'wearing'] ['girl', 'holding', 'umbrella']
+['boy<bin_859><bin_703><bin_992><bin_992>', 'wearing'] ['girl', 'has', 'hand']
+['boy<bin_859><bin_703><bin_992><bin_992>', 'wearing'] ['girl', 'has', 'hair']
+['boy<bin_859><bin_703><bin_992><bin_992>', 'wearing'] ['girl', 'wearing', 'shirt']
+['boy<bin_859><bin_703><bin_992><bin_992>', 'wearing'] ['girl', 'has', 'head']
+['boy<bin_859><bin_703><bin_992><bin_992>', 'wearing'] ['umbrella', 'in', 'hand']
+['boy<bin_859><bin_703><bin_992><bin_992>', 'wearing'] ['umbrella', 'has', 'handle']
+['boy<bin_859><bin_703><bin_992><bin_992>', 'wearing'] ['handle', 'on', 'umbrella']
+['boy<bin_859><bin_703><bin_992><bin_992>', 'wearing'] ['hand', 'on', 'handle']
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:47:12 | INFO | fairseq.logging.progress_bar | :     51 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:48:12 | INFO | fairseq.logging.progress_bar | :     51 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:49:57 | INFO | fairseq.logging.progress_bar | :     61 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:52:07 | INFO | fairseq.logging.progress_bar | :     56 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+['boy<bin_309><bin_0><bin_869><bin_996>', 'wearing']
+['boy<bin_309><bin_0><bin_869><bin_996>', 'wearing'] ['animal', 'wearing', 'shirt']
+['boy<bin_309><bin_0><bin_869><bin_996>', 'wearing'] ['animal', 'in', 'book']
+['boy<bin_309><bin_0><bin_869><bin_996>', 'wearing'] ['head', 'of', 'animal']
+['boy<bin_309><bin_0><bin_869><bin_996>', 'wearing'] ['bear', 'has', 'arm']
+['boy<bin_309><bin_0><bin_869><bin_996>', 'wearing'] ['eye', 'of', 'animal']
+['boy<bin_309><bin_0><bin_869><bin_996>', 'wearing'] ['nose', 'of', 'bear']
+['boy<bin_309><bin_0><bin_869><bin_996>', 'wearing'] ['nose', 'on', 'bear']
+['boy<bin_309><bin_0><bin_869><bin_996>', 'wearing'] ['mouth', 'of', 'bear']
+['boy<bin_309><bin_0><bin_869><bin_996>', 'wearing'] ['ear', 'of', 'animal']
+['boy<bin_309><bin_0><bin_869><bin_996>', 'wearing'] ['shirt', 'on', 'bear']
+['boy<bin_309><bin_0><bin_869><bin_996>', 'wearing'] ['letter', 'on', 'book']
+2023-06-29 23:53:41 | INFO | fairseq.logging.progress_bar | :     56 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:55:05 | INFO | fairseq.logging.progress_bar | :     66 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:57:32 | INFO | fairseq.logging.progress_bar | :     61 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-29 23:59:26 | INFO | fairseq.logging.progress_bar | :     61 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:00:28 | INFO | fairseq.logging.progress_bar | :     71 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:03:24 | INFO | fairseq.logging.progress_bar | :     66 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:05:36 | INFO | fairseq.logging.progress_bar | :     76 / 191 sentences=40
+start inference
+done inference
+['man<bin_6><bin_515><bin_993><bin_995>', 'has']
+['man<bin_6><bin_515><bin_993><bin_995>', 'has'] ['man', 'has', 'umbrella']
+['man<bin_6><bin_515><bin_993><bin_995>', 'has'] ['man', 'wearing', 'coat']
+['man<bin_6><bin_515><bin_993><bin_995>', 'has'] ['man', 'wearing', 'jacket']
+['man<bin_6><bin_515><bin_993><bin_995>', 'has'] ['man', 'holding', 'umbrella']
+['man<bin_6><bin_515><bin_993><bin_995>', 'has'] ['man', 'has', 'coat']
+['man<bin_6><bin_515><bin_993><bin_995>', 'has'] ['face', 'on', 'man']
+['man<bin_6><bin_515><bin_993><bin_995>', 'has'] ['person', 'holding', 'umbrella']
+['man<bin_6><bin_515><bin_993><bin_995>', 'has'] ['man', 'with', 'short']
+['man<bin_6><bin_515><bin_993><bin_995>', 'has'] ['man', 'holding', 'umbrella']
+['man<bin_6><bin_515><bin_993><bin_995>', 'has'] ['man', 'has', 'short']
+['man<bin_6><bin_515><bin_993><bin_995>', 'has'] ['man', 'wearing', 'jacket']
+['man<bin_6><bin_515><bin_993><bin_995>', 'has'] ['man', 'with', 'hair']
+2023-06-30 00:05:39 | INFO | fairseq.logging.progress_bar | :     66 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:08:34 | INFO | fairseq.logging.progress_bar | :     71 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:10:29 | INFO | fairseq.logging.progress_bar | :     81 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:11:23 | INFO | fairseq.logging.progress_bar | :     71 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:13:40 | INFO | fairseq.logging.progress_bar | :     76 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:15:36 | INFO | fairseq.logging.progress_bar | :     86 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:16:54 | INFO | fairseq.logging.progress_bar | :     76 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:18:48 | INFO | fairseq.logging.progress_bar | :     81 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+['woman<bin_751><bin_189><bin_997><bin_429>', 'wearing']
+['woman<bin_751><bin_189><bin_997><bin_429>', 'wearing'] ['logo', 'in', 'motorcycle']
+['woman<bin_751><bin_189><bin_997><bin_429>', 'wearing'] ['man', 'has', 'hair']
+['woman<bin_751><bin_189><bin_997><bin_429>', 'wearing'] ['man', 'wearing', 'jacket']
+['woman<bin_751><bin_189><bin_997><bin_429>', 'wearing'] ['curtain', 'in', 'window']
+['woman<bin_751><bin_189><bin_997><bin_429>', 'wearing'] ['tire', 'of', 'motorcycle']
+['woman<bin_751><bin_189><bin_997><bin_429>', 'wearing'] ['handle', 'of', 'motorcycle']
+['woman<bin_751><bin_189><bin_997><bin_429>', 'wearing'] ['man', 'wearing', 'shirt']
+['woman<bin_751><bin_189><bin_997><bin_429>', 'wearing'] ['man', 'wearing', 'shirt']
+['woman<bin_751><bin_189><bin_997><bin_429>', 'wearing'] ['man', 'wearing', 'jean']
+['woman<bin_751><bin_189><bin_997><bin_429>', 'wearing'] ['window', 'on', 'motorcycle']
+2023-06-30 00:21:15 | INFO | fairseq.logging.progress_bar | :     91 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:22:39 | INFO | fairseq.logging.progress_bar | :     81 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:23:32 | INFO | fairseq.logging.progress_bar | :     86 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:27:02 | INFO | fairseq.logging.progress_bar | :     96 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:28:13 | INFO | fairseq.logging.progress_bar | :     86 / 191 sentences=40
+start inference
+done inference
+2023-06-30 00:28:18 | INFO | fairseq.logging.progress_bar | :     91 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:32:05 | INFO | fairseq.logging.progress_bar | :    101 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:33:29 | INFO | fairseq.logging.progress_bar | :     96 / 191 sentences=40
+start inference
+done inference
+2023-06-30 00:33:34 | INFO | fairseq.logging.progress_bar | :     91 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:37:18 | INFO | fairseq.logging.progress_bar | :    106 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:38:43 | INFO | fairseq.logging.progress_bar | :     96 / 191 sentences=40
+start inference
+done inference
+2023-06-30 00:38:44 | INFO | fairseq.logging.progress_bar | :    101 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:43:00 | INFO | fairseq.logging.progress_bar | :    111 / 191 sentences=40
+start inference
+done inference
+2023-06-30 00:43:38 | INFO | fairseq.logging.progress_bar | :    106 / 191 sentences=40
+start inference
+done inference
+2023-06-30 00:44:00 | INFO | fairseq.logging.progress_bar | :    101 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:48:26 | INFO | fairseq.logging.progress_bar | :    116 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:48:57 | INFO | fairseq.logging.progress_bar | :    111 / 191 sentences=40
+start inference
+done inference
+2023-06-30 00:49:30 | INFO | fairseq.logging.progress_bar | :    106 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:54:03 | INFO | fairseq.logging.progress_bar | :    121 / 191 sentences=40
+start inference
+done inference
+2023-06-30 00:54:08 | INFO | fairseq.logging.progress_bar | :    111 / 191 sentences=40
+start inference
+done inference
+2023-06-30 00:54:15 | INFO | fairseq.logging.progress_bar | :    116 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:58:40 | INFO | fairseq.logging.progress_bar | :    116 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:59:33 | INFO | fairseq.logging.progress_bar | :    126 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+2023-06-30 00:59:46 | INFO | fairseq.logging.progress_bar | :    121 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:04:05 | INFO | fairseq.logging.progress_bar | :    121 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:04:32 | INFO | fairseq.logging.progress_bar | :    131 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:05:15 | INFO | fairseq.logging.progress_bar | :    126 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:09:23 | INFO | fairseq.logging.progress_bar | :    126 / 191 sentences=40
+start inference
+done inference
+2023-06-30 01:09:34 | INFO | fairseq.logging.progress_bar | :    136 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:10:40 | INFO | fairseq.logging.progress_bar | :    131 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+['boy<bin_101><bin_551><bin_238><bin_747>', 'wearing']
+['boy<bin_101><bin_551><bin_238><bin_747>', 'wearing'] ['woman', 'with', 'hair']
+['boy<bin_101><bin_551><bin_238><bin_747>', 'wearing'] ['woman', 'wearing', 'shirt']
+['boy<bin_101><bin_551><bin_238><bin_747>', 'wearing'] ['woman', 'at', 'table']
+['boy<bin_101><bin_551><bin_238><bin_747>', 'wearing'] ['woman', 'in front of', 'window']
+['boy<bin_101><bin_551><bin_238><bin_747>', 'wearing'] ['man', 'over', 'table']
+['boy<bin_101><bin_551><bin_238><bin_747>', 'wearing'] ['man', 'wearing', 'shirt']
+['boy<bin_101><bin_551><bin_238><bin_747>', 'wearing'] ['man', 'in front of', 'window']
+['boy<bin_101><bin_551><bin_238><bin_747>', 'wearing'] ['man', 'with', 'hair']
+['boy<bin_101><bin_551><bin_238><bin_747>', 'wearing'] ['glass', 'on', 'table']
+['boy<bin_101><bin_551><bin_238><bin_747>', 'wearing'] ['seat', 'at', 'table']
+['boy<bin_101><bin_551><bin_238><bin_747>', 'wearing'] ['chair', 'at', 'table']
+['boy<bin_101><bin_551><bin_238><bin_747>', 'wearing'] ['chair', 'at', 'table']
+['boy<bin_101><bin_551><bin_238><bin_747>', 'wearing'] ['glass', 'on', 'table']
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:15:10 | INFO | fairseq.logging.progress_bar | :    141 / 191 sentences=40
+start inference
+done inference
+['boy<bin_265><bin_318><bin_440><bin_996>', 'has']
+['boy<bin_265><bin_318><bin_440><bin_996>', 'has'] ['people', 'under', 'umbrella']
+['boy<bin_265><bin_318><bin_440><bin_996>', 'has'] ['person', 'has', 'man']
+['boy<bin_265><bin_318><bin_440><bin_996>', 'has'] ['person', 'wearing', 'people']
+['boy<bin_265><bin_318><bin_440><bin_996>', 'has'] ['person', 'holding', 'umbrella']
+['boy<bin_265><bin_318><bin_440><bin_996>', 'has'] ['person', 'riding', 'bike']
+['boy<bin_265><bin_318><bin_440><bin_996>', 'has'] ['person', 'wearing', 'coat']
+['boy<bin_265><bin_318><bin_440><bin_996>', 'has'] ['person', 'wearing', 'pant']
+['boy<bin_265><bin_318><bin_440><bin_996>', 'has'] ['person', 'sitting on', 'bike']
+['boy<bin_265><bin_318><bin_440><bin_996>', 'has'] ['person', 'carrying', 'bike']
+start inference
+done inference
+2023-06-30 01:15:11 | INFO | fairseq.logging.progress_bar | :    131 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:16:36 | INFO | fairseq.logging.progress_bar | :    136 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:20:17 | INFO | fairseq.logging.progress_bar | :    146 / 191 sentences=40
+start inference
+done inference
+2023-06-30 01:20:43 | INFO | fairseq.logging.progress_bar | :    136 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:22:00 | INFO | fairseq.logging.progress_bar | :    141 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:25:12 | INFO | fairseq.logging.progress_bar | :    151 / 191 sentences=40
+start inference
+done inference
+2023-06-30 01:25:52 | INFO | fairseq.logging.progress_bar | :    141 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:27:09 | INFO | fairseq.logging.progress_bar | :    146 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+['leg<bin_103><bin_452><bin_245><bin_840>']
+['leg<bin_103><bin_452><bin_245><bin_840>'] ['girl', 'on', 'skateboard']
+['leg<bin_103><bin_452><bin_245><bin_840>'] ['girl', 'wearing', 'shirt']
+['leg<bin_103><bin_452><bin_245><bin_840>'] ['girl', 'wearing', 'short']
+['leg<bin_103><bin_452><bin_245><bin_840>'] ['girl', 'wearing', 'helmet']
+['leg<bin_103><bin_452><bin_245><bin_840>'] ['woman', 'on', 'skateboard']
+['leg<bin_103><bin_452><bin_245><bin_840>'] ['tree', 'near', 'sidewalk']
+['leg<bin_103><bin_452><bin_245><bin_840>'] ['woman', 'wearing', 'helmet']
+['leg<bin_103><bin_452><bin_245><bin_840>'] ['person', 'riding', 'skateboard']
+['leg<bin_103><bin_452><bin_245><bin_840>'] ['helmet', 'on', 'person']
+['leg<bin_103><bin_452><bin_245><bin_840>'] ['sign', 'behind', 'person']
+['leg<bin_103><bin_452><bin_245><bin_840>'] ['sign', 'behind', 'person']
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:30:18 | INFO | fairseq.logging.progress_bar | :    156 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:30:52 | INFO | fairseq.logging.progress_bar | :    146 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:32:36 | INFO | fairseq.logging.progress_bar | :    151 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:35:20 | INFO | fairseq.logging.progress_bar | :    161 / 191 sentences=40
+start inference
+done inference
+2023-06-30 01:35:49 | INFO | fairseq.logging.progress_bar | :    151 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+['boy<bin_370><bin_387><bin_992><bin_992>', 'wearing']
+['boy<bin_370><bin_387><bin_992><bin_992>', 'wearing'] ['man', 'on back of', 'motorcycle']
+['boy<bin_370><bin_387><bin_992><bin_992>', 'wearing'] ['man', 'wearing', 'helmet']
+['boy<bin_370><bin_387><bin_992><bin_992>', 'wearing'] ['man', 'wearing', 'helmet']
+['boy<bin_370><bin_387><bin_992><bin_992>', 'wearing'] ['light', 'of', 'motorcycle']
+['boy<bin_370><bin_387><bin_992><bin_992>', 'wearing'] ['shoe', 'on', 'leg']
+['boy<bin_370><bin_387><bin_992><bin_992>', 'wearing'] ['hat', 'on', 'shelf']
+['boy<bin_370><bin_387><bin_992><bin_992>', 'wearing'] ['hat', 'on', 'shelf']
+['boy<bin_370><bin_387><bin_992><bin_992>', 'wearing'] ['hat', 'on', 'shelf']
+['boy<bin_370><bin_387><bin_992><bin_992>', 'wearing'] ['hat', 'on', 'shelf']
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:38:06 | INFO | fairseq.logging.progress_bar | :    156 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:40:24 | INFO | fairseq.logging.progress_bar | :    156 / 191 sentences=40
+start inference
+done inference
+2023-06-30 01:40:34 | INFO | fairseq.logging.progress_bar | :    166 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:43:45 | INFO | fairseq.logging.progress_bar | :    161 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:45:41 | INFO | fairseq.logging.progress_bar | :    161 / 191 sentences=40
+start inference
+done inference
+2023-06-30 01:45:49 | INFO | fairseq.logging.progress_bar | :    171 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:49:08 | INFO | fairseq.logging.progress_bar | :    166 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:50:32 | INFO | fairseq.logging.progress_bar | :    166 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:52:00 | INFO | fairseq.logging.progress_bar | :    176 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+['boy<bin_331><bin_53><bin_411><bin_411>', 'wearing']
+['boy<bin_331><bin_53><bin_411><bin_411>', 'wearing'] ['guy', 'wearing', 'glove']
+['boy<bin_331><bin_53><bin_411><bin_411>', 'wearing'] ['girl', 'riding', 'skateboard']
+['boy<bin_331><bin_53><bin_411><bin_411>', 'wearing'] ['man', 'wearing', 'jacket']
+['boy<bin_331><bin_53><bin_411><bin_411>', 'wearing'] ['helmet', 'on', 'head']
+['boy<bin_331><bin_53><bin_411><bin_411>', 'wearing'] ['person', 'in', 'street']
+['boy<bin_331><bin_53><bin_411><bin_411>', 'wearing'] ['person', 'in', 'street']
+['boy<bin_331><bin_53><bin_411><bin_411>', 'wearing'] ['person', 'in', 'street']
+['boy<bin_331><bin_53><bin_411><bin_411>', 'wearing'] ['person', 'in', 'street']
+['boy<bin_331><bin_53><bin_411><bin_411>', 'wearing'] ['person', 'in', 'street']
+['boy<bin_331><bin_53><bin_411><bin_411>', 'wearing'] ['person', 'in', 'street']
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:54:31 | INFO | fairseq.logging.progress_bar | :    171 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:55:31 | INFO | fairseq.logging.progress_bar | :    171 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+['arm<bin_21><bin_17><bin_601><bin_913>']
+['arm<bin_21><bin_17><bin_601><bin_913>'] ['window', 'on', 'building']
+['arm<bin_21><bin_17><bin_601><bin_913>'] ['window', 'on', 'building']
+['arm<bin_21><bin_17><bin_601><bin_913>'] ['window', 'on', 'building']
+['arm<bin_21><bin_17><bin_601><bin_913>'] ['window', 'on', 'building']
+['arm<bin_21><bin_17><bin_601><bin_913>'] ['window', 'on', 'building']
+['arm<bin_21><bin_17><bin_601><bin_913>'] ['window', 'on', 'bus']
+['arm<bin_21><bin_17><bin_601><bin_913>'] ['light', 'on', 'bus']
+['arm<bin_21><bin_17><bin_601><bin_913>'] ['logo', 'on', 'bus']
+['arm<bin_21><bin_17><bin_601><bin_913>'] ['door', 'on', 'bus']
+['arm<bin_21><bin_17><bin_601><bin_913>'] ['window', 'of', 'building']
+['arm<bin_21><bin_17><bin_601><bin_913>'] ['windshield', 'of', 'bus']
+start inference
+done inference
+2023-06-30 01:57:51 | INFO | fairseq.logging.progress_bar | :    181 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 01:59:38 | INFO | fairseq.logging.progress_bar | :    176 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+2023-06-30 02:00:27 | INFO | fairseq.logging.progress_bar | :    176 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 02:03:29 | INFO | fairseq.logging.progress_bar | :    186 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 02:05:05 | INFO | fairseq.logging.progress_bar | :    181 / 191 sentences=40
+start inference
+done inference
+2023-06-30 02:05:32 | INFO | fairseq.logging.progress_bar | :    181 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 02:09:11 | INFO | fairseq.logging.progress_bar | :    191 / 191 sentences=27
+done inference
+2023-06-30 02:09:51 | INFO | fairseq.logging.progress_bar | :    186 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 02:10:55 | INFO | fairseq.logging.progress_bar | :    186 / 191 sentences=40
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+start inference
+done inference
+2023-06-30 02:14:23 | INFO | fairseq.logging.progress_bar | :    191 / 191 sentences=27
+done inference
+start inference
+done inference
+2023-06-30 02:15:19 | INFO | fairseq.logging.progress_bar | :    191 / 191 sentences=26
+2023-06-30 02:15:21 | INFO | ofa.evaluate | recall_by_image: 522.4581 / 22880.0 = 0.0228, recall: 3041 / 134470 = 0.0226, mean recall: 0.0036526035524891624, mean hyp n_rel: 7.4083, mean ref n_rel 5.8772
+2023-06-30 02:15:21 | INFO | ofa.evaluate | recall_by_image: 522.4581 / 22880.0 = 0.0228, recall: 3041 / 134470 = 0.0226, mean recall: 0.0036526035524891624, mean hyp n_rel: 7.4083, mean ref n_rel 5.8772
+2023-06-30 02:15:21 | INFO | ofa.evaluate | recall_by_image: 522.4581 / 22880.0 = 0.0228, recall: 3041 / 134470 = 0.0226, mean recall: 0.0036526035524891624, mean hyp n_rel: 7.4083, mean ref n_rel 5.8772
+2023-06-30 02:15:21 | INFO | torch.distributed.distributed_c10d | Added key: store_based_barrier_key:2 to store for rank: 2
+2023-06-30 02:15:21 | INFO | torch.distributed.distributed_c10d | Added key: store_based_barrier_key:2 to store for rank: 1
+2023-06-30 02:15:24 | INFO | torch.distributed.distributed_c10d | Added key: store_based_barrier_key:2 to store for rank: 0
+2023-06-30 02:15:24 | INFO | torch.distributed.distributed_c10d | Rank 2: Completed store-based barrier for key:store_based_barrier_key:2 with 3 nodes.
+2023-06-30 02:15:24 | INFO | torch.distributed.distributed_c10d | Rank 0: Completed store-based barrier for key:store_based_barrier_key:2 with 3 nodes.
+2023-06-30 02:15:24 | INFO | torch.distributed.distributed_c10d | Rank 1: Completed store-based barrier for key:store_based_barrier_key:2 with 3 nodes.

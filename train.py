@@ -478,7 +478,9 @@ def validate(
             for i, sample in enumerate(progress):
                 if cfg.dataset.max_valid_steps is not None and i > cfg.dataset.max_valid_steps:
                     break
-                trainer.valid_step(sample)
+                logging_outputs = trainer.valid_step(sample)
+                if logging_outputs is not None:
+                    progress.log(logging_outputs, tag=subset, step=i)
 
         # log validation stats
         if hasattr(task, 'get_valid_stats'):

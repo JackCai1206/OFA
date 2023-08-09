@@ -1,0 +1,583 @@
+/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torch/distributed/launch.py:178: FutureWarning: The module torch.distributed.launch is deprecated
+and will be removed in future. Use torchrun.
+Note that --use_env is set by default in torchrun.
+If your script expects `--local_rank` argument to be set, please
+change it to read from `os.environ['LOCAL_RANK']` instead. See 
+https://pytorch.org/docs/stable/distributed.html#launch-utility for 
+further instructions
+
+  warnings.warn(
+WARNING:torch.distributed.run:
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+single-machine distributed training is initialized.
+single-machine distributed training is initialized.
+single-machine distributed training is initialized.
+single-machine distributed training is initialized.
+2023-08-01 14:42:58 | INFO | ofa.evaluate | {'_name': None, 'common': {'_name': None, 'no_progress_bar': False, 'log_interval': 5, 'log_format': 'simple', 'log_file': None, 'tensorboard_logdir': None, 'wandb_project': None, 'azureml_logging': False, 'seed': 7, 'cpu': False, 'tpu': False, 'bf16': False, 'memory_efficient_bf16': False, 'fp16': True, 'memory_efficient_fp16': False, 'fp16_no_flatten_grads': False, 'fp16_init_scale': 128, 'fp16_scale_window': None, 'fp16_scale_tolerance': 0.0, 'on_cpu_convert_precision': False, 'min_loss_scale': 0.0001, 'threshold_loss_scale': None, 'amp': False, 'amp_batch_retries': 2, 'amp_init_scale': 128, 'amp_scale_window': None, 'user_dir': '../../ofa_module', 'empty_cache_freq': 0, 'all_gather_list_size': 16384, 'model_parallel_size': 1, 'quantization_config_path': None, 'profile': False, 'reset_logging': False, 'suppress_crashes': False, 'use_plasma_view': False, 'plasma_path': '/tmp/plasma'}, 'common_eval': {'_name': None, 'path': '../../checkpoints/OFA/vrd2_checkpoints/_30_3e-5_512_mix_above/checkpoint2.pt', 'post_process': None, 'quiet': False, 'model_overrides': '{"data":"../../dataset/OFA_data/sgcls/vg_val_test.tsv","bpe_dir":"../../utils/BPE","eval_cider":False}', 'results_path': '../../results/vrd2'}, 'distributed_training': {'_name': None, 'distributed_world_size': 4, 'distributed_num_procs': 4, 'distributed_rank': 0, 'distributed_backend': 'nccl', 'distributed_init_method': 'env://', 'distributed_port': -1, 'device_id': 0, 'distributed_no_spawn': True, 'ddp_backend': 'pytorch_ddp', 'ddp_comm_hook': 'none', 'bucket_cap_mb': 25, 'fix_batches_to_gpus': False, 'find_unused_parameters': False, 'gradient_as_bucket_view': False, 'fast_stat_sync': False, 'heartbeat_timeout': -1, 'broadcast_buffers': False, 'slowmo_momentum': None, 'slowmo_algorithm': 'LocalSGD', 'localsgd_frequency': 3, 'nprocs_per_node': 4, 'pipeline_model_parallel': False, 'pipeline_balance': None, 'pipeline_devices': None, 'pipeline_chunks': 0, 'pipeline_encoder_balance': None, 'pipeline_encoder_devices': None, 'pipeline_decoder_balance': None, 'pipeline_decoder_devices': None, 'pipeline_checkpoint': 'never', 'zero_sharding': 'none', 'fp16': True, 'memory_efficient_fp16': False, 'tpu': False, 'no_reshard_after_forward': False, 'fp32_reduce_scatter': False, 'cpu_offload': False, 'use_sharded_state': False}, 'dataset': {'_name': None, 'num_workers': 0, 'skip_invalid_size_inputs_valid_test': False, 'max_tokens': None, 'batch_size': 4, 'required_batch_size_multiple': 8, 'required_seq_len_multiple': 1, 'dataset_impl': None, 'data_buffer_size': 10, 'train_subset': 'train', 'valid_subset': 'valid', 'combine_valid_subsets': None, 'ignore_unused_valid_subsets': False, 'validate_interval': 1, 'validate_interval_updates': 0, 'validate_after_updates': 0, 'fixed_validation_seed': None, 'disable_validation': False, 'max_tokens_valid': None, 'batch_size_valid': 4, 'max_valid_steps': None, 'curriculum': 0, 'gen_subset': 'test', 'num_shards': 1, 'shard_id': 0}, 'optimization': {'_name': None, 'max_epoch': 0, 'max_update': 0, 'stop_time_hours': 0.0, 'clip_norm': 0.0, 'sentence_avg': False, 'update_freq': [1], 'lr': [0.25], 'stop_min_lr': -1.0, 'use_bmuf': False}, 'checkpoint': {'_name': None, 'save_dir': 'checkpoints', 'restore_file': 'checkpoint_last.pt', 'finetune_from_model': None, 'reset_dataloader': False, 'reset_lr_scheduler': False, 'reset_meters': False, 'reset_optimizer': False, 'optimizer_overrides': '{}', 'save_interval': 1, 'save_interval_updates': 0, 'keep_interval_updates': -1, 'keep_interval_updates_pattern': -1, 'keep_last_epochs': -1, 'keep_best_checkpoints': -1, 'no_save': False, 'no_epoch_checkpoints': False, 'no_last_checkpoints': False, 'no_save_optimizer_state': False, 'best_checkpoint_metric': 'loss', 'maximize_best_checkpoint_metric': False, 'patience': -1, 'checkpoint_suffix': '', 'checkpoint_shard_count': 1, 'load_checkpoint_on_all_dp_ranks': False, 'write_checkpoints_asynchronously': False, 'model_parallel_size': 1, 'use_ema_weights_to_init_param': False, 'use_latest_weights_to_init_ema': False}, 'bmuf': {'_name': None, 'block_lr': 1.0, 'block_momentum': 0.875, 'global_sync_iter': 50, 'warmup_iterations': 500, 'use_nbm': False, 'average_sync': False, 'distributed_world_size': 4}, 'generation': {'_name': None, 'beam': 5, 'nbest': 1, 'max_len_a': 0.0, 'max_len_b': 100, 'min_len': 1, 'match_source_len': False, 'unnormalized': False, 'no_early_stop': False, 'no_beamable_mm': False, 'lenpen': 1.0, 'unkpen': 0.0, 'replace_unk': None, 'sacrebleu': False, 'score_reference': False, 'prefix_size': 0, 'no_repeat_ngram_size': 1, 'sampling': False, 'sampling_topk': -1, 'sampling_topp': -1.0, 'constraints': None, 'temperature': 1.0, 'diverse_beam_groups': -1, 'diverse_beam_strength': 0.5, 'diversity_rate': -1.0, 'print_alignment': None, 'print_step': False, 'lm_path': None, 'lm_weight': 0.0, 'iter_decode_eos_penalty': 0.0, 'iter_decode_max_iter': 10, 'iter_decode_force_max_iter': False, 'iter_decode_with_beam': 1, 'iter_decode_with_external_reranker': False, 'retain_iter_history': False, 'retain_dropout': False, 'retain_dropout_modules': None, 'decoding_format': None, 'no_seed_provided': False}, 'eval_lm': {'_name': None, 'output_word_probs': False, 'output_word_stats': False, 'context_window': 0, 'softmax_batch': 9223372036854775807}, 'interactive': {'_name': None, 'buffer_size': 0, 'input': '-'}, 'model': None, 'task': {'_name': 'vrd2', 'data': '../../dataset/OFA_data/sgcls/vg_val_test.tsv', 'selected_cols': None, 'bpe': None, 'bpe_dir': None, 'max_source_positions': 1024, 'max_target_positions': 1024, 'max_src_length': 128, 'max_tgt_length': 30, 'code_dict_size': 8192, 'patch_image_size': 480, 'orig_patch_image_size': 256, 'num_bins': 1000, 'imagenet_default_mean_and_std': False, 'constraint_range': None, 'eval_args': '{}', 'eval_print_samples': False, 'vg_json_dir': '../../dataset/visual_genome/VG-SGG-dicts-with-attri.json'}, 'criterion': {'_name': 'cross_entropy', 'sentence_avg': True}, 'optimizer': None, 'lr_scheduler': {'_name': 'fixed', 'force_anneal': None, 'lr_shrink': 0.1, 'warmup_updates': 0, 'lr': [0.25]}, 'scoring': {'_name': 'bleu', 'pad': 1, 'eos': 2, 'unk': 3}, 'bpe': None, 'tokenizer': None, 'ema': {'_name': None, 'store_ema': False, 'ema_decay': 0.9999, 'ema_start_update': 0, 'ema_seed_model': None, 'ema_update_freq': 1, 'ema_fp32': False}, 'simul_type': None}
+2023-08-01 14:42:58 | INFO | ofa.evaluate | {'_name': None, 'common': {'_name': None, 'no_progress_bar': False, 'log_interval': 5, 'log_format': 'simple', 'log_file': None, 'tensorboard_logdir': None, 'wandb_project': None, 'azureml_logging': False, 'seed': 7, 'cpu': False, 'tpu': False, 'bf16': False, 'memory_efficient_bf16': False, 'fp16': True, 'memory_efficient_fp16': False, 'fp16_no_flatten_grads': False, 'fp16_init_scale': 128, 'fp16_scale_window': None, 'fp16_scale_tolerance': 0.0, 'on_cpu_convert_precision': False, 'min_loss_scale': 0.0001, 'threshold_loss_scale': None, 'amp': False, 'amp_batch_retries': 2, 'amp_init_scale': 128, 'amp_scale_window': None, 'user_dir': '../../ofa_module', 'empty_cache_freq': 0, 'all_gather_list_size': 16384, 'model_parallel_size': 1, 'quantization_config_path': None, 'profile': False, 'reset_logging': False, 'suppress_crashes': False, 'use_plasma_view': False, 'plasma_path': '/tmp/plasma'}, 'common_eval': {'_name': None, 'path': '../../checkpoints/OFA/vrd2_checkpoints/_30_3e-5_512_mix_above/checkpoint2.pt', 'post_process': None, 'quiet': False, 'model_overrides': '{"data":"../../dataset/OFA_data/sgcls/vg_val_test.tsv","bpe_dir":"../../utils/BPE","eval_cider":False}', 'results_path': '../../results/vrd2'}, 'distributed_training': {'_name': None, 'distributed_world_size': 4, 'distributed_num_procs': 4, 'distributed_rank': 2, 'distributed_backend': 'nccl', 'distributed_init_method': 'env://', 'distributed_port': -1, 'device_id': 2, 'distributed_no_spawn': True, 'ddp_backend': 'pytorch_ddp', 'ddp_comm_hook': 'none', 'bucket_cap_mb': 25, 'fix_batches_to_gpus': False, 'find_unused_parameters': False, 'gradient_as_bucket_view': False, 'fast_stat_sync': False, 'heartbeat_timeout': -1, 'broadcast_buffers': False, 'slowmo_momentum': None, 'slowmo_algorithm': 'LocalSGD', 'localsgd_frequency': 3, 'nprocs_per_node': 4, 'pipeline_model_parallel': False, 'pipeline_balance': None, 'pipeline_devices': None, 'pipeline_chunks': 0, 'pipeline_encoder_balance': None, 'pipeline_encoder_devices': None, 'pipeline_decoder_balance': None, 'pipeline_decoder_devices': None, 'pipeline_checkpoint': 'never', 'zero_sharding': 'none', 'fp16': True, 'memory_efficient_fp16': False, 'tpu': False, 'no_reshard_after_forward': False, 'fp32_reduce_scatter': False, 'cpu_offload': False, 'use_sharded_state': False}, 'dataset': {'_name': None, 'num_workers': 0, 'skip_invalid_size_inputs_valid_test': False, 'max_tokens': None, 'batch_size': 4, 'required_batch_size_multiple': 8, 'required_seq_len_multiple': 1, 'dataset_impl': None, 'data_buffer_size': 10, 'train_subset': 'train', 'valid_subset': 'valid', 'combine_valid_subsets': None, 'ignore_unused_valid_subsets': False, 'validate_interval': 1, 'validate_interval_updates': 0, 'validate_after_updates': 0, 'fixed_validation_seed': None, 'disable_validation': False, 'max_tokens_valid': None, 'batch_size_valid': 4, 'max_valid_steps': None, 'curriculum': 0, 'gen_subset': 'test', 'num_shards': 1, 'shard_id': 0}, 'optimization': {'_name': None, 'max_epoch': 0, 'max_update': 0, 'stop_time_hours': 0.0, 'clip_norm': 0.0, 'sentence_avg': False, 'update_freq': [1], 'lr': [0.25], 'stop_min_lr': -1.0, 'use_bmuf': False}, 'checkpoint': {'_name': None, 'save_dir': 'checkpoints', 'restore_file': 'checkpoint_last.pt', 'finetune_from_model': None, 'reset_dataloader': False, 'reset_lr_scheduler': False, 'reset_meters': False, 'reset_optimizer': False, 'optimizer_overrides': '{}', 'save_interval': 1, 'save_interval_updates': 0, 'keep_interval_updates': -1, 'keep_interval_updates_pattern': -1, 'keep_last_epochs': -1, 'keep_best_checkpoints': -1, 'no_save': False, 'no_epoch_checkpoints': False, 'no_last_checkpoints': False, 'no_save_optimizer_state': False, 'best_checkpoint_metric': 'loss', 'maximize_best_checkpoint_metric': False, 'patience': -1, 'checkpoint_suffix': '', 'checkpoint_shard_count': 1, 'load_checkpoint_on_all_dp_ranks': False, 'write_checkpoints_asynchronously': False, 'model_parallel_size': 1, 'use_ema_weights_to_init_param': False, 'use_latest_weights_to_init_ema': False}, 'bmuf': {'_name': None, 'block_lr': 1.0, 'block_momentum': 0.875, 'global_sync_iter': 50, 'warmup_iterations': 500, 'use_nbm': False, 'average_sync': False, 'distributed_world_size': 4}, 'generation': {'_name': None, 'beam': 5, 'nbest': 1, 'max_len_a': 0.0, 'max_len_b': 100, 'min_len': 1, 'match_source_len': False, 'unnormalized': False, 'no_early_stop': False, 'no_beamable_mm': False, 'lenpen': 1.0, 'unkpen': 0.0, 'replace_unk': None, 'sacrebleu': False, 'score_reference': False, 'prefix_size': 0, 'no_repeat_ngram_size': 1, 'sampling': False, 'sampling_topk': -1, 'sampling_topp': -1.0, 'constraints': None, 'temperature': 1.0, 'diverse_beam_groups': -1, 'diverse_beam_strength': 0.5, 'diversity_rate': -1.0, 'print_alignment': None, 'print_step': False, 'lm_path': None, 'lm_weight': 0.0, 'iter_decode_eos_penalty': 0.0, 'iter_decode_max_iter': 10, 'iter_decode_force_max_iter': False, 'iter_decode_with_beam': 1, 'iter_decode_with_external_reranker': False, 'retain_iter_history': False, 'retain_dropout': False, 'retain_dropout_modules': None, 'decoding_format': None, 'no_seed_provided': False}, 'eval_lm': {'_name': None, 'output_word_probs': False, 'output_word_stats': False, 'context_window': 0, 'softmax_batch': 9223372036854775807}, 'interactive': {'_name': None, 'buffer_size': 0, 'input': '-'}, 'model': None, 'task': {'_name': 'vrd2', 'data': '../../dataset/OFA_data/sgcls/vg_val_test.tsv', 'selected_cols': None, 'bpe': None, 'bpe_dir': None, 'max_source_positions': 1024, 'max_target_positions': 1024, 'max_src_length': 128, 'max_tgt_length': 30, 'code_dict_size': 8192, 'patch_image_size': 480, 'orig_patch_image_size': 256, 'num_bins': 1000, 'imagenet_default_mean_and_std': False, 'constraint_range': None, 'eval_args': '{}', 'eval_print_samples': False, 'vg_json_dir': '../../dataset/visual_genome/VG-SGG-dicts-with-attri.json'}, 'criterion': {'_name': 'cross_entropy', 'sentence_avg': True}, 'optimizer': None, 'lr_scheduler': {'_name': 'fixed', 'force_anneal': None, 'lr_shrink': 0.1, 'warmup_updates': 0, 'lr': [0.25]}, 'scoring': {'_name': 'bleu', 'pad': 1, 'eos': 2, 'unk': 3}, 'bpe': None, 'tokenizer': None, 'ema': {'_name': None, 'store_ema': False, 'ema_decay': 0.9999, 'ema_start_update': 0, 'ema_seed_model': None, 'ema_update_freq': 1, 'ema_fp32': False}, 'simul_type': None}
+2023-08-01 14:42:58 | INFO | ofa.evaluate | {'_name': None, 'common': {'_name': None, 'no_progress_bar': False, 'log_interval': 5, 'log_format': 'simple', 'log_file': None, 'tensorboard_logdir': None, 'wandb_project': None, 'azureml_logging': False, 'seed': 7, 'cpu': False, 'tpu': False, 'bf16': False, 'memory_efficient_bf16': False, 'fp16': True, 'memory_efficient_fp16': False, 'fp16_no_flatten_grads': False, 'fp16_init_scale': 128, 'fp16_scale_window': None, 'fp16_scale_tolerance': 0.0, 'on_cpu_convert_precision': False, 'min_loss_scale': 0.0001, 'threshold_loss_scale': None, 'amp': False, 'amp_batch_retries': 2, 'amp_init_scale': 128, 'amp_scale_window': None, 'user_dir': '../../ofa_module', 'empty_cache_freq': 0, 'all_gather_list_size': 16384, 'model_parallel_size': 1, 'quantization_config_path': None, 'profile': False, 'reset_logging': False, 'suppress_crashes': False, 'use_plasma_view': False, 'plasma_path': '/tmp/plasma'}, 'common_eval': {'_name': None, 'path': '../../checkpoints/OFA/vrd2_checkpoints/_30_3e-5_512_mix_above/checkpoint2.pt', 'post_process': None, 'quiet': False, 'model_overrides': '{"data":"../../dataset/OFA_data/sgcls/vg_val_test.tsv","bpe_dir":"../../utils/BPE","eval_cider":False}', 'results_path': '../../results/vrd2'}, 'distributed_training': {'_name': None, 'distributed_world_size': 4, 'distributed_num_procs': 4, 'distributed_rank': 3, 'distributed_backend': 'nccl', 'distributed_init_method': 'env://', 'distributed_port': -1, 'device_id': 3, 'distributed_no_spawn': True, 'ddp_backend': 'pytorch_ddp', 'ddp_comm_hook': 'none', 'bucket_cap_mb': 25, 'fix_batches_to_gpus': False, 'find_unused_parameters': False, 'gradient_as_bucket_view': False, 'fast_stat_sync': False, 'heartbeat_timeout': -1, 'broadcast_buffers': False, 'slowmo_momentum': None, 'slowmo_algorithm': 'LocalSGD', 'localsgd_frequency': 3, 'nprocs_per_node': 4, 'pipeline_model_parallel': False, 'pipeline_balance': None, 'pipeline_devices': None, 'pipeline_chunks': 0, 'pipeline_encoder_balance': None, 'pipeline_encoder_devices': None, 'pipeline_decoder_balance': None, 'pipeline_decoder_devices': None, 'pipeline_checkpoint': 'never', 'zero_sharding': 'none', 'fp16': True, 'memory_efficient_fp16': False, 'tpu': False, 'no_reshard_after_forward': False, 'fp32_reduce_scatter': False, 'cpu_offload': False, 'use_sharded_state': False}, 'dataset': {'_name': None, 'num_workers': 0, 'skip_invalid_size_inputs_valid_test': False, 'max_tokens': None, 'batch_size': 4, 'required_batch_size_multiple': 8, 'required_seq_len_multiple': 1, 'dataset_impl': None, 'data_buffer_size': 10, 'train_subset': 'train', 'valid_subset': 'valid', 'combine_valid_subsets': None, 'ignore_unused_valid_subsets': False, 'validate_interval': 1, 'validate_interval_updates': 0, 'validate_after_updates': 0, 'fixed_validation_seed': None, 'disable_validation': False, 'max_tokens_valid': None, 'batch_size_valid': 4, 'max_valid_steps': None, 'curriculum': 0, 'gen_subset': 'test', 'num_shards': 1, 'shard_id': 0}, 'optimization': {'_name': None, 'max_epoch': 0, 'max_update': 0, 'stop_time_hours': 0.0, 'clip_norm': 0.0, 'sentence_avg': False, 'update_freq': [1], 'lr': [0.25], 'stop_min_lr': -1.0, 'use_bmuf': False}, 'checkpoint': {'_name': None, 'save_dir': 'checkpoints', 'restore_file': 'checkpoint_last.pt', 'finetune_from_model': None, 'reset_dataloader': False, 'reset_lr_scheduler': False, 'reset_meters': False, 'reset_optimizer': False, 'optimizer_overrides': '{}', 'save_interval': 1, 'save_interval_updates': 0, 'keep_interval_updates': -1, 'keep_interval_updates_pattern': -1, 'keep_last_epochs': -1, 'keep_best_checkpoints': -1, 'no_save': False, 'no_epoch_checkpoints': False, 'no_last_checkpoints': False, 'no_save_optimizer_state': False, 'best_checkpoint_metric': 'loss', 'maximize_best_checkpoint_metric': False, 'patience': -1, 'checkpoint_suffix': '', 'checkpoint_shard_count': 1, 'load_checkpoint_on_all_dp_ranks': False, 'write_checkpoints_asynchronously': False, 'model_parallel_size': 1, 'use_ema_weights_to_init_param': False, 'use_latest_weights_to_init_ema': False}, 'bmuf': {'_name': None, 'block_lr': 1.0, 'block_momentum': 0.875, 'global_sync_iter': 50, 'warmup_iterations': 500, 'use_nbm': False, 'average_sync': False, 'distributed_world_size': 4}, 'generation': {'_name': None, 'beam': 5, 'nbest': 1, 'max_len_a': 0.0, 'max_len_b': 100, 'min_len': 1, 'match_source_len': False, 'unnormalized': False, 'no_early_stop': False, 'no_beamable_mm': False, 'lenpen': 1.0, 'unkpen': 0.0, 'replace_unk': None, 'sacrebleu': False, 'score_reference': False, 'prefix_size': 0, 'no_repeat_ngram_size': 1, 'sampling': False, 'sampling_topk': -1, 'sampling_topp': -1.0, 'constraints': None, 'temperature': 1.0, 'diverse_beam_groups': -1, 'diverse_beam_strength': 0.5, 'diversity_rate': -1.0, 'print_alignment': None, 'print_step': False, 'lm_path': None, 'lm_weight': 0.0, 'iter_decode_eos_penalty': 0.0, 'iter_decode_max_iter': 10, 'iter_decode_force_max_iter': False, 'iter_decode_with_beam': 1, 'iter_decode_with_external_reranker': False, 'retain_iter_history': False, 'retain_dropout': False, 'retain_dropout_modules': None, 'decoding_format': None, 'no_seed_provided': False}, 'eval_lm': {'_name': None, 'output_word_probs': False, 'output_word_stats': False, 'context_window': 0, 'softmax_batch': 9223372036854775807}, 'interactive': {'_name': None, 'buffer_size': 0, 'input': '-'}, 'model': None, 'task': {'_name': 'vrd2', 'data': '../../dataset/OFA_data/sgcls/vg_val_test.tsv', 'selected_cols': None, 'bpe': None, 'bpe_dir': None, 'max_source_positions': 1024, 'max_target_positions': 1024, 'max_src_length': 128, 'max_tgt_length': 30, 'code_dict_size': 8192, 'patch_image_size': 480, 'orig_patch_image_size': 256, 'num_bins': 1000, 'imagenet_default_mean_and_std': False, 'constraint_range': None, 'eval_args': '{}', 'eval_print_samples': False, 'vg_json_dir': '../../dataset/visual_genome/VG-SGG-dicts-with-attri.json'}, 'criterion': {'_name': 'cross_entropy', 'sentence_avg': True}, 'optimizer': None, 'lr_scheduler': {'_name': 'fixed', 'force_anneal': None, 'lr_shrink': 0.1, 'warmup_updates': 0, 'lr': [0.25]}, 'scoring': {'_name': 'bleu', 'pad': 1, 'eos': 2, 'unk': 3}, 'bpe': None, 'tokenizer': None, 'ema': {'_name': None, 'store_ema': False, 'ema_decay': 0.9999, 'ema_start_update': 0, 'ema_seed_model': None, 'ema_update_freq': 1, 'ema_fp32': False}, 'simul_type': None}
+2023-08-01 14:42:58 | INFO | ofa.evaluate | {'_name': None, 'common': {'_name': None, 'no_progress_bar': False, 'log_interval': 5, 'log_format': 'simple', 'log_file': None, 'tensorboard_logdir': None, 'wandb_project': None, 'azureml_logging': False, 'seed': 7, 'cpu': False, 'tpu': False, 'bf16': False, 'memory_efficient_bf16': False, 'fp16': True, 'memory_efficient_fp16': False, 'fp16_no_flatten_grads': False, 'fp16_init_scale': 128, 'fp16_scale_window': None, 'fp16_scale_tolerance': 0.0, 'on_cpu_convert_precision': False, 'min_loss_scale': 0.0001, 'threshold_loss_scale': None, 'amp': False, 'amp_batch_retries': 2, 'amp_init_scale': 128, 'amp_scale_window': None, 'user_dir': '../../ofa_module', 'empty_cache_freq': 0, 'all_gather_list_size': 16384, 'model_parallel_size': 1, 'quantization_config_path': None, 'profile': False, 'reset_logging': False, 'suppress_crashes': False, 'use_plasma_view': False, 'plasma_path': '/tmp/plasma'}, 'common_eval': {'_name': None, 'path': '../../checkpoints/OFA/vrd2_checkpoints/_30_3e-5_512_mix_above/checkpoint2.pt', 'post_process': None, 'quiet': False, 'model_overrides': '{"data":"../../dataset/OFA_data/sgcls/vg_val_test.tsv","bpe_dir":"../../utils/BPE","eval_cider":False}', 'results_path': '../../results/vrd2'}, 'distributed_training': {'_name': None, 'distributed_world_size': 4, 'distributed_num_procs': 4, 'distributed_rank': 1, 'distributed_backend': 'nccl', 'distributed_init_method': 'env://', 'distributed_port': -1, 'device_id': 1, 'distributed_no_spawn': True, 'ddp_backend': 'pytorch_ddp', 'ddp_comm_hook': 'none', 'bucket_cap_mb': 25, 'fix_batches_to_gpus': False, 'find_unused_parameters': False, 'gradient_as_bucket_view': False, 'fast_stat_sync': False, 'heartbeat_timeout': -1, 'broadcast_buffers': False, 'slowmo_momentum': None, 'slowmo_algorithm': 'LocalSGD', 'localsgd_frequency': 3, 'nprocs_per_node': 4, 'pipeline_model_parallel': False, 'pipeline_balance': None, 'pipeline_devices': None, 'pipeline_chunks': 0, 'pipeline_encoder_balance': None, 'pipeline_encoder_devices': None, 'pipeline_decoder_balance': None, 'pipeline_decoder_devices': None, 'pipeline_checkpoint': 'never', 'zero_sharding': 'none', 'fp16': True, 'memory_efficient_fp16': False, 'tpu': False, 'no_reshard_after_forward': False, 'fp32_reduce_scatter': False, 'cpu_offload': False, 'use_sharded_state': False}, 'dataset': {'_name': None, 'num_workers': 0, 'skip_invalid_size_inputs_valid_test': False, 'max_tokens': None, 'batch_size': 4, 'required_batch_size_multiple': 8, 'required_seq_len_multiple': 1, 'dataset_impl': None, 'data_buffer_size': 10, 'train_subset': 'train', 'valid_subset': 'valid', 'combine_valid_subsets': None, 'ignore_unused_valid_subsets': False, 'validate_interval': 1, 'validate_interval_updates': 0, 'validate_after_updates': 0, 'fixed_validation_seed': None, 'disable_validation': False, 'max_tokens_valid': None, 'batch_size_valid': 4, 'max_valid_steps': None, 'curriculum': 0, 'gen_subset': 'test', 'num_shards': 1, 'shard_id': 0}, 'optimization': {'_name': None, 'max_epoch': 0, 'max_update': 0, 'stop_time_hours': 0.0, 'clip_norm': 0.0, 'sentence_avg': False, 'update_freq': [1], 'lr': [0.25], 'stop_min_lr': -1.0, 'use_bmuf': False}, 'checkpoint': {'_name': None, 'save_dir': 'checkpoints', 'restore_file': 'checkpoint_last.pt', 'finetune_from_model': None, 'reset_dataloader': False, 'reset_lr_scheduler': False, 'reset_meters': False, 'reset_optimizer': False, 'optimizer_overrides': '{}', 'save_interval': 1, 'save_interval_updates': 0, 'keep_interval_updates': -1, 'keep_interval_updates_pattern': -1, 'keep_last_epochs': -1, 'keep_best_checkpoints': -1, 'no_save': False, 'no_epoch_checkpoints': False, 'no_last_checkpoints': False, 'no_save_optimizer_state': False, 'best_checkpoint_metric': 'loss', 'maximize_best_checkpoint_metric': False, 'patience': -1, 'checkpoint_suffix': '', 'checkpoint_shard_count': 1, 'load_checkpoint_on_all_dp_ranks': False, 'write_checkpoints_asynchronously': False, 'model_parallel_size': 1, 'use_ema_weights_to_init_param': False, 'use_latest_weights_to_init_ema': False}, 'bmuf': {'_name': None, 'block_lr': 1.0, 'block_momentum': 0.875, 'global_sync_iter': 50, 'warmup_iterations': 500, 'use_nbm': False, 'average_sync': False, 'distributed_world_size': 4}, 'generation': {'_name': None, 'beam': 5, 'nbest': 1, 'max_len_a': 0.0, 'max_len_b': 100, 'min_len': 1, 'match_source_len': False, 'unnormalized': False, 'no_early_stop': False, 'no_beamable_mm': False, 'lenpen': 1.0, 'unkpen': 0.0, 'replace_unk': None, 'sacrebleu': False, 'score_reference': False, 'prefix_size': 0, 'no_repeat_ngram_size': 1, 'sampling': False, 'sampling_topk': -1, 'sampling_topp': -1.0, 'constraints': None, 'temperature': 1.0, 'diverse_beam_groups': -1, 'diverse_beam_strength': 0.5, 'diversity_rate': -1.0, 'print_alignment': None, 'print_step': False, 'lm_path': None, 'lm_weight': 0.0, 'iter_decode_eos_penalty': 0.0, 'iter_decode_max_iter': 10, 'iter_decode_force_max_iter': False, 'iter_decode_with_beam': 1, 'iter_decode_with_external_reranker': False, 'retain_iter_history': False, 'retain_dropout': False, 'retain_dropout_modules': None, 'decoding_format': None, 'no_seed_provided': False}, 'eval_lm': {'_name': None, 'output_word_probs': False, 'output_word_stats': False, 'context_window': 0, 'softmax_batch': 9223372036854775807}, 'interactive': {'_name': None, 'buffer_size': 0, 'input': '-'}, 'model': None, 'task': {'_name': 'vrd2', 'data': '../../dataset/OFA_data/sgcls/vg_val_test.tsv', 'selected_cols': None, 'bpe': None, 'bpe_dir': None, 'max_source_positions': 1024, 'max_target_positions': 1024, 'max_src_length': 128, 'max_tgt_length': 30, 'code_dict_size': 8192, 'patch_image_size': 480, 'orig_patch_image_size': 256, 'num_bins': 1000, 'imagenet_default_mean_and_std': False, 'constraint_range': None, 'eval_args': '{}', 'eval_print_samples': False, 'vg_json_dir': '../../dataset/visual_genome/VG-SGG-dicts-with-attri.json'}, 'criterion': {'_name': 'cross_entropy', 'sentence_avg': True}, 'optimizer': None, 'lr_scheduler': {'_name': 'fixed', 'force_anneal': None, 'lr_shrink': 0.1, 'warmup_updates': 0, 'lr': [0.25]}, 'scoring': {'_name': 'bleu', 'pad': 1, 'eos': 2, 'unk': 3}, 'bpe': None, 'tokenizer': None, 'ema': {'_name': None, 'store_ema': False, 'ema_decay': 0.9999, 'ema_start_update': 0, 'ema_seed_model': None, 'ema_update_freq': 1, 'ema_fp32': False}, 'simul_type': None}
+2023-08-01 14:42:58 | INFO | ofa.evaluate | loading model(s) from ../../checkpoints/OFA/vrd2_checkpoints/_30_3e-5_512_mix_above/checkpoint2.pt
+2023-08-01 14:42:58 | INFO | ofa.evaluate | loading model(s) from ../../checkpoints/OFA/vrd2_checkpoints/_30_3e-5_512_mix_above/checkpoint2.pt
+2023-08-01 14:42:58 | INFO | ofa.evaluate | loading model(s) from ../../checkpoints/OFA/vrd2_checkpoints/_30_3e-5_512_mix_above/checkpoint2.pt
+2023-08-01 14:42:58 | INFO | ofa.evaluate | loading model(s) from ../../checkpoints/OFA/vrd2_checkpoints/_30_3e-5_512_mix_above/checkpoint2.pt
+2023-08-01 14:42:59 | INFO | tasks.mm_tasks.vrd2 | vrd setup: source dictionary: 59461 types
+2023-08-01 14:42:59 | INFO | tasks.mm_tasks.vrd2 | vrd setup: target dictionary: 59461 types
+2023-08-01 14:42:59 | INFO | tasks.mm_tasks.vrd2 | vrd setup: source dictionary: 59461 types
+2023-08-01 14:42:59 | INFO | tasks.mm_tasks.vrd2 | vrd setup: target dictionary: 59461 types
+2023-08-01 14:42:59 | INFO | tasks.mm_tasks.vrd2 | vrd setup: source dictionary: 59461 types
+2023-08-01 14:42:59 | INFO | tasks.mm_tasks.vrd2 | vrd setup: target dictionary: 59461 types
+2023-08-01 14:42:59 | INFO | tasks.mm_tasks.vrd2 | vrd setup: source dictionary: 59461 types
+2023-08-01 14:42:59 | INFO | tasks.mm_tasks.vrd2 | vrd setup: target dictionary: 59461 types
+/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torch/functional.py:478: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at  ../aten/src/ATen/native/TensorShape.cpp:2894.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torch/functional.py:478: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at  ../aten/src/ATen/native/TensorShape.cpp:2894.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torch/functional.py:478: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at  ../aten/src/ATen/native/TensorShape.cpp:2894.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torch/functional.py:478: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at  ../aten/src/ATen/native/TensorShape.cpp:2894.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+local datafile ../../dataset/OFA_data/sgcls/vg_val_test.tsv slice_id 2 begin to initialize row_count and line_idx-to-offset mapping
+local datafile ../../dataset/OFA_data/sgcls/vg_val_test.tsv slice_id 1 begin to initialize row_count and line_idx-to-offset mapping
+local datafile ../../dataset/OFA_data/sgcls/vg_val_test.tsv slice_id 0 begin to initialize row_count and line_idx-to-offset mapping
+local datafile ../../dataset/OFA_data/sgcls/vg_val_test.tsv slice_id 3 begin to initialize row_count and line_idx-to-offset mapping
+local datafile ../../dataset/OFA_data/sgcls/vg_val_test.tsv slice_id 2 finished initializing row_count and line_idx-to-offset mapping
+file ../../dataset/OFA_data/sgcls/vg_val_test.tsv slice_id 2 row count 2500 total row count 10000
+/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torchvision/transforms/transforms.py:332: UserWarning: Argument 'interpolation' of type int is deprecated since 0.13 and will be removed in 0.15. Please use InterpolationMode enum.
+  warnings.warn(
+local datafile ../../dataset/OFA_data/sgcls/vg_val_test.tsv slice_id 0 finished initializing row_count and line_idx-to-offset mapping
+file ../../dataset/OFA_data/sgcls/vg_val_test.tsv slice_id 0 row count 2500 total row count 10000
+/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torchvision/transforms/transforms.py:332: UserWarning: Argument 'interpolation' of type int is deprecated since 0.13 and will be removed in 0.15. Please use InterpolationMode enum.
+  warnings.warn(
+local datafile ../../dataset/OFA_data/sgcls/vg_val_test.tsv slice_id 3 finished initializing row_count and line_idx-to-offset mapping
+file ../../dataset/OFA_data/sgcls/vg_val_test.tsv slice_id 3 row count 2500 total row count 10000
+/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torchvision/transforms/transforms.py:332: UserWarning: Argument 'interpolation' of type int is deprecated since 0.13 and will be removed in 0.15. Please use InterpolationMode enum.
+  warnings.warn(
+local datafile ../../dataset/OFA_data/sgcls/vg_val_test.tsv slice_id 1 finished initializing row_count and line_idx-to-offset mapping
+file ../../dataset/OFA_data/sgcls/vg_val_test.tsv slice_id 1 row count 2500 total row count 10000
+/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torchvision/transforms/transforms.py:332: UserWarning: Argument 'interpolation' of type int is deprecated since 0.13 and will be removed in 0.15. Please use InterpolationMode enum.
+  warnings.warn(
+/home/zcai75/Github/OFA/fairseq/fairseq/search.py:140: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  beams_buf = indices_buf // vocab_size
+/home/zcai75/Github/OFA/fairseq/fairseq/search.py:140: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  beams_buf = indices_buf // vocab_size
+/home/zcai75/Github/OFA/fairseq/fairseq/search.py:140: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  beams_buf = indices_buf // vocab_size
+/home/zcai75/Github/OFA/fairseq/fairseq/search.py:140: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  beams_buf = indices_buf // vocab_size
+/home/zcai75/Github/OFA_forked/models/sequence_generator.py:705: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  unfin_idx = bbsz_idx // beam_size
+/home/zcai75/Github/OFA_forked/models/sequence_generator.py:705: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  unfin_idx = bbsz_idx // beam_size
+/home/zcai75/Github/OFA_forked/models/sequence_generator.py:705: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  unfin_idx = bbsz_idx // beam_size
+/home/zcai75/Github/OFA_forked/models/sequence_generator.py:705: UserWarning: __floordiv__ is deprecated, and its behavior will change in a future version of pytorch. It currently rounds toward 0 (like the 'trunc' function NOT 'floor'). This results in incorrect rounding for negative values. To keep the current behavior, use torch.div(a, b, rounding_mode='trunc'), or for actual floor division, use torch.div(a, b, rounding_mode='floor').
+  unfin_idx = bbsz_idx // beam_size
+2023-08-01 14:43:23 | INFO | fairseq.logging.progress_bar | :      6 / 625 sentences=4
+2023-08-01 14:43:31 | INFO | fairseq.logging.progress_bar | :      6 / 625 sentences=4
+2023-08-01 14:43:41 | INFO | fairseq.logging.progress_bar | :      6 / 625 sentences=4
+2023-08-01 14:43:44 | INFO | fairseq.logging.progress_bar | :     11 / 625 sentences=4
+2023-08-01 14:43:51 | INFO | fairseq.logging.progress_bar | :      6 / 625 sentences=4
+2023-08-01 14:43:59 | INFO | fairseq.logging.progress_bar | :     11 / 625 sentences=4
+2023-08-01 14:44:14 | INFO | fairseq.logging.progress_bar | :     16 / 625 sentences=4
+2023-08-01 14:44:14 | INFO | fairseq.logging.progress_bar | :     11 / 625 sentences=4
+2023-08-01 14:44:22 | INFO | fairseq.logging.progress_bar | :     11 / 625 sentences=4
+2023-08-01 14:44:26 | INFO | fairseq.logging.progress_bar | :     16 / 625 sentences=4
+2023-08-01 14:44:43 | INFO | fairseq.logging.progress_bar | :     21 / 625 sentences=4
+2023-08-01 14:44:51 | INFO | fairseq.logging.progress_bar | :     16 / 625 sentences=4
+2023-08-01 14:44:58 | INFO | fairseq.logging.progress_bar | :     16 / 625 sentences=4
+2023-08-01 14:45:00 | INFO | fairseq.logging.progress_bar | :     21 / 625 sentences=4
+2023-08-01 14:45:14 | INFO | fairseq.logging.progress_bar | :     26 / 625 sentences=4
+2023-08-01 14:45:17 | INFO | fairseq.logging.progress_bar | :     26 / 625 sentences=4
+2023-08-01 14:45:23 | INFO | fairseq.logging.progress_bar | :     21 / 625 sentences=4
+2023-08-01 14:45:28 | INFO | fairseq.logging.progress_bar | :     21 / 625 sentences=4
+2023-08-01 14:45:36 | INFO | fairseq.logging.progress_bar | :     31 / 625 sentences=4
+2023-08-01 14:45:36 | INFO | fairseq.logging.progress_bar | :     31 / 625 sentences=4
+2023-08-01 14:45:44 | INFO | fairseq.logging.progress_bar | :     26 / 625 sentences=4
+2023-08-01 14:45:56 | INFO | fairseq.logging.progress_bar | :     26 / 625 sentences=4
+2023-08-01 14:46:09 | INFO | fairseq.logging.progress_bar | :     31 / 625 sentences=4
+2023-08-01 14:46:16 | INFO | fairseq.logging.progress_bar | :     36 / 625 sentences=4
+2023-08-01 14:46:18 | INFO | fairseq.logging.progress_bar | :     36 / 625 sentences=4
+2023-08-01 14:46:23 | INFO | fairseq.logging.progress_bar | :     31 / 625 sentences=4
+2023-08-01 14:46:35 | INFO | fairseq.logging.progress_bar | :     36 / 625 sentences=4
+2023-08-01 14:46:47 | INFO | fairseq.logging.progress_bar | :     36 / 625 sentences=4
+2023-08-01 14:46:51 | INFO | fairseq.logging.progress_bar | :     41 / 625 sentences=4
+2023-08-01 14:47:01 | INFO | fairseq.logging.progress_bar | :     41 / 625 sentences=4
+2023-08-01 14:47:13 | INFO | fairseq.logging.progress_bar | :     41 / 625 sentences=4
+2023-08-01 14:47:16 | INFO | fairseq.logging.progress_bar | :     41 / 625 sentences=4
+2023-08-01 14:47:22 | INFO | fairseq.logging.progress_bar | :     46 / 625 sentences=4
+2023-08-01 14:47:30 | INFO | fairseq.logging.progress_bar | :     46 / 625 sentences=4
+2023-08-01 14:47:31 | INFO | fairseq.logging.progress_bar | :     46 / 625 sentences=4
+2023-08-01 14:47:39 | INFO | fairseq.logging.progress_bar | :     46 / 625 sentences=4
+2023-08-01 14:47:46 | INFO | fairseq.logging.progress_bar | :     51 / 625 sentences=4
+2023-08-01 14:48:04 | INFO | fairseq.logging.progress_bar | :     56 / 625 sentences=4
+2023-08-01 14:48:04 | INFO | fairseq.logging.progress_bar | :     51 / 625 sentences=4
+2023-08-01 14:48:20 | INFO | fairseq.logging.progress_bar | :     51 / 625 sentences=4
+2023-08-01 14:48:22 | INFO | fairseq.logging.progress_bar | :     61 / 625 sentences=4
+2023-08-01 14:48:25 | INFO | fairseq.logging.progress_bar | :     51 / 625 sentences=4
+2023-08-01 14:48:28 | INFO | fairseq.logging.progress_bar | :     56 / 625 sentences=4
+2023-08-01 14:48:38 | INFO | fairseq.logging.progress_bar | :     56 / 625 sentences=4
+2023-08-01 14:48:40 | INFO | fairseq.logging.progress_bar | :     56 / 625 sentences=4
+2023-08-01 14:48:43 | INFO | fairseq.logging.progress_bar | :     66 / 625 sentences=4
+2023-08-01 14:48:59 | INFO | fairseq.logging.progress_bar | :     61 / 625 sentences=4
+2023-08-01 14:49:01 | INFO | fairseq.logging.progress_bar | :     61 / 625 sentences=4
+2023-08-01 14:49:02 | INFO | fairseq.logging.progress_bar | :     71 / 625 sentences=4
+2023-08-01 14:49:11 | INFO | fairseq.logging.progress_bar | :     61 / 625 sentences=4
+2023-08-01 14:49:22 | INFO | fairseq.logging.progress_bar | :     66 / 625 sentences=4
+2023-08-01 14:49:42 | INFO | fairseq.logging.progress_bar | :     66 / 625 sentences=4
+2023-08-01 14:49:42 | INFO | fairseq.logging.progress_bar | :     66 / 625 sentences=4
+2023-08-01 14:49:52 | INFO | fairseq.logging.progress_bar | :     76 / 625 sentences=4
+2023-08-01 14:49:53 | INFO | fairseq.logging.progress_bar | :     71 / 625 sentences=4
+2023-08-01 14:50:04 | INFO | fairseq.logging.progress_bar | :     71 / 625 sentences=4
+2023-08-01 14:50:11 | INFO | fairseq.logging.progress_bar | :     81 / 625 sentences=4
+2023-08-01 14:50:20 | INFO | fairseq.logging.progress_bar | :     71 / 625 sentences=4
+2023-08-01 14:50:35 | INFO | fairseq.logging.progress_bar | :     76 / 625 sentences=4
+2023-08-01 14:50:39 | INFO | fairseq.logging.progress_bar | :     86 / 625 sentences=4
+2023-08-01 14:50:48 | INFO | fairseq.logging.progress_bar | :     76 / 625 sentences=4
+2023-08-01 14:50:59 | INFO | fairseq.logging.progress_bar | :     76 / 625 sentences=4
+2023-08-01 14:51:09 | INFO | fairseq.logging.progress_bar | :     91 / 625 sentences=4
+2023-08-01 14:51:17 | INFO | fairseq.logging.progress_bar | :     81 / 625 sentences=4
+2023-08-01 14:51:23 | INFO | fairseq.logging.progress_bar | :     81 / 625 sentences=4
+2023-08-01 14:51:24 | INFO | fairseq.logging.progress_bar | :     81 / 625 sentences=4
+2023-08-01 14:51:44 | INFO | fairseq.logging.progress_bar | :     86 / 625 sentences=4
+2023-08-01 14:51:56 | INFO | fairseq.logging.progress_bar | :     86 / 625 sentences=4
+2023-08-01 14:51:57 | INFO | fairseq.logging.progress_bar | :     96 / 625 sentences=4
+2023-08-01 14:52:06 | INFO | fairseq.logging.progress_bar | :     91 / 625 sentences=4
+2023-08-01 14:52:10 | INFO | fairseq.logging.progress_bar | :     86 / 625 sentences=4
+2023-08-01 14:52:20 | INFO | fairseq.logging.progress_bar | :    101 / 625 sentences=4
+2023-08-01 14:52:31 | INFO | fairseq.logging.progress_bar | :     91 / 625 sentences=4
+2023-08-01 14:52:32 | INFO | fairseq.logging.progress_bar | :     91 / 625 sentences=4
+2023-08-01 14:52:36 | INFO | fairseq.logging.progress_bar | :     96 / 625 sentences=4
+2023-08-01 14:52:39 | INFO | fairseq.logging.progress_bar | :    106 / 625 sentences=4
+2023-08-01 14:52:58 | INFO | fairseq.logging.progress_bar | :     96 / 625 sentences=4
+2023-08-01 14:53:04 | INFO | fairseq.logging.progress_bar | :     96 / 625 sentences=4
+2023-08-01 14:53:13 | INFO | fairseq.logging.progress_bar | :    101 / 625 sentences=4
+2023-08-01 14:53:15 | INFO | fairseq.logging.progress_bar | :    111 / 625 sentences=4
+2023-08-01 14:53:30 | INFO | fairseq.logging.progress_bar | :    101 / 625 sentences=4
+2023-08-01 14:53:30 | INFO | fairseq.logging.progress_bar | :    106 / 625 sentences=4
+2023-08-01 14:53:35 | INFO | fairseq.logging.progress_bar | :    101 / 625 sentences=4
+2023-08-01 14:53:38 | INFO | fairseq.logging.progress_bar | :    116 / 625 sentences=4
+2023-08-01 14:53:53 | INFO | fairseq.logging.progress_bar | :    111 / 625 sentences=4
+2023-08-01 14:53:55 | INFO | fairseq.logging.progress_bar | :    121 / 625 sentences=4
+2023-08-01 14:53:57 | INFO | fairseq.logging.progress_bar | :    106 / 625 sentences=4
+2023-08-01 14:54:00 | INFO | fairseq.logging.progress_bar | :    106 / 625 sentences=4
+2023-08-01 14:54:09 | INFO | fairseq.logging.progress_bar | :    116 / 625 sentences=4
+2023-08-01 14:54:24 | INFO | fairseq.logging.progress_bar | :    126 / 625 sentences=4
+2023-08-01 14:54:29 | INFO | fairseq.logging.progress_bar | :    121 / 625 sentences=4
+2023-08-01 14:54:30 | INFO | fairseq.logging.progress_bar | :    111 / 625 sentences=4
+2023-08-01 14:54:38 | INFO | fairseq.logging.progress_bar | :    111 / 625 sentences=4
+2023-08-01 14:55:01 | INFO | fairseq.logging.progress_bar | :    126 / 625 sentences=4
+2023-08-01 14:55:03 | INFO | fairseq.logging.progress_bar | :    131 / 625 sentences=4
+2023-08-01 14:55:10 | INFO | fairseq.logging.progress_bar | :    116 / 625 sentences=4
+2023-08-01 14:55:17 | INFO | fairseq.logging.progress_bar | :    116 / 625 sentences=4
+2023-08-01 14:55:28 | INFO | fairseq.logging.progress_bar | :    131 / 625 sentences=4
+2023-08-01 14:55:32 | INFO | fairseq.logging.progress_bar | :    136 / 625 sentences=4
+2023-08-01 14:55:38 | INFO | fairseq.logging.progress_bar | :    121 / 625 sentences=4
+2023-08-01 14:55:39 | INFO | fairseq.logging.progress_bar | :    121 / 625 sentences=4
+2023-08-01 14:55:45 | INFO | fairseq.logging.progress_bar | :    136 / 625 sentences=4
+2023-08-01 14:56:02 | INFO | fairseq.logging.progress_bar | :    141 / 625 sentences=4
+2023-08-01 14:56:03 | INFO | fairseq.logging.progress_bar | :    126 / 625 sentences=4
+2023-08-01 14:56:09 | INFO | fairseq.logging.progress_bar | :    141 / 625 sentences=4
+2023-08-01 14:56:10 | INFO | fairseq.logging.progress_bar | :    126 / 625 sentences=4
+2023-08-01 14:56:26 | INFO | fairseq.logging.progress_bar | :    146 / 625 sentences=4
+2023-08-01 14:56:29 | INFO | fairseq.logging.progress_bar | :    146 / 625 sentences=4
+2023-08-01 14:56:31 | INFO | fairseq.logging.progress_bar | :    131 / 625 sentences=4
+2023-08-01 14:56:34 | INFO | fairseq.logging.progress_bar | :    131 / 625 sentences=4
+2023-08-01 14:56:49 | INFO | fairseq.logging.progress_bar | :    136 / 625 sentences=4
+2023-08-01 14:56:51 | INFO | fairseq.logging.progress_bar | :    151 / 625 sentences=4
+2023-08-01 14:56:52 | INFO | fairseq.logging.progress_bar | :    151 / 625 sentences=4
+2023-08-01 14:57:18 | INFO | fairseq.logging.progress_bar | :    156 / 625 sentences=4
+2023-08-01 14:57:18 | INFO | fairseq.logging.progress_bar | :    141 / 625 sentences=4
+2023-08-01 14:57:19 | INFO | fairseq.logging.progress_bar | :    156 / 625 sentences=4
+2023-08-01 14:57:27 | INFO | fairseq.logging.progress_bar | :    136 / 625 sentences=4
+2023-08-01 14:57:42 | INFO | fairseq.logging.progress_bar | :    161 / 625 sentences=4
+2023-08-01 14:57:49 | INFO | fairseq.logging.progress_bar | :    161 / 625 sentences=4
+2023-08-01 14:57:50 | INFO | fairseq.logging.progress_bar | :    146 / 625 sentences=4
+2023-08-01 14:58:03 | INFO | fairseq.logging.progress_bar | :    141 / 625 sentences=4
+2023-08-01 14:58:06 | INFO | fairseq.logging.progress_bar | :    166 / 625 sentences=4
+2023-08-01 14:58:19 | INFO | fairseq.logging.progress_bar | :    151 / 625 sentences=4
+2023-08-01 14:58:25 | INFO | fairseq.logging.progress_bar | :    171 / 625 sentences=4
+2023-08-01 14:58:26 | INFO | fairseq.logging.progress_bar | :    166 / 625 sentences=4
+2023-08-01 14:58:31 | INFO | fairseq.logging.progress_bar | :    146 / 625 sentences=4
+2023-08-01 14:58:34 | INFO | fairseq.logging.progress_bar | :    156 / 625 sentences=4
+2023-08-01 14:58:41 | INFO | fairseq.logging.progress_bar | :    176 / 625 sentences=4
+2023-08-01 14:58:54 | INFO | fairseq.logging.progress_bar | :    171 / 625 sentences=4
+2023-08-01 14:58:59 | INFO | fairseq.logging.progress_bar | :    151 / 625 sentences=4
+2023-08-01 14:59:08 | INFO | fairseq.logging.progress_bar | :    161 / 625 sentences=4
+2023-08-01 14:59:14 | INFO | fairseq.logging.progress_bar | :    181 / 625 sentences=4
+2023-08-01 14:59:24 | INFO | fairseq.logging.progress_bar | :    156 / 625 sentences=4
+2023-08-01 14:59:26 | INFO | fairseq.logging.progress_bar | :    186 / 625 sentences=4
+2023-08-01 14:59:32 | INFO | fairseq.logging.progress_bar | :    176 / 625 sentences=4
+2023-08-01 14:59:37 | INFO | fairseq.logging.progress_bar | :    166 / 625 sentences=4
+2023-08-01 14:59:45 | INFO | fairseq.logging.progress_bar | :    161 / 625 sentences=4
+2023-08-01 14:59:51 | INFO | fairseq.logging.progress_bar | :    181 / 625 sentences=4
+2023-08-01 14:59:56 | INFO | fairseq.logging.progress_bar | :    171 / 625 sentences=4
+2023-08-01 15:00:07 | INFO | fairseq.logging.progress_bar | :    191 / 625 sentences=4
+2023-08-01 15:00:16 | INFO | fairseq.logging.progress_bar | :    166 / 625 sentences=4
+2023-08-01 15:00:26 | INFO | fairseq.logging.progress_bar | :    196 / 625 sentences=4
+2023-08-01 15:00:28 | INFO | fairseq.logging.progress_bar | :    186 / 625 sentences=4
+2023-08-01 15:00:29 | INFO | fairseq.logging.progress_bar | :    176 / 625 sentences=4
+2023-08-01 15:00:45 | INFO | fairseq.logging.progress_bar | :    191 / 625 sentences=4
+2023-08-01 15:00:48 | INFO | fairseq.logging.progress_bar | :    201 / 625 sentences=4
+2023-08-01 15:00:54 | INFO | fairseq.logging.progress_bar | :    171 / 625 sentences=4
+2023-08-01 15:01:04 | INFO | fairseq.logging.progress_bar | :    196 / 625 sentences=4
+2023-08-01 15:01:06 | INFO | fairseq.logging.progress_bar | :    206 / 625 sentences=4
+2023-08-01 15:01:06 | INFO | fairseq.logging.progress_bar | :    181 / 625 sentences=4
+2023-08-01 15:01:27 | INFO | fairseq.logging.progress_bar | :    211 / 625 sentences=4
+2023-08-01 15:01:31 | INFO | fairseq.logging.progress_bar | :    186 / 625 sentences=4
+2023-08-01 15:01:32 | INFO | fairseq.logging.progress_bar | :    201 / 625 sentences=4
+2023-08-01 15:01:33 | INFO | fairseq.logging.progress_bar | :    176 / 625 sentences=4
+2023-08-01 15:01:54 | INFO | fairseq.logging.progress_bar | :    216 / 625 sentences=4
+2023-08-01 15:02:06 | INFO | fairseq.logging.progress_bar | :    191 / 625 sentences=4
+2023-08-01 15:02:17 | INFO | fairseq.logging.progress_bar | :    206 / 625 sentences=4
+2023-08-01 15:02:20 | INFO | fairseq.logging.progress_bar | :    181 / 625 sentences=4
+2023-08-01 15:02:22 | INFO | fairseq.logging.progress_bar | :    221 / 625 sentences=4
+2023-08-01 15:02:31 | INFO | fairseq.logging.progress_bar | :    196 / 625 sentences=4
+2023-08-01 15:02:56 | INFO | fairseq.logging.progress_bar | :    186 / 625 sentences=4
+2023-08-01 15:02:58 | INFO | fairseq.logging.progress_bar | :    226 / 625 sentences=4
+2023-08-01 15:02:59 | INFO | fairseq.logging.progress_bar | :    201 / 625 sentences=4
+2023-08-01 15:03:04 | INFO | fairseq.logging.progress_bar | :    211 / 625 sentences=4
+2023-08-01 15:03:18 | INFO | fairseq.logging.progress_bar | :    191 / 625 sentences=4
+2023-08-01 15:03:19 | INFO | fairseq.logging.progress_bar | :    231 / 625 sentences=4
+2023-08-01 15:03:26 | INFO | fairseq.logging.progress_bar | :    216 / 625 sentences=4
+2023-08-01 15:03:32 | INFO | fairseq.logging.progress_bar | :    206 / 625 sentences=4
+2023-08-01 15:03:42 | INFO | fairseq.logging.progress_bar | :    221 / 625 sentences=4
+2023-08-01 15:03:45 | INFO | fairseq.logging.progress_bar | :    196 / 625 sentences=4
+2023-08-01 15:03:47 | INFO | fairseq.logging.progress_bar | :    236 / 625 sentences=4
+2023-08-01 15:03:59 | INFO | fairseq.logging.progress_bar | :    211 / 625 sentences=4
+2023-08-01 15:04:06 | INFO | fairseq.logging.progress_bar | :    201 / 625 sentences=4
+2023-08-01 15:04:07 | INFO | fairseq.logging.progress_bar | :    226 / 625 sentences=4
+2023-08-01 15:04:08 | INFO | fairseq.logging.progress_bar | :    241 / 625 sentences=4
+2023-08-01 15:04:25 | INFO | fairseq.logging.progress_bar | :    231 / 625 sentences=4
+2023-08-01 15:04:38 | INFO | fairseq.logging.progress_bar | :    216 / 625 sentences=4
+2023-08-01 15:04:42 | INFO | fairseq.logging.progress_bar | :    236 / 625 sentences=4
+2023-08-01 15:04:47 | INFO | fairseq.logging.progress_bar | :    246 / 625 sentences=4
+2023-08-01 15:05:00 | INFO | fairseq.logging.progress_bar | :    206 / 625 sentences=4
+2023-08-01 15:05:02 | INFO | fairseq.logging.progress_bar | :    241 / 625 sentences=4
+2023-08-01 15:05:04 | INFO | fairseq.logging.progress_bar | :    251 / 625 sentences=4
+2023-08-01 15:05:11 | INFO | fairseq.logging.progress_bar | :    221 / 625 sentences=4
+2023-08-01 15:05:17 | INFO | fairseq.logging.progress_bar | :    246 / 625 sentences=4
+2023-08-01 15:05:23 | INFO | fairseq.logging.progress_bar | :    256 / 625 sentences=4
+2023-08-01 15:05:33 | INFO | fairseq.logging.progress_bar | :    226 / 625 sentences=4
+2023-08-01 15:05:34 | INFO | fairseq.logging.progress_bar | :    251 / 625 sentences=4
+2023-08-01 15:05:38 | INFO | fairseq.logging.progress_bar | :    211 / 625 sentences=4
+2023-08-01 15:05:50 | INFO | fairseq.logging.progress_bar | :    256 / 625 sentences=4
+2023-08-01 15:05:56 | INFO | fairseq.logging.progress_bar | :    261 / 625 sentences=4
+2023-08-01 15:06:04 | INFO | fairseq.logging.progress_bar | :    231 / 625 sentences=4
+2023-08-01 15:06:05 | INFO | fairseq.logging.progress_bar | :    216 / 625 sentences=4
+2023-08-01 15:06:07 | INFO | fairseq.logging.progress_bar | :    261 / 625 sentences=4
+2023-08-01 15:06:15 | INFO | fairseq.logging.progress_bar | :    266 / 625 sentences=4
+2023-08-01 15:06:29 | INFO | fairseq.logging.progress_bar | :    221 / 625 sentences=4
+2023-08-01 15:06:33 | INFO | fairseq.logging.progress_bar | :    266 / 625 sentences=4
+2023-08-01 15:06:33 | INFO | fairseq.logging.progress_bar | :    236 / 625 sentences=4
+2023-08-01 15:06:40 | INFO | fairseq.logging.progress_bar | :    271 / 625 sentences=4
+2023-08-01 15:06:52 | INFO | fairseq.logging.progress_bar | :    241 / 625 sentences=4
+2023-08-01 15:06:55 | INFO | fairseq.logging.progress_bar | :    271 / 625 sentences=4
+2023-08-01 15:07:00 | INFO | fairseq.logging.progress_bar | :    226 / 625 sentences=4
+2023-08-01 15:07:01 | INFO | fairseq.logging.progress_bar | :    276 / 625 sentences=4
+2023-08-01 15:07:07 | INFO | fairseq.logging.progress_bar | :    276 / 625 sentences=4
+2023-08-01 15:07:20 | INFO | fairseq.logging.progress_bar | :    281 / 625 sentences=4
+2023-08-01 15:07:26 | INFO | fairseq.logging.progress_bar | :    281 / 625 sentences=4
+2023-08-01 15:07:28 | INFO | fairseq.logging.progress_bar | :    231 / 625 sentences=4
+2023-08-01 15:07:33 | INFO | fairseq.logging.progress_bar | :    246 / 625 sentences=4
+2023-08-01 15:07:35 | INFO | fairseq.logging.progress_bar | :    286 / 625 sentences=4
+2023-08-01 15:07:40 | INFO | fairseq.logging.progress_bar | :    286 / 625 sentences=4
+2023-08-01 15:07:53 | INFO | fairseq.logging.progress_bar | :    291 / 625 sentences=4
+2023-08-01 15:07:54 | INFO | fairseq.logging.progress_bar | :    251 / 625 sentences=4
+2023-08-01 15:07:59 | INFO | fairseq.logging.progress_bar | :    291 / 625 sentences=4
+2023-08-01 15:08:04 | INFO | fairseq.logging.progress_bar | :    296 / 625 sentences=4
+2023-08-01 15:08:06 | INFO | fairseq.logging.progress_bar | :    236 / 625 sentences=4
+2023-08-01 15:08:24 | INFO | fairseq.logging.progress_bar | :    296 / 625 sentences=4
+2023-08-01 15:08:25 | INFO | fairseq.logging.progress_bar | :    301 / 625 sentences=4
+2023-08-01 15:08:29 | INFO | fairseq.logging.progress_bar | :    256 / 625 sentences=4
+2023-08-01 15:08:30 | INFO | fairseq.logging.progress_bar | :    241 / 625 sentences=4
+2023-08-01 15:08:36 | INFO | fairseq.logging.progress_bar | :    306 / 625 sentences=4
+2023-08-01 15:08:46 | INFO | fairseq.logging.progress_bar | :    311 / 625 sentences=4
+2023-08-01 15:08:50 | INFO | fairseq.logging.progress_bar | :    261 / 625 sentences=4
+2023-08-01 15:08:50 | INFO | fairseq.logging.progress_bar | :    301 / 625 sentences=4
+2023-08-01 15:08:55 | INFO | fairseq.logging.progress_bar | :    246 / 625 sentences=4
+2023-08-01 15:09:05 | INFO | fairseq.logging.progress_bar | :    316 / 625 sentences=4
+2023-08-01 15:09:13 | INFO | fairseq.logging.progress_bar | :    251 / 625 sentences=4
+2023-08-01 15:09:31 | INFO | fairseq.logging.progress_bar | :    266 / 625 sentences=4
+2023-08-01 15:09:32 | INFO | fairseq.logging.progress_bar | :    306 / 625 sentences=4
+2023-08-01 15:09:45 | INFO | fairseq.logging.progress_bar | :    321 / 625 sentences=4
+2023-08-01 15:09:49 | INFO | fairseq.logging.progress_bar | :    271 / 625 sentences=4
+2023-08-01 15:09:51 | INFO | fairseq.logging.progress_bar | :    256 / 625 sentences=4
+2023-08-01 15:09:56 | INFO | fairseq.logging.progress_bar | :    311 / 625 sentences=4
+2023-08-01 15:09:58 | INFO | fairseq.logging.progress_bar | :    326 / 625 sentences=4
+2023-08-01 15:10:05 | INFO | fairseq.logging.progress_bar | :    261 / 625 sentences=4
+2023-08-01 15:10:12 | INFO | fairseq.logging.progress_bar | :    276 / 625 sentences=4
+2023-08-01 15:10:23 | INFO | fairseq.logging.progress_bar | :    331 / 625 sentences=4
+2023-08-01 15:10:26 | INFO | fairseq.logging.progress_bar | :    316 / 625 sentences=4
+2023-08-01 15:10:28 | INFO | fairseq.logging.progress_bar | :    266 / 625 sentences=4
+2023-08-01 15:10:40 | INFO | fairseq.logging.progress_bar | :    336 / 625 sentences=4
+2023-08-01 15:10:43 | INFO | fairseq.logging.progress_bar | :    281 / 625 sentences=4
+2023-08-01 15:10:43 | INFO | fairseq.logging.progress_bar | :    321 / 625 sentences=4
+2023-08-01 15:10:47 | INFO | fairseq.logging.progress_bar | :    271 / 625 sentences=4
+2023-08-01 15:10:50 | INFO | fairseq.logging.progress_bar | :    341 / 625 sentences=4
+2023-08-01 15:10:57 | INFO | fairseq.logging.progress_bar | :    326 / 625 sentences=4
+2023-08-01 15:11:14 | INFO | fairseq.logging.progress_bar | :    331 / 625 sentences=4
+2023-08-01 15:11:16 | INFO | fairseq.logging.progress_bar | :    276 / 625 sentences=4
+2023-08-01 15:11:22 | INFO | fairseq.logging.progress_bar | :    346 / 625 sentences=4
+2023-08-01 15:11:24 | INFO | fairseq.logging.progress_bar | :    286 / 625 sentences=4
+2023-08-01 15:11:31 | INFO | fairseq.logging.progress_bar | :    336 / 625 sentences=4
+2023-08-01 15:11:36 | INFO | fairseq.logging.progress_bar | :    351 / 625 sentences=4
+2023-08-01 15:11:46 | INFO | fairseq.logging.progress_bar | :    356 / 625 sentences=4
+2023-08-01 15:11:52 | INFO | fairseq.logging.progress_bar | :    341 / 625 sentences=4
+2023-08-01 15:11:57 | INFO | fairseq.logging.progress_bar | :    281 / 625 sentences=4
+2023-08-01 15:12:10 | INFO | fairseq.logging.progress_bar | :    291 / 625 sentences=4
+2023-08-01 15:12:13 | INFO | fairseq.logging.progress_bar | :    361 / 625 sentences=4
+2023-08-01 15:12:16 | INFO | fairseq.logging.progress_bar | :    346 / 625 sentences=4
+2023-08-01 15:12:22 | INFO | fairseq.logging.progress_bar | :    286 / 625 sentences=4
+2023-08-01 15:12:31 | INFO | fairseq.logging.progress_bar | :    366 / 625 sentences=4
+2023-08-01 15:12:36 | INFO | fairseq.logging.progress_bar | :    296 / 625 sentences=4
+2023-08-01 15:12:43 | INFO | fairseq.logging.progress_bar | :    371 / 625 sentences=4
+2023-08-01 15:12:50 | INFO | fairseq.logging.progress_bar | :    351 / 625 sentences=4
+2023-08-01 15:12:56 | INFO | fairseq.logging.progress_bar | :    291 / 625 sentences=4
+2023-08-01 15:13:03 | INFO | fairseq.logging.progress_bar | :    376 / 625 sentences=4
+2023-08-01 15:13:05 | INFO | fairseq.logging.progress_bar | :    301 / 625 sentences=4
+2023-08-01 15:13:06 | INFO | fairseq.logging.progress_bar | :    356 / 625 sentences=4
+2023-08-01 15:13:16 | INFO | fairseq.logging.progress_bar | :    381 / 625 sentences=4
+2023-08-01 15:13:22 | INFO | fairseq.logging.progress_bar | :    361 / 625 sentences=4
+2023-08-01 15:13:34 | INFO | fairseq.logging.progress_bar | :    386 / 625 sentences=4
+2023-08-01 15:13:37 | INFO | fairseq.logging.progress_bar | :    366 / 625 sentences=4
+2023-08-01 15:13:38 | INFO | fairseq.logging.progress_bar | :    306 / 625 sentences=4
+2023-08-01 15:13:43 | INFO | fairseq.logging.progress_bar | :    296 / 625 sentences=4
+2023-08-01 15:13:51 | INFO | fairseq.logging.progress_bar | :    391 / 625 sentences=4
+2023-08-01 15:13:55 | INFO | fairseq.logging.progress_bar | :    371 / 625 sentences=4
+2023-08-01 15:14:06 | INFO | fairseq.logging.progress_bar | :    301 / 625 sentences=4
+2023-08-01 15:14:10 | INFO | fairseq.logging.progress_bar | :    396 / 625 sentences=4
+2023-08-01 15:14:13 | INFO | fairseq.logging.progress_bar | :    376 / 625 sentences=4
+2023-08-01 15:14:15 | INFO | fairseq.logging.progress_bar | :    311 / 625 sentences=4
+2023-08-01 15:14:27 | INFO | fairseq.logging.progress_bar | :    401 / 625 sentences=4
+2023-08-01 15:14:28 | INFO | fairseq.logging.progress_bar | :    381 / 625 sentences=4
+2023-08-01 15:14:40 | INFO | fairseq.logging.progress_bar | :    406 / 625 sentences=4
+2023-08-01 15:14:45 | INFO | fairseq.logging.progress_bar | :    316 / 625 sentences=4
+2023-08-01 15:14:51 | INFO | fairseq.logging.progress_bar | :    411 / 625 sentences=4
+2023-08-01 15:14:52 | INFO | fairseq.logging.progress_bar | :    386 / 625 sentences=4
+2023-08-01 15:15:04 | INFO | fairseq.logging.progress_bar | :    391 / 625 sentences=4
+2023-08-01 15:15:05 | INFO | fairseq.logging.progress_bar | :    306 / 625 sentences=4
+2023-08-01 15:15:10 | INFO | fairseq.logging.progress_bar | :    416 / 625 sentences=4
+2023-08-01 15:15:20 | INFO | fairseq.logging.progress_bar | :    396 / 625 sentences=4
+2023-08-01 15:15:28 | INFO | fairseq.logging.progress_bar | :    321 / 625 sentences=4
+2023-08-01 15:15:28 | INFO | fairseq.logging.progress_bar | :    401 / 625 sentences=4
+2023-08-01 15:15:33 | INFO | fairseq.logging.progress_bar | :    421 / 625 sentences=4
+2023-08-01 15:15:40 | INFO | fairseq.logging.progress_bar | :    406 / 625 sentences=4
+2023-08-01 15:15:49 | INFO | fairseq.logging.progress_bar | :    411 / 625 sentences=4
+2023-08-01 15:15:54 | INFO | fairseq.logging.progress_bar | :    426 / 625 sentences=4
+2023-08-01 15:15:54 | INFO | fairseq.logging.progress_bar | :    326 / 625 sentences=4
+2023-08-01 15:15:56 | INFO | fairseq.logging.progress_bar | :    311 / 625 sentences=4
+2023-08-01 15:16:00 | INFO | fairseq.logging.progress_bar | :    416 / 625 sentences=4
+2023-08-01 15:16:07 | INFO | fairseq.logging.progress_bar | :    431 / 625 sentences=4
+2023-08-01 15:16:27 | INFO | fairseq.logging.progress_bar | :    421 / 625 sentences=4
+2023-08-01 15:16:29 | INFO | fairseq.logging.progress_bar | :    436 / 625 sentences=4
+2023-08-01 15:16:35 | INFO | fairseq.logging.progress_bar | :    331 / 625 sentences=4
+2023-08-01 15:16:36 | INFO | fairseq.logging.progress_bar | :    316 / 625 sentences=4
+2023-08-01 15:16:42 | INFO | fairseq.logging.progress_bar | :    426 / 625 sentences=4
+2023-08-01 15:16:52 | INFO | fairseq.logging.progress_bar | :    431 / 625 sentences=4
+2023-08-01 15:17:02 | INFO | fairseq.logging.progress_bar | :    336 / 625 sentences=4
+2023-08-01 15:17:10 | INFO | fairseq.logging.progress_bar | :    441 / 625 sentences=4
+2023-08-01 15:17:12 | INFO | fairseq.logging.progress_bar | :    321 / 625 sentences=4
+2023-08-01 15:17:14 | INFO | fairseq.logging.progress_bar | :    436 / 625 sentences=4
+2023-08-01 15:17:30 | INFO | fairseq.logging.progress_bar | :    341 / 625 sentences=4
+2023-08-01 15:17:31 | INFO | fairseq.logging.progress_bar | :    326 / 625 sentences=4
+2023-08-01 15:17:40 | INFO | fairseq.logging.progress_bar | :    441 / 625 sentences=4
+2023-08-01 15:17:41 | INFO | fairseq.logging.progress_bar | :    446 / 625 sentences=4
+2023-08-01 15:17:56 | INFO | fairseq.logging.progress_bar | :    446 / 625 sentences=4
+2023-08-01 15:18:00 | INFO | fairseq.logging.progress_bar | :    331 / 625 sentences=4
+2023-08-01 15:18:02 | INFO | fairseq.logging.progress_bar | :    451 / 625 sentences=4
+2023-08-01 15:18:10 | INFO | fairseq.logging.progress_bar | :    451 / 625 sentences=4
+2023-08-01 15:18:13 | INFO | fairseq.logging.progress_bar | :    346 / 625 sentences=4
+2023-08-01 15:18:17 | INFO | fairseq.logging.progress_bar | :    456 / 625 sentences=4
+2023-08-01 15:18:25 | INFO | fairseq.logging.progress_bar | :    336 / 625 sentences=4
+2023-08-01 15:18:26 | INFO | fairseq.logging.progress_bar | :    456 / 625 sentences=4
+2023-08-01 15:18:33 | INFO | fairseq.logging.progress_bar | :    461 / 625 sentences=4
+2023-08-01 15:18:42 | INFO | fairseq.logging.progress_bar | :    461 / 625 sentences=4
+2023-08-01 15:18:44 | INFO | fairseq.logging.progress_bar | :    351 / 625 sentences=4
+2023-08-01 15:18:53 | INFO | fairseq.logging.progress_bar | :    341 / 625 sentences=4
+2023-08-01 15:18:54 | INFO | fairseq.logging.progress_bar | :    466 / 625 sentences=4
+2023-08-01 15:19:03 | INFO | fairseq.logging.progress_bar | :    466 / 625 sentences=4
+2023-08-01 15:19:09 | INFO | fairseq.logging.progress_bar | :    471 / 625 sentences=4
+2023-08-01 15:19:22 | INFO | fairseq.logging.progress_bar | :    356 / 625 sentences=4
+2023-08-01 15:19:22 | INFO | fairseq.logging.progress_bar | :    346 / 625 sentences=4
+2023-08-01 15:19:25 | INFO | fairseq.logging.progress_bar | :    471 / 625 sentences=4
+2023-08-01 15:19:29 | INFO | fairseq.logging.progress_bar | :    476 / 625 sentences=4
+2023-08-01 15:19:50 | INFO | fairseq.logging.progress_bar | :    476 / 625 sentences=4
+2023-08-01 15:20:00 | INFO | fairseq.logging.progress_bar | :    481 / 625 sentences=4
+2023-08-01 15:20:03 | INFO | fairseq.logging.progress_bar | :    481 / 625 sentences=4
+2023-08-01 15:20:07 | INFO | fairseq.logging.progress_bar | :    351 / 625 sentences=4
+2023-08-01 15:20:13 | INFO | fairseq.logging.progress_bar | :    361 / 625 sentences=4
+2023-08-01 15:20:23 | INFO | fairseq.logging.progress_bar | :    486 / 625 sentences=4
+2023-08-01 15:20:27 | INFO | fairseq.logging.progress_bar | :    356 / 625 sentences=4
+2023-08-01 15:20:35 | INFO | fairseq.logging.progress_bar | :    486 / 625 sentences=4
+2023-08-01 15:20:38 | INFO | fairseq.logging.progress_bar | :    491 / 625 sentences=4
+2023-08-01 15:20:40 | INFO | fairseq.logging.progress_bar | :    366 / 625 sentences=4
+2023-08-01 15:20:44 | INFO | fairseq.logging.progress_bar | :    496 / 625 sentences=4
+2023-08-01 15:20:45 | INFO | fairseq.logging.progress_bar | :    361 / 625 sentences=4
+2023-08-01 15:20:53 | INFO | fairseq.logging.progress_bar | :    501 / 625 sentences=4
+2023-08-01 15:21:03 | INFO | fairseq.logging.progress_bar | :    506 / 625 sentences=4
+2023-08-01 15:21:09 | INFO | fairseq.logging.progress_bar | :    371 / 625 sentences=4
+2023-08-01 15:21:11 | INFO | fairseq.logging.progress_bar | :    491 / 625 sentences=4
+2023-08-01 15:21:11 | INFO | fairseq.logging.progress_bar | :    366 / 625 sentences=4
+2023-08-01 15:21:27 | INFO | fairseq.logging.progress_bar | :    511 / 625 sentences=4
+2023-08-01 15:21:31 | INFO | fairseq.logging.progress_bar | :    371 / 625 sentences=4
+2023-08-01 15:21:31 | INFO | fairseq.logging.progress_bar | :    496 / 625 sentences=4
+2023-08-01 15:21:42 | INFO | fairseq.logging.progress_bar | :    516 / 625 sentences=4
+2023-08-01 15:21:43 | INFO | fairseq.logging.progress_bar | :    376 / 625 sentences=4
+2023-08-01 15:21:51 | INFO | fairseq.logging.progress_bar | :    501 / 625 sentences=4
+2023-08-01 15:21:55 | INFO | fairseq.logging.progress_bar | :    376 / 625 sentences=4
+2023-08-01 15:22:02 | INFO | fairseq.logging.progress_bar | :    521 / 625 sentences=4
+2023-08-01 15:22:19 | INFO | fairseq.logging.progress_bar | :    381 / 625 sentences=4
+2023-08-01 15:22:26 | INFO | fairseq.logging.progress_bar | :    526 / 625 sentences=4
+2023-08-01 15:22:32 | INFO | fairseq.logging.progress_bar | :    506 / 625 sentences=4
+2023-08-01 15:22:36 | INFO | fairseq.logging.progress_bar | :    531 / 625 sentences=4
+2023-08-01 15:22:41 | INFO | fairseq.logging.progress_bar | :    381 / 625 sentences=4
+2023-08-01 15:22:52 | INFO | fairseq.logging.progress_bar | :    386 / 625 sentences=4
+2023-08-01 15:22:55 | INFO | fairseq.logging.progress_bar | :    386 / 625 sentences=4
+2023-08-01 15:22:56 | INFO | fairseq.logging.progress_bar | :    536 / 625 sentences=4
+2023-08-01 15:23:00 | INFO | fairseq.logging.progress_bar | :    511 / 625 sentences=4
+2023-08-01 15:23:16 | INFO | fairseq.logging.progress_bar | :    541 / 625 sentences=4
+2023-08-01 15:23:18 | INFO | fairseq.logging.progress_bar | :    391 / 625 sentences=4
+2023-08-01 15:23:19 | INFO | fairseq.logging.progress_bar | :    391 / 625 sentences=4
+2023-08-01 15:23:22 | INFO | fairseq.logging.progress_bar | :    516 / 625 sentences=4
+2023-08-01 15:23:34 | INFO | fairseq.logging.progress_bar | :    546 / 625 sentences=4
+2023-08-01 15:23:41 | INFO | fairseq.logging.progress_bar | :    521 / 625 sentences=4
+2023-08-01 15:23:44 | INFO | fairseq.logging.progress_bar | :    396 / 625 sentences=4
+2023-08-01 15:23:45 | INFO | fairseq.logging.progress_bar | :    551 / 625 sentences=4
+2023-08-01 15:23:47 | INFO | fairseq.logging.progress_bar | :    396 / 625 sentences=4
+2023-08-01 15:24:01 | INFO | fairseq.logging.progress_bar | :    526 / 625 sentences=4
+2023-08-01 15:24:09 | INFO | fairseq.logging.progress_bar | :    556 / 625 sentences=4
+2023-08-01 15:24:12 | INFO | fairseq.logging.progress_bar | :    401 / 625 sentences=4
+2023-08-01 15:24:17 | INFO | fairseq.logging.progress_bar | :    401 / 625 sentences=4
+2023-08-01 15:24:27 | INFO | fairseq.logging.progress_bar | :    561 / 625 sentences=4
+2023-08-01 15:24:40 | INFO | fairseq.logging.progress_bar | :    531 / 625 sentences=4
+2023-08-01 15:24:41 | INFO | fairseq.logging.progress_bar | :    406 / 625 sentences=4
+2023-08-01 15:24:43 | INFO | fairseq.logging.progress_bar | :    566 / 625 sentences=4
+2023-08-01 15:24:52 | INFO | fairseq.logging.progress_bar | :    536 / 625 sentences=4
+2023-08-01 15:24:54 | INFO | fairseq.logging.progress_bar | :    406 / 625 sentences=4
+2023-08-01 15:25:04 | INFO | fairseq.logging.progress_bar | :    571 / 625 sentences=4
+2023-08-01 15:25:12 | INFO | fairseq.logging.progress_bar | :    411 / 625 sentences=4
+2023-08-01 15:25:13 | INFO | fairseq.logging.progress_bar | :    541 / 625 sentences=4
+2023-08-01 15:25:24 | INFO | fairseq.logging.progress_bar | :    576 / 625 sentences=4
+2023-08-01 15:25:28 | INFO | fairseq.logging.progress_bar | :    416 / 625 sentences=4
+2023-08-01 15:25:36 | INFO | fairseq.logging.progress_bar | :    546 / 625 sentences=4
+2023-08-01 15:25:39 | INFO | fairseq.logging.progress_bar | :    411 / 625 sentences=4
+2023-08-01 15:25:49 | INFO | fairseq.logging.progress_bar | :    581 / 625 sentences=4
+2023-08-01 15:25:49 | INFO | fairseq.logging.progress_bar | :    421 / 625 sentences=4
+2023-08-01 15:26:01 | INFO | fairseq.logging.progress_bar | :    586 / 625 sentences=4
+2023-08-01 15:26:02 | INFO | fairseq.logging.progress_bar | :    416 / 625 sentences=4
+2023-08-01 15:26:08 | INFO | fairseq.logging.progress_bar | :    551 / 625 sentences=4
+2023-08-01 15:26:16 | INFO | fairseq.logging.progress_bar | :    591 / 625 sentences=4
+2023-08-01 15:26:19 | INFO | fairseq.logging.progress_bar | :    426 / 625 sentences=4
+2023-08-01 15:26:25 | INFO | fairseq.logging.progress_bar | :    556 / 625 sentences=4
+2023-08-01 15:26:30 | INFO | fairseq.logging.progress_bar | :    596 / 625 sentences=4
+2023-08-01 15:26:36 | INFO | fairseq.logging.progress_bar | :    421 / 625 sentences=4
+2023-08-01 15:26:40 | INFO | fairseq.logging.progress_bar | :    561 / 625 sentences=4
+2023-08-01 15:26:50 | INFO | fairseq.logging.progress_bar | :    601 / 625 sentences=4
+2023-08-01 15:26:51 | INFO | fairseq.logging.progress_bar | :    431 / 625 sentences=4
+2023-08-01 15:26:58 | INFO | fairseq.logging.progress_bar | :    566 / 625 sentences=4
+2023-08-01 15:27:07 | INFO | fairseq.logging.progress_bar | :    436 / 625 sentences=4
+2023-08-01 15:27:09 | INFO | fairseq.logging.progress_bar | :    606 / 625 sentences=4
+2023-08-01 15:27:10 | INFO | fairseq.logging.progress_bar | :    426 / 625 sentences=4
+2023-08-01 15:27:17 | INFO | fairseq.logging.progress_bar | :    571 / 625 sentences=4
+2023-08-01 15:27:24 | INFO | fairseq.logging.progress_bar | :    611 / 625 sentences=4
+2023-08-01 15:27:33 | INFO | fairseq.logging.progress_bar | :    441 / 625 sentences=4
+2023-08-01 15:27:37 | INFO | fairseq.logging.progress_bar | :    576 / 625 sentences=4
+2023-08-01 15:27:38 | INFO | fairseq.logging.progress_bar | :    616 / 625 sentences=4
+2023-08-01 15:27:47 | INFO | fairseq.logging.progress_bar | :    431 / 625 sentences=4
+2023-08-01 15:27:56 | INFO | fairseq.logging.progress_bar | :    581 / 625 sentences=4
+2023-08-01 15:28:02 | INFO | fairseq.logging.progress_bar | :    621 / 625 sentences=4
+2023-08-01 15:28:06 | INFO | fairseq.logging.progress_bar | :    446 / 625 sentences=4
+2023-08-01 15:28:09 | INFO | fairseq.logging.progress_bar | :    586 / 625 sentences=4
+2023-08-01 15:28:14 | INFO | fairseq.logging.progress_bar | :    436 / 625 sentences=4
+2023-08-01 15:28:31 | INFO | fairseq.logging.progress_bar | :    591 / 625 sentences=4
+2023-08-01 15:28:49 | INFO | fairseq.logging.progress_bar | :    441 / 625 sentences=4
+2023-08-01 15:28:49 | INFO | fairseq.logging.progress_bar | :    596 / 625 sentences=4
+2023-08-01 15:28:50 | INFO | fairseq.logging.progress_bar | :    451 / 625 sentences=4
+2023-08-01 15:29:17 | INFO | fairseq.logging.progress_bar | :    446 / 625 sentences=4
+2023-08-01 15:29:20 | INFO | fairseq.logging.progress_bar | :    456 / 625 sentences=4
+2023-08-01 15:29:21 | INFO | fairseq.logging.progress_bar | :    601 / 625 sentences=4
+2023-08-01 15:29:38 | INFO | fairseq.logging.progress_bar | :    461 / 625 sentences=4
+2023-08-01 15:29:46 | INFO | fairseq.logging.progress_bar | :    606 / 625 sentences=4
+2023-08-01 15:29:54 | INFO | fairseq.logging.progress_bar | :    451 / 625 sentences=4
+2023-08-01 15:30:11 | INFO | fairseq.logging.progress_bar | :    466 / 625 sentences=4
+2023-08-01 15:30:22 | INFO | fairseq.logging.progress_bar | :    611 / 625 sentences=4
+2023-08-01 15:30:31 | INFO | fairseq.logging.progress_bar | :    456 / 625 sentences=4
+2023-08-01 15:30:49 | INFO | fairseq.logging.progress_bar | :    471 / 625 sentences=4
+2023-08-01 15:30:55 | INFO | fairseq.logging.progress_bar | :    616 / 625 sentences=4
+2023-08-01 15:31:10 | INFO | fairseq.logging.progress_bar | :    461 / 625 sentences=4
+2023-08-01 15:31:14 | INFO | fairseq.logging.progress_bar | :    476 / 625 sentences=4
+2023-08-01 15:31:19 | INFO | fairseq.logging.progress_bar | :    621 / 625 sentences=4
+2023-08-01 15:31:50 | INFO | fairseq.logging.progress_bar | :    466 / 625 sentences=4
+2023-08-01 15:32:03 | INFO | fairseq.logging.progress_bar | :    481 / 625 sentences=4
+2023-08-01 15:32:41 | INFO | fairseq.logging.progress_bar | :    471 / 625 sentences=4
+2023-08-01 15:32:44 | INFO | fairseq.logging.progress_bar | :    486 / 625 sentences=4
+2023-08-01 15:32:57 | INFO | fairseq.logging.progress_bar | :    476 / 625 sentences=4
+2023-08-01 15:33:17 | INFO | fairseq.logging.progress_bar | :    491 / 625 sentences=4
+2023-08-01 15:33:22 | INFO | fairseq.logging.progress_bar | :    481 / 625 sentences=4
+2023-08-01 15:33:52 | INFO | fairseq.logging.progress_bar | :    496 / 625 sentences=4
+2023-08-01 15:34:26 | INFO | fairseq.logging.progress_bar | :    486 / 625 sentences=4
+2023-08-01 15:34:28 | INFO | fairseq.logging.progress_bar | :    501 / 625 sentences=4
+2023-08-01 15:34:48 | INFO | fairseq.logging.progress_bar | :    491 / 625 sentences=4
+2023-08-01 15:35:00 | INFO | fairseq.logging.progress_bar | :    506 / 625 sentences=4
+2023-08-01 15:35:21 | INFO | fairseq.logging.progress_bar | :    496 / 625 sentences=4
+2023-08-01 15:35:22 | INFO | fairseq.logging.progress_bar | :    511 / 625 sentences=4
+2023-08-01 15:35:37 | INFO | fairseq.logging.progress_bar | :    516 / 625 sentences=4
+2023-08-01 15:35:39 | INFO | fairseq.logging.progress_bar | :    501 / 625 sentences=4
+2023-08-01 15:35:54 | INFO | fairseq.logging.progress_bar | :    521 / 625 sentences=4
+2023-08-01 15:36:09 | INFO | fairseq.logging.progress_bar | :    506 / 625 sentences=4
+2023-08-01 15:36:21 | INFO | fairseq.logging.progress_bar | :    526 / 625 sentences=4
+2023-08-01 15:36:45 | INFO | fairseq.logging.progress_bar | :    511 / 625 sentences=4
+2023-08-01 15:36:59 | INFO | fairseq.logging.progress_bar | :    531 / 625 sentences=4
+2023-08-01 15:37:21 | INFO | fairseq.logging.progress_bar | :    516 / 625 sentences=4
+2023-08-01 15:37:23 | INFO | fairseq.logging.progress_bar | :    536 / 625 sentences=4
+2023-08-01 15:37:47 | INFO | fairseq.logging.progress_bar | :    541 / 625 sentences=4
+2023-08-01 15:37:52 | INFO | fairseq.logging.progress_bar | :    521 / 625 sentences=4
+2023-08-01 15:38:06 | INFO | fairseq.logging.progress_bar | :    526 / 625 sentences=4
+2023-08-01 15:38:07 | INFO | fairseq.logging.progress_bar | :    546 / 625 sentences=4
+2023-08-01 15:38:31 | INFO | fairseq.logging.progress_bar | :    531 / 625 sentences=4
+2023-08-01 15:38:33 | INFO | fairseq.logging.progress_bar | :    551 / 625 sentences=4
+2023-08-01 15:38:47 | INFO | fairseq.logging.progress_bar | :    556 / 625 sentences=4
+2023-08-01 15:38:54 | INFO | fairseq.logging.progress_bar | :    536 / 625 sentences=4
+2023-08-01 15:39:09 | INFO | fairseq.logging.progress_bar | :    561 / 625 sentences=4
+2023-08-01 15:39:16 | INFO | fairseq.logging.progress_bar | :    541 / 625 sentences=4
+2023-08-01 15:39:33 | INFO | fairseq.logging.progress_bar | :    566 / 625 sentences=4
+2023-08-01 15:39:52 | INFO | fairseq.logging.progress_bar | :    546 / 625 sentences=4
+2023-08-01 15:40:09 | INFO | fairseq.logging.progress_bar | :    551 / 625 sentences=4
+2023-08-01 15:40:11 | INFO | fairseq.logging.progress_bar | :    571 / 625 sentences=4
+2023-08-01 15:40:20 | INFO | fairseq.logging.progress_bar | :    556 / 625 sentences=4
+2023-08-01 15:40:35 | INFO | fairseq.logging.progress_bar | :    561 / 625 sentences=4
+2023-08-01 15:40:43 | INFO | fairseq.logging.progress_bar | :    576 / 625 sentences=4
+2023-08-01 15:40:58 | INFO | fairseq.logging.progress_bar | :    566 / 625 sentences=4
+2023-08-01 15:41:22 | INFO | fairseq.logging.progress_bar | :    571 / 625 sentences=4
+2023-08-01 15:41:23 | INFO | fairseq.logging.progress_bar | :    581 / 625 sentences=4
+2023-08-01 15:41:50 | INFO | fairseq.logging.progress_bar | :    576 / 625 sentences=4
+2023-08-01 15:42:01 | INFO | fairseq.logging.progress_bar | :    586 / 625 sentences=4
+2023-08-01 15:42:16 | INFO | fairseq.logging.progress_bar | :    581 / 625 sentences=4
+2023-08-01 15:42:22 | INFO | fairseq.logging.progress_bar | :    591 / 625 sentences=4
+2023-08-01 15:42:39 | INFO | fairseq.logging.progress_bar | :    586 / 625 sentences=4
+2023-08-01 15:42:51 | INFO | fairseq.logging.progress_bar | :    596 / 625 sentences=4
+2023-08-01 15:42:56 | INFO | fairseq.logging.progress_bar | :    591 / 625 sentences=4
+2023-08-01 15:43:05 | INFO | fairseq.logging.progress_bar | :    596 / 625 sentences=4
+2023-08-01 15:43:11 | INFO | fairseq.logging.progress_bar | :    601 / 625 sentences=4
+2023-08-01 15:43:27 | INFO | fairseq.logging.progress_bar | :    601 / 625 sentences=4
+2023-08-01 15:43:37 | INFO | fairseq.logging.progress_bar | :    606 / 625 sentences=4
+2023-08-01 15:43:45 | INFO | fairseq.logging.progress_bar | :    606 / 625 sentences=4
+2023-08-01 15:44:02 | INFO | fairseq.logging.progress_bar | :    611 / 625 sentences=4
+2023-08-01 15:44:08 | INFO | fairseq.logging.progress_bar | :    611 / 625 sentences=4
+2023-08-01 15:44:30 | INFO | fairseq.logging.progress_bar | :    616 / 625 sentences=4
+2023-08-01 15:44:39 | INFO | fairseq.logging.progress_bar | :    616 / 625 sentences=4
+2023-08-01 15:44:47 | INFO | fairseq.logging.progress_bar | :    621 / 625 sentences=4
+2023-08-01 15:45:08 | INFO | fairseq.logging.progress_bar | :    621 / 625 sentences=4
+gather_results:  10000
+2023-08-01 15:45:28 | INFO | torch.distributed.distributed_c10d | Added key: store_based_barrier_key:2 to store for rank: 3
+2023-08-01 15:45:28 | INFO | torch.distributed.distributed_c10d | Added key: store_based_barrier_key:2 to store for rank: 2
+2023-08-01 15:45:28 | INFO | ofa.evaluate | recall_by_image: 3008.9019 / 10000.0 = 0.3009, recall: 16338 / 45515 = 0.359, mean recall: 0.1263, mean hyp n_rel: 56.9784, mean ref n_rel 4.5515
+2023-08-01 15:45:28 | INFO | torch.distributed.distributed_c10d | Added key: store_based_barrier_key:2 to store for rank: 1
+2023-08-01 15:45:30 | INFO | torch.distributed.distributed_c10d | Added key: store_based_barrier_key:2 to store for rank: 0
+2023-08-01 15:45:30 | INFO | torch.distributed.distributed_c10d | Rank 0: Completed store-based barrier for key:store_based_barrier_key:2 with 4 nodes.
+2023-08-01 15:45:30 | INFO | torch.distributed.distributed_c10d | Rank 3: Completed store-based barrier for key:store_based_barrier_key:2 with 4 nodes.
+2023-08-01 15:45:30 | INFO | torch.distributed.distributed_c10d | Rank 1: Completed store-based barrier for key:store_based_barrier_key:2 with 4 nodes.
+2023-08-01 15:45:30 | INFO | torch.distributed.distributed_c10d | Rank 2: Completed store-based barrier for key:store_based_barrier_key:2 with 4 nodes.

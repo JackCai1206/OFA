@@ -1,3 +1,9 @@
 .idea/*
 .DS_Store
 .vscode
+__pycache__
+tensorboard
+detection_logs
+wandb
+results
+results/sgcls/test_predict.json

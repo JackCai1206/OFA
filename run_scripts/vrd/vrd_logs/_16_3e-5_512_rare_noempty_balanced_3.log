@@ -1,0 +1,254 @@
+/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torch/distributed/launch.py:178: FutureWarning: The module torch.distributed.launch is deprecated
+and will be removed in future. Use torchrun.
+Note that --use_env is set by default in torchrun.
+If your script expects `--local_rank` argument to be set, please
+change it to read from `os.environ['LOCAL_RANK']` instead. See 
+https://pytorch.org/docs/stable/distributed.html#launch-utility for 
+further instructions
+
+  warnings.warn(
+WARNING:torch.distributed.run:
+*****************************************
+Setting OMP_NUM_THREADS environment variable for each process to be 1 in default, to avoid your system being overloaded, please further tune the variable for optimal performance in your application as needed. 
+*****************************************
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "../../train.py", line 29, in <module>
+  File "../../train.py", line 29, in <module>
+  File "../../train.py", line 29, in <module>
+            from fairseq import (from fairseq import (from fairseq import (
+
+
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/__init__.py", line 32, in <module>
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/__init__.py", line 32, in <module>
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/__init__.py", line 32, in <module>
+        import fairseq.criterions  # noqaimport fairseq.criterions  # noqa    
+
+import fairseq.criterions  # noqa  File "/home/zcai75/Github/OFA/fairseq/fairseq/criterions/__init__.py", line 36, in <module>
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/criterions/__init__.py", line 36, in <module>
+
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/criterions/__init__.py", line 36, in <module>
+Traceback (most recent call last):
+  File "../../train.py", line 29, in <module>
+WARNING:torch.distributed.elastic.agent.server.api:Received 2 death signal, shutting down workers
+    from fairseq import (
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/__init__.py", line 32, in <module>
+    import fairseq.criterions  # noqa
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/criterions/__init__.py", line 36, in <module>
+WARNING:torch.distributed.elastic.multiprocessing.api:Sending process 2430345 closing signal SIGINT
+WARNING:torch.distributed.elastic.multiprocessing.api:Sending process 2430346 closing signal SIGINT
+WARNING:torch.distributed.elastic.multiprocessing.api:Sending process 2430347 closing signal SIGINT
+WARNING:torch.distributed.elastic.multiprocessing.api:Sending process 2430348 closing signal SIGINT
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/importlib/__init__.py", line 127, in import_module
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/importlib/__init__.py", line 127, in import_module
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/importlib/__init__.py", line 127, in import_module
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/importlib/__init__.py", line 127, in import_module
+            return _bootstrap._gcd_import(name[level:], package, level)return _bootstrap._gcd_import(name[level:], package, level)    return _bootstrap._gcd_import(name[level:], package, level)
+
+return _bootstrap._gcd_import(name[level:], package, level)
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/criterions/ctc.py", line 19, in <module>
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/criterions/ctc.py", line 19, in <module>
+
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/criterions/ctc.py", line 19, in <module>
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/criterions/ctc.py", line 19, in <module>
+                from fairseq.tasks import FairseqTaskfrom fairseq.tasks import FairseqTaskfrom fairseq.tasks import FairseqTaskfrom fairseq.tasks import FairseqTask
+
+
+
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/tasks/__init__.py", line 136, in <module>
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/tasks/__init__.py", line 136, in <module>
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/tasks/__init__.py", line 136, in <module>
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/tasks/__init__.py", line 136, in <module>
+    import_tasks(tasks_dir, "fairseq.tasks")    
+import_tasks(tasks_dir, "fairseq.tasks")  File "/home/zcai75/Github/OFA/fairseq/fairseq/tasks/__init__.py", line 117, in import_tasks
+
+          File "/home/zcai75/Github/OFA/fairseq/fairseq/tasks/__init__.py", line 117, in import_tasks
+import_tasks(tasks_dir, "fairseq.tasks")import_tasks(tasks_dir, "fairseq.tasks")
+
+      File "/home/zcai75/Github/OFA/fairseq/fairseq/tasks/__init__.py", line 117, in import_tasks
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/tasks/__init__.py", line 117, in import_tasks
+importlib.import_module(namespace + "." + task_name)    
+importlib.import_module(namespace + "." + task_name)  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/importlib/__init__.py", line 127, in import_module
+
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/importlib/__init__.py", line 127, in import_module
+        importlib.import_module(namespace + "." + task_name)importlib.import_module(namespace + "." + task_name)
+
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/importlib/__init__.py", line 127, in import_module
+      File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)return _bootstrap._gcd_import(name[level:], package, level)
+
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/tasks/online_backtranslation.py", line 34, in <module>
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/tasks/translation_lev.py", line 28, in <module>
+        return _bootstrap._gcd_import(name[level:], package, level)return _bootstrap._gcd_import(name[level:], package, level)
+
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/tasks/online_backtranslation.py", line 34, in <module>
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/tasks/online_backtranslation.py", line 34, in <module>
+    class TranslationLevenshteinTask(TranslationTask):
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/tasks/__init__.py", line 97, in register_task_cls
+        from fairseq.sequence_generator import SequenceGeneratorcs.store(name=name, group="task", node=node, provider="fairseq")    
+
+from fairseq.sequence_generator import SequenceGenerator  File "/home/zcai75/Github/OFA/fairseq/fairseq/sequence_generator.py", line 14, in <module>
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/hydra/core/config_store.py", line 85, in store
+
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/sequence_generator.py", line 14, in <module>
+        from fairseq.sequence_generator import SequenceGeneratorcfg = OmegaConf.structured(node)
+
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/omegaconf.py", line 140, in structured
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/sequence_generator.py", line 14, in <module>
+    return OmegaConf.create(obj, parent)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/omegaconf.py", line 177, in create
+        from fairseq.models import FairseqIncrementalDecoder    return OmegaConf._create_impl(obj=obj, parent=parent)
+from fairseq.models import FairseqIncrementalDecoder
+      File "/home/zcai75/Github/OFA/fairseq/fairseq/models/__init__.py", line 236, in <module>
+
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/omegaconf.py", line 221, in _create_impl
+from fairseq.models import FairseqIncrementalDecoder  File "/home/zcai75/Github/OFA/fairseq/fairseq/models/__init__.py", line 236, in <module>
+
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/models/__init__.py", line 236, in <module>
+        return DictConfig(import_models(models_dir, "fairseq.models")
+
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/dictconfig.py", line 74, in __init__
+      File "/home/zcai75/Github/OFA/fairseq/fairseq/models/__init__.py", line 218, in import_models
+import_models(models_dir, "fairseq.models")
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/models/__init__.py", line 218, in import_models
+    self._set_value(content)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/dictconfig.py", line 544, in _set_value
+    importlib.import_module(namespace + "." + model_name)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/importlib/__init__.py", line 127, in import_module
+    importlib.import_module(namespace + "." + model_name)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/importlib/__init__.py", line 127, in import_module
+        import_models(models_dir, "fairseq.models")return _bootstrap._gcd_import(name[level:], package, level)    
+    
+return _bootstrap._gcd_import(name[level:], package, level)  File "/home/zcai75/Github/OFA/fairseq/fairseq/models/__init__.py", line 218, in import_models
+self.__setitem__(k, v)  File "/home/zcai75/Github/OFA/fairseq/fairseq/models/wav2vec/__init__.py", line 8, in <module>
+
+
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/models/wav2vec/__init__.py", line 7, in <module>
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/dictconfig.py", line 256, in __setitem__
+    self.__set_impl(key=key, value=value)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/dictconfig.py", line 266, in __set_impl
+    importlib.import_module(namespace + "." + model_name)    
+self._set_item_impl(key, value)  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/importlib/__init__.py", line 127, in import_module
+        
+from .wav2vec2_asr import *  # noqafrom .wav2vec2 import *  # noqa  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/basecontainer.py", line 470, in _set_item_impl
+
+
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/models/wav2vec/wav2vec2_asr.py", line 266, in <module>
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/models/wav2vec/wav2vec2.py", line 294, in <module>
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/models/wav2vec/__init__.py", line 8, in <module>
+    from .wav2vec2_asr import *  # noqa    
+assign(key, value)  File "/home/zcai75/Github/OFA/fairseq/fairseq/models/wav2vec/wav2vec2_asr.py", line 38, in <module>
+
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/basecontainer.py", line 452, in assign
+    v = copy.deepcopy(value_to_assign)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/copy.py", line 153, in deepcopy
+    class Wav2Vec2AsrConfig(FairseqDataclass):
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/dataclasses.py", line 1019, in dataclass
+    y = copier(memo)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/nodes.py", line 222, in __deepcopy__
+    self._deepcopy_impl(res, memo)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/nodes.py", line 76, in _deepcopy_impl
+        res.__dict__ = copy.deepcopy(self.__dict__, memo=memo)class Wav2Vec2Seq2SeqModel(FairseqEncoderDecoderModel):
+
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/copy.py", line 146, in deepcopy
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/models/__init__.py", line 150, in register_model_cls
+    class Wav2Vec2Model(BaseFairseqModel):
+  File "/home/zcai75/Github/OFA/fairseq/fairseq/models/__init__.py", line 150, in register_model_cls
+        cs.store(name=name, group="model", node=node, provider="fairseq")y = copier(x, memo)    
+
+cs.store(name=name, group="model", node=node, provider="fairseq")  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/hydra/core/config_store.py", line 85, in store
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/copy.py", line 230, in _deepcopy_dict
+
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/hydra/core/config_store.py", line 85, in store
+    cfg = OmegaConf.structured(node)
+      File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/omegaconf.py", line 140, in structured
+cfg = OmegaConf.structured(node)    
+y[deepcopy(key, memo)] = deepcopy(value, memo)  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/omegaconf.py", line 140, in structured
+
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/copy.py", line 161, in deepcopy
+    return OmegaConf.create(obj, parent)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/omegaconf.py", line 177, in create
+    return OmegaConf.create(obj, parent)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/omegaconf.py", line 177, in create
+    rv = reductor(4)
+    KeyboardInterruptreturn OmegaConf._create_impl(obj=obj, parent=parent)
+
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/omegaconf.py", line 221, in _create_impl
+    return OmegaConf._create_impl(obj=obj, parent=parent)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/omegaconf.py", line 221, in _create_impl
+    return DictConfig(
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/dictconfig.py", line 74, in __init__
+    return DictConfig(
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/dictconfig.py", line 74, in __init__
+    self._set_value(content)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/dictconfig.py", line 542, in _set_value
+    self._set_value(content)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/dictconfig.py", line 544, in _set_value
+    data = get_structured_config_data(value)
+      File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/_utils.py", line 318, in get_structured_config_data
+self.__setitem__(k, v)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/dictconfig.py", line 256, in __setitem__
+    self.__set_impl(key=key, value=value)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/dictconfig.py", line 266, in __set_impl
+    return get_dataclass_data(obj)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/_utils.py", line 261, in get_dataclass_data
+    self._set_item_impl(key, value)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/basecontainer.py", line 394, in _set_item_impl
+    d[name] = _maybe_wrap(
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/omegaconf.py", line 764, in _maybe_wrap
+    self._validate_set(key, value)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/dictconfig.py", line 143, in _validate_set
+    self._validate_set_merge_impl(key, value, is_assign=True)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/dictconfig.py", line 148, in _validate_set_merge_impl
+    return _node_wrap(
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/omegaconf.py", line 738, in _node_wrap
+    vk = get_value_kind(value)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/_utils.py", line 360, in get_value_kind
+        if isinstance(value, Container):node = IntegerNode(value=value, key=key, parent=parent, is_optional=is_optional)
+
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/abc.py", line 98, in __instancecheck__
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/omegaconf/nodes.py", line 203, in __init__
+    metadata=Metadata(
+  File "<string>", line 7, in __init__
+    return wrap(cls)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/dataclasses.py", line 1011, in wrap
+KeyboardInterrupt
+    return _abc_instancecheck(cls, instance)
+KeyboardInterrupt
+    return _process_class(cls, init, repr, eq, order, unsafe_hash, frozen)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/dataclasses.py", line 925, in _process_class
+    _init_fn(flds,
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/dataclasses.py", line 529, in _init_fn
+    return _create_fn('__init__',
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/dataclasses.py", line 398, in _create_fn
+    exec(txt, globals, ns)
+  File "<string>", line 1, in <module>
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/runpy.py", line 194, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/runpy.py", line 87, in _run_code
+    exec(code, run_globals)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torch/distributed/launch.py", line 193, in <module>
+    main()
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torch/distributed/launch.py", line 189, in main
+    launch(args)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torch/distributed/launch.py", line 174, in launch
+    run(args)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torch/distributed/run.py", line 752, in run
+    elastic_launch(
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torch/distributed/launcher/api.py", line 131, in __call__
+    return launch_agent(self._config, self._entrypoint, list(args))
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torch/distributed/launcher/api.py", line 236, in launch_agent
+    result = agent.run()
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torch/distributed/elastic/metrics/api.py", line 125, in wrapper
+    result = f(*args, **kwargs)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torch/distributed/elastic/agent/server/api.py", line 709, in run
+    result = self._invoke_run(role)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torch/distributed/elastic/agent/server/api.py", line 850, in _invoke_run
+    time.sleep(monitor_interval)
+  File "/data/hulab/zcai75/anaconda3/envs/vilt/lib/python3.8/site-packages/torch/distributed/elastic/multiprocessing/api.py", line 60, in _terminate_process_handler
+    raise SignalException(f"Process {os.getpid()} got signal: {sigval}", sigval=sigval)
+torch.distributed.elastic.multiprocessing.api.SignalException: Process 2430301 got signal: 2
